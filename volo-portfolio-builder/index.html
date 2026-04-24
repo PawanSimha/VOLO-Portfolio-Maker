@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOLO | Modern Portfolio Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip/dist/jszip.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .form-input:focus {
+      @apply ring-2 ring-blue-500 border-transparent;
+    }
+    .input-error {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+    }
+    .input-success {
+      border-color: #22c55e !important;
+      background-color: #f0fdf4 !important;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+  <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+    <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold italic">V</div>
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight">VOLO <span class="text-blue-600 hidden sm:inline">Builder</span></h1>
+      </div>
+      <div class="flex gap-2 sm:gap-4">
+        <button onclick="clearAll()" class="text-slate-500 hover:text-red-500 font-medium transition-colors px-2 sm:px-4 py-2 text-sm sm:text-base">Clear</button>
+        <button onclick="downloadZip()" class="bg-slate-900 text-white px-4 sm:px-6 py-2 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-md flex items-center gap-2 text-sm sm:text-base">
+          <span class="hidden sm:inline">Download</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Editor Sidebar -->
+      <div class="lg:col-span-5 h-auto lg:h-[calc(100vh-160px)] overflow-y-auto lg:custom-scrollbar lg:pr-2">
+        <div class="space-y-8 pb-12">
+          <!-- Basic Info -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">1</span>
+              Personal Information
+            </h2>
+            <input id="name" class="w-full mb-4 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none bg-slate-50" placeholder="Full Name">
+            <input id="headerTitle" class="w-full mb-4 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none bg-slate-50" placeholder="Job Title (e.g., Senior Frontend Engineer)">
+            <input id="bio" maxlength="100" class="w-full mb-4 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none bg-slate-50" placeholder="Hero Tagline (max 100 chars)">
+            <textarea id="aboutMe" maxlength="350" class="w-full mb-6 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none bg-slate-50" rows="4" placeholder="About Me (Detailed paragraph, max 350 chars)"></textarea>
+            
+            <div class="grid grid-cols-3 gap-4 mb-6">
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Projects Done</label>
+                <input id="statProjects" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="e.g. 50+">
+              </div>
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">GitHub Contrib.</label>
+                <input id="statContribs" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="e.g. 1.2K">
+              </div>
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Satisfaction %</label>
+                <input id="statSatisfaction" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="e.g. 99%">
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Profile Image</label>
+                <input type="file" id="profileImage" accept="image/*" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+              </div>
+              <div id="imgPreview" class="flex justify-end"></div>
+            </div>
+          </section>
+
+          <!-- Technical Skills -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">2</span>
+              Technical Skills
+            </h2>
+            <div class="flex gap-2 mb-4">
+              <input id="newSkill" class="flex-1 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="React, Node.js, etc.">
+              <button onclick="addSkill()" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Add</button>
+            </div>
+            <div id="skillsList" class="flex flex-wrap gap-2"></div>
+          </section>
+
+          <!-- Soft Skills -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">3</span>
+              Soft Skills
+            </h2>
+            <div class="flex gap-2 mb-4">
+              <input id="newSoftSkill" class="flex-1 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Leadership, Communication, etc.">
+              <button onclick="addSoftSkill()" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-colors">Add</button>
+            </div>
+            <div id="softSkillsList" class="flex flex-wrap gap-2"></div>
+          </section>
+
+          <!-- Featured Projects -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">4</span>
+              Featured Projects
+            </h2>
+            <div class="space-y-3">
+              <input id="newProjectName" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Project name">
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Project Date</label>
+                <input type="date" id="newProjectDate" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+              </div>
+              <textarea id="newProjectDesc" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" rows="2" placeholder="Brief description (max 200 chars)"></textarea>
+              <button onclick="addProject()" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Add Project</button>
+              <div id="projectsList" class="mt-4 space-y-2"></div>
+            </div>
+          </section>
+
+
+          <!-- Education -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">5</span>
+              Education
+            </h2>
+            <div class="space-y-3">
+              <input id="eduLevel" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Degree / Education Level">
+              <input id="eduSchool" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="School / College Name">
+              <div class="grid grid-cols-2 gap-3">
+                <div class="space-y-1">
+                  <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Graduation Date</label>
+                  <input type="date" id="eduYear" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+                </div>
+                <input id="eduGrade" class="p-3 mt-5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Grade / GPA">
+              </div>
+              <button id="addEducationBtn" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Add Education</button>
+              <div id="educationList" class="mt-4 space-y-2"></div>
+            </div>
+          </section>
+
+          <!-- Experience -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">6</span>
+              Experience / Events
+            </h2>
+            <div class="space-y-3">
+              <input id="expEvent" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Occasion / Event / Role">
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Event Date</label>
+                <input type="date" id="expDate" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+              </div>
+              <textarea id="expDesc" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" rows="2" placeholder="Brief Description"></textarea>
+              <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-400 uppercase">Event Image (optional)</label>
+                <input type="file" id="expImage" accept="image/*" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+              </div>
+              <button id="addExperienceBtn" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Add Experience</button>
+              <div id="experienceList" class="mt-4 space-y-2"></div>
+            </div>
+          </section>
+
+          <!-- Honors & Awards -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">7</span>
+              Honors & Awards
+            </h2>
+            <div class="space-y-3">
+              <input id="awardName" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Award Name">
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Award Date</label>
+                <input type="date" id="awardDate" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+              </div>
+              <textarea id="awardDesc" maxlength="150" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" rows="2" placeholder="Brief Description (max 150 words)"></textarea>
+              <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-400 uppercase">Award Image (optional)</label>
+                <input type="file" id="awardImage" accept="image/*" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+              </div>
+              <button id="addAwardBtn" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Add Award</button>
+              <div id="awardsList" class="mt-4 space-y-2"></div>
+            </div>
+          </section>
+
+          <!-- Certifications -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">8</span>
+              Certifications
+            </h2>
+            <div class="space-y-3">
+              <input id="certName" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Certification Name">
+              <input id="certOrg" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50" placeholder="Issuing Organization">
+              <div class="space-y-1">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase ml-1">Issue Date</label>
+                <input type="date" id="certDate" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+              </div>
+              <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-400 uppercase">Certificate Image (.jpg, .png)</label>
+                <input type="file" id="certImage" accept="image/*" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+              </div>
+              <button id="addCertBtn" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Add Certificate</button>
+              <div id="certsList" class="mt-4 space-y-2"></div>
+            </div>
+          </section>
+
+          <!-- Connect -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+              <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs">9</span>
+              Contact & Socials
+            </h2>
+            <div class="space-y-4">
+              <div class="relative">
+                <input type="email" id="email" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 transition-all" placeholder="Email Address (e.g. alex@example.com)">
+                <div id="email-error" class="text-[10px] text-red-500 font-bold mt-1 ml-1 hidden">Please enter a valid email</div>
+              </div>
+              <div class="relative">
+                <input type="url" id="linkedin" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 transition-all" placeholder="LinkedIn URL (e.g. https://linkedin.com/in/username)">
+                <div id="linkedin-error" class="text-[10px] text-red-500 font-bold mt-1 ml-1 hidden">Must be a valid LinkedIn profile URL</div>
+              </div>
+              <div class="relative">
+                <input type="url" id="github" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 transition-all" placeholder="GitHub URL (e.g. https://github.com/username)">
+                <div id="github-error" class="text-[10px] text-red-500 font-bold mt-1 ml-1 hidden">Must be a valid GitHub profile URL</div>
+              </div>
+              <div class="relative">
+                <input type="url" id="instagram" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 transition-all" placeholder="Instagram URL (optional)">
+                <div id="instagram-error" class="text-[10px] text-red-500 font-bold mt-1 ml-1 hidden">Must be a valid Instagram URL</div>
+              </div>
+              <div class="relative">
+                <input type="tel" id="whatsapp" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 transition-all" placeholder="WhatsApp Number (e.g. +919876543210)">
+                <div id="whatsapp-error" class="text-[10px] text-red-500 font-bold mt-1 ml-1 hidden">Please enter a valid phone number with country code</div>
+              </div>
+              <div class="relative">
+                <input type="url" id="twitter" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 transition-all" placeholder="X (Twitter) URL (optional)">
+                <div id="twitter-error" class="text-[10px] text-red-500 font-bold mt-1 ml-1 hidden">Must be a valid X/Twitter URL</div>
+              </div>
+              
+              <div class="pt-4 border-t border-slate-100">
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-3">Resume Document</label>
+                <input type="file" id="resumePdf" accept="application/pdf" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                <div id="resumePreview" class="mt-2"></div>
+              </div>
+            </div>
+          </section>
+
+          <button onclick="render()" class="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-md active:scale-[0.98]">
+            Update Preview
+          </button>
+        </div>
+      </div>
+
+      <!-- Preview Window -->
+      <div class="lg:col-span-7 flex flex-col">
+        <div class="bg-slate-900 rounded-t-2xl p-3 flex items-center justify-between border-b border-slate-800">
+          <div class="flex gap-2 ml-2">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div class="text-xs text-slate-400 font-medium">Live Preview</div>
+          <div class="w-10"></div>
+        </div>
+        <div class="flex-1 bg-white border-x border-b border-slate-200 rounded-b-2xl overflow-hidden shadow-2xl relative min-h-[500px] sm:min-h-[600px]">
+          <div id="preview" class="absolute inset-0 overflow-y-auto custom-scrollbar origin-top scale-[0.9] sm:scale-[1] transition-transform">
+            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-4">
+               <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center animate-pulse text-2xl">✨</div>
+               <p class="font-medium">Enter your details to generate preview</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
