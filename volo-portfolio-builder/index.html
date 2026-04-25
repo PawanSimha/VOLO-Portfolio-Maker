@@ -5,13 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VOLO | The Future of Portfolio Building</title>
+  <meta name="description"
+    content="Build cinematic, high-performance professional portfolios in minutes with VOLO. No-code engine for developers and designers.">
+  <meta name="keywords" content="Portfolio Builder, Developer Portfolio, Designer Showcase, No-code Portfolio, VOLO">
+  <meta name="author" content="Pawan Simha">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico?v=2">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico?v=2">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      cursor: url('assets/icons/Arrow.ico'), auto;
+    }
+
+    a,
+    button,
+    [role="button"] {
+      cursor: url('assets/icons/Hand.ico'), pointer;
     }
 
     .glass {
@@ -22,7 +39,7 @@
     }
 
     .gradient-text {
-      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, rgb(37, 99, 235) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -65,6 +82,63 @@
         linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
       background-position: center top;
     }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Parallax Specific Styles */
+    .parallax-img-container {
+      height: calc(100vh - 24px);
+      top: 12px;
+    }
+
+    .parallax-overlay {
+      opacity: 0;
+      transform: translateY(100px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .parallax-overlay.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .parallax-content {
+      background-color: rgb(2, 6, 23);
+      /* Matches slate-950 */
+    }
+
+    /* Tilt Card Specific Styles */
+    .tilt-card-container {
+      perspective: 1000px;
+    }
+
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    .drag-element {
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      -webkit-user-drag: none;
+    }
   </style>
   <script>
     tailwind.config = {
@@ -91,24 +165,24 @@
   </script>
 </head>
 
-<body class="bg-slate-950 text-white selection:bg-blue-500/30">
+<body class="bg-slate-950 text-white selection:bg-blue-500/30 custom-scrollbar">
   <!-- Decorative Background Elements -->
   <div class="hero-glow top-[-100px] left-[-100px]"></div>
   <div class="hero-glow bottom-[-100px] right-[-100px] opacity-50"></div>
 
   <nav class="fixed top-0 left-0 w-full z-[100] glass border-b border-white/5">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div
-          class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold italic shadow-lg shadow-blue-600/30">
-          V</div>
+      <a href="#home" class="flex items-center gap-3 group">
+        <img src="assets/images/logo.png" alt="VOLO Logo" fetchpriority="high"
+          class="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300">
         <span class="text-2xl font-black tracking-tighter uppercase">VOLO</span>
-      </div>
+      </a>
       <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400">
         <a href="#about" class="hover:text-white transition-colors">About</a>
         <a href="#services" class="hover:text-white transition-colors">Services</a>
         <a href="#features" class="hover:text-white transition-colors">Features</a>
         <a href="#templates" class="hover:text-white transition-colors">Templates</a>
+        <a href="#logo-design" class="hover:text-white transition-colors">Design</a>
         <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
         <a href="#contact" class="hover:text-white transition-colors">Contact</a>
         <a href="templates/template1.html"
@@ -140,6 +214,7 @@
     <a href="#services" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Services</a>
     <a href="#features" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Features</a>
     <a href="#templates" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Templates</a>
+    <a href="#logo-design" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Design</a>
     <a href="#faq" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">FAQ</a>
     <a href="#contact" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Contact</a>
     <a href="templates/template1.html"
@@ -148,24 +223,25 @@
 
   <main>
     <!-- Hero Section -->
-    <section class="relative pt-36 pb-20 px-6 overflow-hidden bg-grid-pattern min-h-[70vh] flex flex-col justify-start">
+    <section id="home"
+      class="relative pt-28 pb-48 px-6 overflow-hidden bg-grid-pattern min-h-[70vh] flex flex-col justify-start">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950 pointer-events-none">
       </div>
 
-      <div class="container mx-auto text-center space-y-10 relative z-10 mt-10">
+      <div class="container mx-auto text-center space-y-10 relative z-10 mt-4">
         <div
           class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-white/10 text-xs font-medium text-white shadow-sm">
           Exciting announcement <span class="text-sm">🎉</span>
         </div>
 
         <h1
-          class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.05] max-w-5xl mx-auto">
-          A landing page template<br>that works for you
+          class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.05] max-w-4xl mx-auto">
+          Craft your<br>professional <span class="text-blue-500">story</span> in minutes.
         </h1>
 
         <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed pt-2">
-          Build beautiful landing pages for your startups, clients, and side projects, <br
-            class="hidden md:block">without having to think about design.
+          Build stunning, high-converting portfolios for developers, designers, and creators.No coding required, just
+          pure impact.
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-8 pt-8">
@@ -173,7 +249,7 @@
             class="relative overflow-hidden w-full max-w-xs sm:max-w-sm h-16 bg-slate-950 rounded-xl font-medium border border-white/10 flex items-center justify-center group transform active:scale-[0.985] transition-transform shadow-xl">
             <span
               class="pointer-events-none relative z-10 flex items-center gap-2 mix-blend-difference text-white text-lg">
-              Build Now
+              Launch Your Portfolio
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
                 class="group-hover:translate-x-1 transition-transform">
@@ -189,67 +265,197 @@
 
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="pt-16 pb-32 px-6 relative z-10 border-t border-white/5 bg-slate-950">
-      <div class="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Left Side: About Us Info -->
-        <div class="space-y-8">
-          <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
-            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            About Us
+    <!-- Parallax Stacking Sections -->
+    <section class="relative z-[10] px-3">
+      <!-- Sticky Container -->
+      <div class="relative h-[200vh]" id="parallax-trigger">
+        <div
+          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+          id="parallax-img-wrap">
+          <!-- Background Image -->
+          <div id="parallax-bg-img" class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+            style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop');">
           </div>
-          <h2 class="text-4xl md:text-5xl font-bold leading-tight">Empowering creators to <br><span
-              class="text-white">own their identity</span></h2>
-          <p class="text-slate-400 text-lg leading-relaxed">
-            We built VOLO because we believe that setting up a professional portfolio shouldn't require you to write
-            code from scratch or struggle with generic design templates.
-          </p>
-          <p class="text-slate-400 text-lg leading-relaxed">
-            Our mission is to give every developer, designer, and creator the exact tools they need to craft
-            high-converting, stunning landing pages and portfolios in seconds. Focus on your work, and we'll handle the
-            presentation.
-          </p>
-          <div class="pt-4 flex gap-8">
-            <div class="space-y-2">
-              <h3 class="text-4xl font-black text-blue-500">15+</h3>
-              <p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Premium Templates</p>
-            </div>
-            <div class="space-y-2 border-l border-white/10 pl-8">
-              <h3 class="text-4xl font-black text-blue-500">Zero</h3>
-              <p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Coding Required</p>
-            </div>
+          <!-- Dark Overlay -->
+          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300" id="parallax-overlay-dark">
+          </div>
+
+          <!-- Centered Text Overlay -->
+          <div id="parallax-text-overlay"
+            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
+            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Community</p>
+            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">Designed for
+              your story.</h2>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Right Side: Floating Image Mockup -->
-        <div class="relative w-full max-w-2xl mx-auto lg:ml-auto animate-float group">
-          <div
-            class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[2.5rem] blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200">
+    <!-- Parallax Quality Section -->
+    <section id="quality" class="relative z-[20] -mt-[100vh] px-3">
+      <!-- Sticky Container -->
+      <div class="relative h-[200vh]" id="parallax-trigger-quality">
+        <div
+          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+          id="parallax-img-wrap-quality">
+          <!-- Background Image -->
+          <div id="parallax-bg-img-quality"
+            class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+            style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1600&auto=format&fit=crop');">
           </div>
-          <div class="relative bg-slate-900 border border-white/10 rounded-[2rem] p-4 shadow-2xl overflow-hidden">
-            <!-- Simple browser bar -->
-            <div class="flex items-center gap-2 mb-4 px-2">
-              <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-              <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-              <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
-              <div class="ml-4 px-3 py-1 bg-white/5 rounded-lg text-[10px] text-slate-500 font-mono">
-                volobuilder.io/alex-portfolio</div>
-            </div>
+          <!-- Dark Overlay -->
+          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+            id="parallax-overlay-dark-quality">
+          </div>
+
+          <!-- Centered Text Overlay -->
+          <div id="parallax-text-overlay-quality"
+            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
+            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Quality</p>
+            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">Precision in
+              every pixel.</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parallax Modern Section -->
+    <section id="modern" class="relative z-[30] -mt-[100vh] px-3">
+      <!-- Sticky Container -->
+      <div class="relative h-[200vh]" id="parallax-trigger-modern">
+        <div
+          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+          id="parallax-img-wrap-modern">
+          <!-- Background Image -->
+          <div id="parallax-bg-img-modern"
+            class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+            style="background-image: url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1600&auto=format&fit=crop');">
+          </div>
+          <!-- Dark Overlay -->
+          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+            id="parallax-overlay-dark-modern">
+          </div>
+
+          <!-- Centered Text Overlay -->
+          <div id="parallax-text-overlay-modern"
+            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
+            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Impact</p>
+            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">First
+              impressions that stick.</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parallax Innovation Section -->
+    <section id="innovation" class="relative z-[40] -mt-[100vh] px-3">
+      <!-- Sticky Container -->
+      <div class="relative h-[200vh]" id="parallax-trigger-innovation">
+        <div
+          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+          id="parallax-img-wrap-innovation">
+          <!-- Background Image -->
+          <div id="parallax-bg-img-innovation"
+            class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+            style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop');">
+          </div>
+          <!-- Dark Overlay -->
+          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+            id="parallax-overlay-dark-innovation">
+          </div>
+
+          <!-- Centered Text Overlay -->
+          <div id="parallax-text-overlay-innovation"
+            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
+            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Freedom</p>
+            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">Own your
+              digital identity.</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consolidated Final Content Block -->
+      <div id="about" class="relative z-50 parallax-content scroll-mt-20">
+        <div
+          class="container mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 pb-32 pt-16 md:grid-cols-12 border-t border-white/5">
+          <div class="col-span-1 md:col-span-4 space-y-4">
             <div
-              class="aspect-video bg-slate-800 rounded-xl overflow-hidden flex items-center justify-center text-slate-600 font-bold italic text-4xl">
-              <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&q=80&w=1200"
-                class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700"
-                alt="Builder Preview">
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
+              <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+              About Us
+            </div>
+            <h2 class="text-3xl font-bold text-white leading-tight">Empowering creators to <span
+                class="text-blue-500">own their identity</span></h2>
+          </div>
+
+          <div class="col-span-1 md:col-span-8 space-y-8">
+            <p class="text-slate-400 text-xl leading-relaxed">
+              We built VOLO because we believe that setting up a professional portfolio shouldn't require you to write
+              code from scratch or struggle with generic design templates.
+            </p>
+            <p class="text-slate-400 text-xl leading-relaxed">
+              Our engine optimizes every asset, ensures blazing-fast load times, and provides seamless transitions that
+              make your portfolio feel more like a premium application.
+            </p>
+
+            <div class="pt-4 flex flex-wrap gap-8 border-t border-white/5 pt-8">
+              <div class="space-y-1">
+                <h3 class="text-4xl font-black text-blue-500">15+</h3>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Premium Templates</p>
+              </div>
+              <div class="space-y-1">
+                <h3 class="text-4xl font-black text-blue-500">100</h3>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Lighthouse Score</p>
+              </div>
+              <div class="space-y-1">
+                <h3 class="text-4xl font-black text-blue-500">Zero</h3>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Coding Required</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Creative Playground / Drag Cards Section -->
+    <section id="playground"
+      class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 border-t border-white/5">
+      <h2 class="relative z-0 text-[20vw] font-black text-slate-900 md:text-[250px] pointer-events-none select-none">
+        VOLO<span class="text-blue-600">.</span>
+      </h2>
+
+      <!-- Draggable Cards Container -->
+      <div id="drag-container" class="absolute inset-0 z-10">
+        <img src="https://images.unsplash.com/photo-1635373670332-43ea883bb081?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 20%; left: 25%; transform: rotate(6deg);">
+        <img src="https://images.unsplash.com/photo-1576174464184-fb78fe882bfd?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 45%; left: 60%; transform: rotate(12deg);">
+        <img src="https://images.unsplash.com/photo-1503751071777-d2918b21bbd9?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-52 md:w-80 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 20%; left: 40%; transform: rotate(-6deg);">
+        <img src="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-48 md:w-72 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 50%; left: 40%; transform: rotate(8deg);">
+        <img src="https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-40 md:w-64 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 20%; left: 65%; transform: rotate(18deg);">
+        <img src="https://images.unsplash.com/photo-1622313762347-3c09fe5f2719?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 35%; left: 55%; transform: rotate(-3deg);">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-32 md:w-52 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 60%; left: 20%; transform: rotate(-8deg);">
+        <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=800&auto=format&fit=crop"
+          draggable="false" class="drag-element absolute w-28 md:w-44 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          style="top: 15%; left: 10%; transform: rotate(10deg);">
+      </div>
+    </section>
+
     <!-- Key Products/Services Section -->
     <section id="services" class="py-32 px-6 bg-slate-950 border-t border-white/5 relative z-10">
-      <div class="container mx-auto">
+      <div class="container mx-auto max-w-6xl">
         <div class="text-center mb-20 space-y-4">
           <div
             class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
@@ -264,7 +470,7 @@
         <div class="grid md:grid-cols-3 gap-8">
           <!-- Service 1 -->
           <div
-            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-8 hover:border-blue-500/50 transition-all card-hover shadow-xl">
+            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-blue-500/50 transition-all card-hover shadow-xl">
             <div
               class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
@@ -290,7 +496,7 @@
 
           <!-- Service 2 -->
           <div
-            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-8 hover:border-purple-500/50 transition-all card-hover shadow-xl">
+            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-purple-500/50 transition-all card-hover shadow-xl">
             <div
               class="w-14 h-14 bg-purple-600/20 text-purple-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
@@ -318,7 +524,7 @@
 
           <!-- Service 3 -->
           <div
-            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-8 hover:border-emerald-500/50 transition-all card-hover shadow-xl">
+            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-emerald-500/50 transition-all card-hover shadow-xl">
             <div
               class="w-14 h-14 bg-emerald-600/20 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
@@ -350,13 +556,13 @@
 
     <!-- Features Section -->
     <section id="features" class="py-32 px-6">
-      <div class="container mx-auto">
+      <div class="container mx-auto max-w-6xl">
         <div class="text-center mb-20 space-y-4">
           <h2 class="text-4xl font-bold">Engineered for <span class="text-blue-500">Speed</span></h2>
           <p class="text-slate-400">Everything you need to showcase your work professionally.</p>
         </div>
         <div class="grid md:grid-cols-3 gap-8">
-          <div class="p-8 glass rounded-[2.5rem] card-hover transition-all space-y-6">
+          <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
             <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -368,7 +574,7 @@
             <p class="text-slate-400 text-sm leading-relaxed">See your changes happen in real-time. No more refreshing
               or waiting for builds. What you see is what you get.</p>
           </div>
-          <div class="p-8 glass rounded-[2.5rem] card-hover transition-all space-y-6">
+          <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
             <div class="w-14 h-14 bg-indigo-600/20 text-indigo-500 rounded-2xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -381,7 +587,7 @@
             <p class="text-slate-400 text-sm leading-relaxed">Download a complete, production-ready ZIP package with all
               your assets and source code ready to host anywhere.</p>
           </div>
-          <div class="p-8 glass rounded-[2.5rem] card-hover transition-all space-y-6">
+          <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
             <div class="w-14 h-14 bg-emerald-600/20 text-emerald-500 rounded-2xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -400,7 +606,7 @@
 
     <!-- Templates Section -->
     <section id="templates" class="py-32 bg-slate-900/30">
-      <div class="container mx-auto px-6">
+      <div class="container mx-auto px-6 max-w-6xl">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div class="space-y-4">
             <h2 class="text-4xl font-bold">The <span class="gradient-text">Template</span> Library</h2>
@@ -419,74 +625,122 @@
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Template Card 1 -->
-          <div
-            class="group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
-            <div class="aspect-[4/3] bg-slate-900 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-            </div>
-            <div class="p-6">
-              <h4 class="text-xl font-bold mb-2">Modern Minimalist</h4>
-              <p class="text-slate-500 text-sm mb-4">Clean, bold, and focused on your work. Perfect for designers.</p>
-              <div class="flex gap-2">
-                <span
-                  class="px-2 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-bold rounded uppercase">Featured</span>
-                <span class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase">Dark
-                  Mode</span>
-              </div>
-            </div>
+          <div class="tilt-card-container">
             <div
-              class="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <a href="templates/template1.html"
-                class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This Template</a>
+              class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
+              <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
+                style="transform: translateZ(20px); transform-style: preserve-3d;">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+              </div>
+              <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
+                <h4 class="text-xl font-bold mb-2">Modern Minimalist</h4>
+                <p class="text-slate-500 text-sm mb-4">Clean, bold, and focused on your work. Perfect for designers.</p>
+                <div class="flex gap-2">
+                  <span
+                    class="px-2 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-bold rounded uppercase">Featured</span>
+                  <span class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase">Dark
+                    Mode</span>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                style="transform: translateZ(80px);">
+                <a href="templates/template1.html"
+                  class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This Template</a>
+              </div>
             </div>
           </div>
 
           <!-- Template Card 2 -->
-          <div
-            class="group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-indigo-500/50 transition-all">
-            <div class="aspect-[4/3] bg-slate-900 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-            </div>
-            <div class="p-6">
-              <h4 class="text-xl font-bold mb-2">Creative Pro</h4>
-              <p class="text-slate-500 text-sm mb-4">Dynamic animations and glassmorphism. For the tech-savvy.</p>
-              <div class="flex gap-2">
-                <span
-                  class="px-2 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded uppercase">New</span>
-                <span
-                  class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase">Responsive</span>
-              </div>
-            </div>
+          <div class="tilt-card-container">
             <div
-              class="absolute inset-0 bg-indigo-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <a href="templates/template1.html"
-                class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This
-                Template</a>
+              class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-indigo-500/50 transition-all">
+              <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
+                style="transform: translateZ(20px); transform-style: preserve-3d;">
+                <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+              </div>
+              <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
+                <h4 class="text-xl font-bold mb-2">Creative Pro</h4>
+                <p class="text-slate-500 text-sm mb-4">Dynamic animations and glassmorphism. For the tech-savvy.</p>
+                <div class="flex gap-2">
+                  <span
+                    class="px-2 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded uppercase">New</span>
+                  <span
+                    class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase">Responsive</span>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 bg-indigo-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                style="transform: translateZ(80px);">
+                <a href="templates/template1.html"
+                  class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This
+                  Template</a>
+              </div>
             </div>
           </div>
 
           <!-- Template Card 3 -->
-          <div
-            class="group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-emerald-500/50 transition-all">
-            <div class="aspect-[4/3] bg-slate-900 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-            </div>
-            <div class="p-6">
-              <h4 class="text-xl font-bold mb-2">Executive Portfolio</h4>
-              <p class="text-slate-500 text-sm mb-4">Sophisticated and elegant. Designed for high-end results.</p>
-              <div class="flex gap-2">
-                <span
-                  class="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded uppercase">Premium</span>
+          <div class="tilt-card-container">
+            <div
+              class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-emerald-500/50 transition-all">
+              <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
+                style="transform: translateZ(20px); transform-style: preserve-3d;">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+              </div>
+              <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
+                <h4 class="text-xl font-bold mb-2">Executive Portfolio</h4>
+                <p class="text-slate-500 text-sm mb-4">Sophisticated and elegant. Designed for high-end results.</p>
+                <div class="flex gap-2">
+                  <span
+                    class="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded uppercase">Premium</span>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 bg-emerald-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                style="transform: translateZ(80px);">
+                <a href="templates/template1.html"
+                  class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This
+                  Template</a>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logo Design Section -->
+    <section id="logo-design" class="py-32 px-6 bg-slate-950 border-t border-white/5 relative overflow-hidden">
+      <div class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
+      <div class="container mx-auto max-w-5xl relative z-10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="relative order-2 md:order-1">
+            <div class="absolute -inset-10 bg-blue-600/20 rounded-full blur-3xl opacity-30"></div>
+            <img src="assets/images/logo.png" alt="VOLO Logo Anatomy"
+              class="relative z-10 w-full max-w-xs mx-auto animate-float object-contain">
+          </div>
+          <div class="space-y-8 order-1 md:order-2">
             <div
-              class="absolute inset-0 bg-emerald-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <a href="templates/template1.html"
-                class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This
-                Template</a>
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
+              Our Visual Identity
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold leading-tight">The Soul of <span
+                class="text-blue-500">Velocity</span></h2>
+            <div class="space-y-6 text-slate-400 text-lg leading-relaxed">
+              <p>
+                The VOLO logo is a visual manifestation of <span class="text-white font-semibold">momentum</span>.
+                The sharp, ascending geometry of the "V" mirrors the trajectory of a creator’s journey—rising from a
+                single point of
+                inspiration to a broad horizon of infinite possibility.
+              </p>
+              <p>
+                Bathed in <span class="text-blue-500 font-semibold">Electric Blue</span>, it represents the spark of
+                digital innovation.
+                It is the intersection of precision and passion, a visual heartbeat for those who dare to define their
+                own space in the digital ether.
+              </p>
             </div>
           </div>
         </div>
@@ -701,9 +955,7 @@
           <!-- Brand & Contact -->
           <div class="space-y-6">
             <div class="flex items-center gap-3">
-              <div
-                class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold italic shadow-lg shadow-blue-600/30">
-                V</div>
+              <img src="assets/images/logo.png" alt="VOLO Logo" class="w-8 h-8 object-contain">
               <span class="text-xl font-black tracking-tighter uppercase text-white">VOLO</span>
             </div>
             <div class="space-y-3 text-slate-400 text-sm">
@@ -730,6 +982,7 @@
               <li><a href="#services" class="hover:text-blue-400 transition-colors">Products & Services</a></li>
               <li><a href="#features" class="hover:text-blue-400 transition-colors">Features</a></li>
               <li><a href="#templates" class="hover:text-blue-400 transition-colors">Template Library</a></li>
+              <li><a href="#logo-design" class="hover:text-blue-400 transition-colors">Design Philosophy</a></li>
             </ul>
           </div>
 
@@ -852,6 +1105,127 @@
             answer.classList.add('grid-rows-[1fr]');
             icon.classList.add('rotate-180');
           }
+        });
+      });
+
+      // Refactored Scroll Parallax Animation Logic for Multiple Sections
+      const parallaxConfigs = [
+        { trigger: 'parallax-trigger', wrap: 'parallax-img-wrap', bg: 'parallax-bg-img', overlay: 'parallax-overlay-dark', text: 'parallax-text-overlay' },
+        { trigger: 'parallax-trigger-quality', wrap: 'parallax-img-wrap-quality', bg: 'parallax-bg-img-quality', overlay: 'parallax-overlay-dark-quality', text: 'parallax-text-overlay-quality' },
+        { trigger: 'parallax-trigger-modern', wrap: 'parallax-img-wrap-modern', bg: 'parallax-bg-img-modern', overlay: 'parallax-overlay-dark-modern', text: 'parallax-text-overlay-modern' },
+        { trigger: 'parallax-trigger-innovation', wrap: 'parallax-img-wrap-innovation', bg: 'parallax-bg-img-innovation', overlay: 'parallax-overlay-dark-innovation', text: 'parallax-text-overlay-innovation' }
+      ];
+
+      parallaxConfigs.forEach(config => {
+        const trigger = document.getElementById(config.trigger);
+        const wrap = document.getElementById(config.wrap);
+        const bg = document.getElementById(config.bg);
+        const overlay = document.getElementById(config.overlay);
+        const text = document.getElementById(config.text);
+
+        if (!trigger || !wrap || !bg || !overlay || !text) return;
+
+        window.addEventListener('scroll', () => {
+          const rect = trigger.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          const totalHeight = rect.height;
+
+          // Only calculate if the section is somewhat in view
+          if (rect.top > windowHeight || rect.bottom < 0) return;
+
+          const progress = Math.max(0, Math.min(1, (-rect.top) / (totalHeight - windowHeight)));
+
+          // Apply Parallax Effects
+          wrap.style.transform = `scale(${1 - (progress * 0.15)})`;
+          overlay.style.opacity = 0.7 + (progress * 0.2);
+          bg.style.filter = `blur(${progress * 10}px)`; /* Reduced max blur slightly */
+          bg.style.transform = `scale(${1 + (progress * 0.1)})`;
+
+          // Text movement and opacity for "immediately visible then fades out"
+          const textY = -(progress * 100); // Starts at 0, moves up to -100px
+          text.style.transform = `translateY(${textY}px)`;
+
+          let textOpacity = 1; // Start fully visible
+          if (progress > 0.5) textOpacity = Math.max(0, 1 - ((progress - 0.5) * 2)); // Fade out after 50% scroll
+          text.style.opacity = textOpacity;
+        });
+      });
+
+      // Drag Cards Functionality
+      const dragElements = document.querySelectorAll('.drag-element');
+      let activeElement = null;
+      let initialX, initialY, currentX, currentY;
+      let xOffset = 0, yOffset = 0;
+      let zIndexCounter = 20;
+
+      const dragStart = (e) => {
+        const target = e.target.closest('.drag-element');
+        if (target) {
+          e.preventDefault();
+          activeElement = target;
+          activeElement.style.cursor = 'grabbing';
+          zIndexCounter++;
+          activeElement.style.zIndex = zIndexCounter;
+
+          const rect = activeElement.getBoundingClientRect();
+          initialX = (e.type === "touchstart") ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+          initialY = (e.type === "touchstart") ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+        }
+      };
+
+      const drag = (e) => {
+        if (activeElement) {
+          e.preventDefault();
+          const containerRect = document.getElementById('drag-container').getBoundingClientRect();
+          const clientX = (e.type === "touchmove") ? e.touches[0].clientX : e.clientX;
+          const clientY = (e.type === "touchmove") ? e.touches[0].clientY : e.clientY;
+
+          activeElement.style.left = `${clientX - containerRect.left - initialX}px`;
+          activeElement.style.top = `${clientY - containerRect.top - initialY}px`;
+        }
+      };
+
+      const dragEnd = () => {
+        if (activeElement) activeElement.style.cursor = 'grab';
+        activeElement = null;
+      };
+
+      document.addEventListener("mousedown", dragStart);
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", dragEnd);
+
+      document.addEventListener("touchstart", dragStart, { passive: false });
+      document.addEventListener("touchmove", drag, { passive: false });
+      document.addEventListener("touchend", dragEnd);
+
+      // Tilt Card Functionality
+      const tiltCards = document.querySelectorAll('.tilt-card');
+      const ROTATION_RANGE = 32.5;
+      const HALF_ROTATION_RANGE = 32.5 / 2;
+
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+
+          const width = rect.width;
+          const height = rect.height;
+
+          const mouseX = (e.clientX - rect.left) * ROTATION_RANGE;
+          const mouseY = (e.clientY - rect.top) * ROTATION_RANGE;
+
+          const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1;
+          const rY = mouseX / width - HALF_ROTATION_RANGE;
+
+          // Apply rotation
+          card.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          // Reset rotation smoothly
+          card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+          setTimeout(() => {
+            card.style.transition = 'transform 0.15s ease-out';
+          }, 150);
         });
       });
     });
