@@ -1,1282 +1,2128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      VOLO | High-Performance Cinematic Portfolio Builder for Creators
+    </title>
+    <meta
+      name="description"
+      content="Build cinematic, high-performance professional portfolios in minutes with VOLO. The ultimate no-code engine for developers and designers to export production-ready sites."
+    />
+    <meta
+      name="keywords"
+      content="Portfolio Builder, Developer Portfolio, Designer Showcase, No-code Portfolio, VOLO, Static Site Generator, JSZip Portfolio, Cinematic UI"
+    />
+    <meta name="author" content="Pawan Simha R" />
+    <link rel="canonical" href="https://volo.example.com/" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VOLO | High-Performance Cinematic Portfolio Builder for Creators</title>
-  <meta name="description"
-    content="Build cinematic, high-performance professional portfolios in minutes with VOLO. The ultimate no-code engine for developers and designers to export production-ready sites.">
-  <meta name="keywords"
-    content="Portfolio Builder, Developer Portfolio, Designer Showcase, No-code Portfolio, VOLO, Static Site Generator, JSZip Portfolio, Cinematic UI">
-  <meta name="author" content="Pawan Simha R">
-  <link rel="canonical" href="https://volo.example.com/" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://volo.example.com/" />
+    <meta property="og:title" content="VOLO | Cinematic Portfolio Builder" />
+    <meta
+      property="og:description"
+      content="Craft your professional story in minutes with high-performance, cinematic templates."
+    />
+    <meta
+      property="og:image"
+      content="https://volo.example.com/assets/images/og-preview.png"
+    />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://volo.example.com/">
-  <meta property="og:title" content="VOLO | Cinematic Portfolio Builder">
-  <meta property="og:description"
-    content="Craft your professional story in minutes with high-performance, cinematic templates.">
-  <meta property="og:image" content="https://volo.example.com/assets/images/og-preview.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://volo.example.com/" />
+    <meta
+      property="twitter:title"
+      content="VOLO | Cinematic Portfolio Builder"
+    />
+    <meta
+      property="twitter:description"
+      content="Craft your professional story in minutes with high-performance templates."
+    />
+    <meta
+      property="twitter:image"
+      content="https://volo.example.com/assets/images/og-preview.png"
+    />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://volo.example.com/">
-  <meta property="twitter:title" content="VOLO | Cinematic Portfolio Builder">
-  <meta property="twitter:description"
-    content="Craft your professional story in minutes with high-performance templates.">
-  <meta property="twitter:image" content="https://volo.example.com/assets/images/og-preview.png">
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "VOLO Portfolio Builder",
+        "operatingSystem": "Web",
+        "applicationCategory": "DesignApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Pawan Simha R"
+        },
+        "description": "A high-performance engine for creating cinematic, production-ready portfolios in minutes."
+      }
+    </script>
 
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "VOLO Portfolio Builder",
-      "operatingSystem": "Web",
-      "applicationCategory": "DesignApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Pawan Simha R"
-      },
-      "description": "A high-performance engine for creating cinematic, production-ready portfolios in minutes."
-    }
-  </script>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico?v=2" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/images/favicon.ico?v=2"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
 
-  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico?v=2">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico?v=2">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        overflow-x: hidden;
+        cursor: url("assets/icons/Arrow.ico"), auto;
+      }
 
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      cursor: url('assets/icons/Arrow.ico'), auto;
-    }
+      a,
+      button,
+      [role="button"] {
+        cursor: url("assets/icons/Hand.ico"), pointer;
+      }
 
-    a,
-    button,
-    [role="button"] {
-      cursor: url('assets/icons/Hand.ico'), pointer;
-    }
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
 
-    .glass {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+      .gradient-text {
+        background: linear-gradient(
+          135deg,
+          #60a5fa 0%,
+          #3b82f6 50%,
+          rgb(37, 99, 235) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, rgb(37, 99, 235) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+      .hero-glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(59, 130, 246, 0.15) 0%,
+          rgba(59, 130, 246, 0) 70%
+        );
+        border-radius: 50%;
+        filter: blur(60px);
+        z-index: -1;
+      }
 
-    .hero-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
-      border-radius: 50%;
-      filter: blur(60px);
-      z-index: -1;
-    }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
 
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
 
-    @keyframes float {
+        50% {
+          transform: translateY(-20px);
+        }
+      }
 
-      0%,
-      100% {
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+      }
+
+      .bg-grid-pattern {
+        background-size: 40px 40px;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px
+          );
+        background-position: center top;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      /* Parallax Specific Styles */
+      .parallax-img-container {
+        height: calc(100vh - 24px);
+        top: 12px;
+      }
+
+      .parallax-overlay {
+        opacity: 0;
+        transform: translateY(100px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+
+      .parallax-overlay.active {
+        opacity: 1;
         transform: translateY(0);
       }
 
-      50% {
-        transform: translateY(-20px);
+      .parallax-content {
+        background-color: rgb(2, 6, 23);
+        /* Matches slate-950 */
       }
-    }
 
-    .card-hover:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
-    }
-
-    .bg-grid-pattern {
-      background-size: 40px 40px;
-      background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-      background-position: center top;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 10px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-
-    /* Parallax Specific Styles */
-    .parallax-img-container {
-      height: calc(100vh - 24px);
-      top: 12px;
-    }
-
-    .parallax-overlay {
-      opacity: 0;
-      transform: translateY(100px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .parallax-overlay.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .parallax-content {
-      background-color: rgb(2, 6, 23);
-      /* Matches slate-950 */
-    }
-
-    /* Tilt Card Specific Styles */
-    .tilt-card-container {
-      perspective: 1000px;
-    }
-
-    .tilt-card {
-      transform-style: preserve-3d;
-      transition: transform 0.15s ease-out;
-      will-change: transform;
-    }
-
-    .drag-element {
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      -webkit-user-drag: none;
-    }
-  </style>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            }
-          }
-        }
+      /* Tilt Card Specific Styles */
+      .tilt-card-container {
+        perspective: 1000px;
       }
-    }
-  </script>
-</head>
 
-<body class="bg-slate-950 text-white selection:bg-blue-500/30 custom-scrollbar">
-  <!-- Decorative Background Elements -->
-  <div class="hero-glow top-[-100px] left-[-100px]"></div>
-  <div class="hero-glow bottom-[-100px] right-[-100px] opacity-50"></div>
+      .tilt-card {
+        transform-style: preserve-3d;
+        transition: transform 0.15s ease-out;
+        will-change: transform;
+      }
 
-  <nav class="fixed top-0 left-0 w-full z-[100] glass border-b border-white/5">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center" role="navigation"
-      aria-label="Main Navigation">
-      <a href="#home" class="flex items-center gap-3 group">
-        <img src="assets/images/logo.png" alt="VOLO Home" fetchpriority="high"
-          class="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300">
-        <span class="text-2xl font-black tracking-tighter uppercase">VOLO</span>
-      </a>
-      <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400">
-        <a href="#about" class="hover:text-white transition-colors">About</a>
-        <a href="#services" class="hover:text-white transition-colors">Services</a>
-        <a href="#features" class="hover:text-white transition-colors">Features</a>
-        <a href="#templates" class="hover:text-white transition-colors">Templates</a>
-        <a href="#logo-design" class="hover:text-white transition-colors">Design</a>
-        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
-        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
-        <a href="templates/template1.html"
-          class="px-6 py-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20">Launch
-          Builder</a>
+      .drag-element {
+        cursor: grab;
+        user-select: none;
+        touch-action: none;
+        -webkit-user-drag: none;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#eff6ff",
+                100: "#dbeafe",
+                200: "#bfdbfe",
+                300: "#93c5fd",
+                400: "#60a5fa",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#1d4ed8",
+                800: "#1e40af",
+                900: "#1e3a8a",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-slate-950 text-white selection:bg-blue-500/30 custom-scrollbar"
+  >
+    <!-- Decorative Background Elements -->
+    <div class="hero-glow top-[-100px] left-[-100px]"></div>
+    <div class="hero-glow bottom-[-100px] right-[-100px] opacity-50"></div>
+
+    <nav
+      class="fixed top-0 left-0 w-full z-[100] glass border-b border-white/5"
+    >
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+        role="navigation"
+        aria-label="Main Navigation"
+      >
+        <a href="#home" class="flex items-center gap-3 group">
+          <img
+            src="assets/images/logo.png"
+            alt="VOLO Home"
+            fetchpriority="high"
+            class="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+          />
+          <span class="text-2xl font-black tracking-tighter uppercase"
+            >VOLO</span
+          >
+        </a>
+        <div
+          class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400"
+        >
+          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="#services" class="hover:text-white transition-colors"
+            >Services</a
+          >
+          <a href="#features" class="hover:text-white transition-colors"
+            >Features</a
+          >
+          <a href="#templates" class="hover:text-white transition-colors"
+            >Templates</a
+          >
+          <a href="#logo-design" class="hover:text-white transition-colors"
+            >Design</a
+          >
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+          <a href="#contact" class="hover:text-white transition-colors"
+            >Contact</a
+          >
+          <a
+            href="templates/template1.html"
+            class="px-6 py-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20"
+            >Launch Builder</a
+          >
+        </div>
+        <button id="mobileMenuBtn" class="md:hidden text-white p-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </button>
       </div>
-      <button id="mobileMenuBtn" class="md:hidden text-white p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12" />
-          <line x1="4" x2="20" y1="6" y2="6" />
-          <line x1="4" x2="20" y1="18" y2="18" />
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 z-[150] bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 md:hidden"
+    >
+      <button
+        id="closeMenu"
+        class="absolute top-6 right-6 text-white p-2"
+        aria-label="Close Menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" x2="6" y1="6" y2="18" />
+          <line x1="6" x2="18" y1="6" y2="18" />
         </svg>
       </button>
+      <a
+        href="#about"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >About</a
+      >
+      <a
+        href="#services"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >Services</a
+      >
+      <a
+        href="#features"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >Features</a
+      >
+      <a
+        href="#templates"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >Templates</a
+      >
+      <a
+        href="#logo-design"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >Design</a
+      >
+      <a
+        href="#faq"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >FAQ</a
+      >
+      <a
+        href="#contact"
+        class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
+        >Contact</a
+      >
+      <a
+        href="templates/template1.html"
+        class="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg shadow-blue-600/30"
+        >Launch Builder</a
+      >
     </div>
-  </nav>
 
-  <!-- Mobile Menu Overlay -->
-  <div id="mobileMenu"
-    class="fixed inset-0 z-[150] bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 md:hidden">
-    <button id="closeMenu" class="absolute top-6 right-6 text-white p-2" aria-label="Close Menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" x2="6" y1="6" y2="18" />
-        <line x1="6" x2="18" y1="6" y2="18" />
-      </svg>
-    </button>
-    <a href="#about" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">About</a>
-    <a href="#services" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Services</a>
-    <a href="#features" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Features</a>
-    <a href="#templates" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Templates</a>
-    <a href="#logo-design" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Design</a>
-    <a href="#faq" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">FAQ</a>
-    <a href="#contact" class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors">Contact</a>
-    <a href="templates/template1.html"
-      class="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg shadow-blue-600/30">Launch Builder</a>
-  </div>
-
-  <main>
-    <!-- Hero Section -->
-    <section id="home"
-      class="relative pt-28 pb-48 px-6 overflow-hidden bg-grid-pattern min-h-[70vh] flex flex-col justify-start">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950 pointer-events-none">
-      </div>
-
-      <div class="container mx-auto text-center space-y-10 relative z-10 mt-4">
+    <main>
+      <!-- Hero Section -->
+      <section
+        id="home"
+        class="relative pt-28 pb-48 px-6 overflow-hidden bg-grid-pattern min-h-[70vh] flex flex-col justify-start"
+      >
         <div
-          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-white/10 text-xs font-medium text-white shadow-sm">
-          Exciting announcement <span class="text-sm">🎉</span>
-        </div>
+          class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950 pointer-events-none"
+        ></div>
 
-        <h1
-          class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.05] max-w-4xl mx-auto">
-          Craft your<br>professional <span class="text-blue-500">story</span> in minutes.
-        </h1>
-
-        <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed pt-2">
-          Build stunning, high-converting portfolios for developers, designers, and creators.No coding required, just
-          pure impact.
-        </p>
-
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-8 pt-8">
-          <a href="templates/template1.html" id="buildNowBtn"
-            class="relative overflow-hidden w-full max-w-xs sm:max-w-sm h-16 bg-slate-950 rounded-xl font-medium border border-white/10 flex items-center justify-center group transform active:scale-[0.985] transition-transform shadow-xl">
-            <span
-              class="pointer-events-none relative z-10 flex items-center gap-2 mix-blend-difference text-white text-lg">
-              Launch Your Portfolio
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-                class="group-hover:translate-x-1 transition-transform">
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </span>
-            <span id="btnSpotlight"
-              class="pointer-events-none absolute left-[50%] top-[50%] h-32 w-32 -translate-x-[50%] -translate-y-[50%] rounded-full bg-slate-100"></span>
-          </a>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- Parallax Stacking Sections -->
-    <section class="relative z-[10] px-3">
-      <!-- Sticky Container -->
-      <div class="relative h-[200vh]" id="parallax-trigger">
         <div
-          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
-          id="parallax-img-wrap">
-          <!-- Background Image -->
-          <div id="parallax-bg-img" class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
-            loading="lazy"
-            style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop');">
-          </div>
-          <!-- Dark Overlay -->
-          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300" id="parallax-overlay-dark">
+          class="container mx-auto text-center space-y-10 relative z-10 mt-4"
+        >
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-white/10 text-xs font-medium text-white shadow-sm"
+          >
+            Exciting announcement <span class="text-sm">🎉</span>
           </div>
 
-          <!-- Centered Text Overlay -->
-          <div id="parallax-text-overlay"
-            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
-            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Community</p>
-            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">Designed for
-              your story.</h2>
+          <h1
+            class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.05] max-w-4xl mx-auto"
+          >
+            Craft your<br />professional
+            <span class="text-blue-500">story</span> in minutes.
+          </h1>
+
+          <p
+            class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed pt-2"
+          >
+            Build stunning, high-converting portfolios for developers,
+            designers, and creators.No coding required, just pure impact.
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row justify-center items-center gap-8 pt-8"
+          >
+            <a
+              href="templates/template1.html"
+              id="buildNowBtn"
+              class="relative overflow-hidden w-full max-w-xs sm:max-w-sm h-16 bg-slate-950 rounded-xl font-medium border border-white/10 flex items-center justify-center group transform active:scale-[0.985] transition-transform shadow-xl"
+            >
+              <span
+                class="pointer-events-none relative z-10 flex items-center gap-2 mix-blend-difference text-white text-lg"
+              >
+                Launch Your Portfolio
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+              <span
+                id="btnSpotlight"
+                class="pointer-events-none absolute left-[50%] top-[50%] h-32 w-32 -translate-x-[50%] -translate-y-[50%] rounded-full bg-slate-100"
+              ></span>
+            </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Parallax Quality Section -->
-    <section id="quality" class="relative z-[20] -mt-[100vh] px-3">
-      <!-- Sticky Container -->
-      <div class="relative h-[200vh]" id="parallax-trigger-quality">
-        <div
-          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
-          id="parallax-img-wrap-quality">
-          <!-- Background Image -->
-          <div id="parallax-bg-img-quality" loading="lazy"
-            class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
-            style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1600&auto=format&fit=crop');">
-          </div>
-          <!-- Dark Overlay -->
-          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
-            id="parallax-overlay-dark-quality">
-          </div>
+      <!-- Parallax Stacking Sections -->
+      <section class="relative z-[10] px-3">
+        <!-- Sticky Container -->
+        <div class="relative h-[200vh]" id="parallax-trigger">
+          <div
+            class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+            id="parallax-img-wrap"
+          >
+            <!-- Background Image -->
+            <div
+              id="parallax-bg-img"
+              class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+              loading="lazy"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop&quot;);
+              "
+            ></div>
+            <!-- Dark Overlay -->
+            <div
+              class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+              id="parallax-overlay-dark"
+            ></div>
 
-          <!-- Centered Text Overlay -->
-          <div id="parallax-text-overlay-quality"
-            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
-            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Quality</p>
-            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">Precision in
-              every pixel.</h2>
+            <!-- Centered Text Overlay -->
+            <div
+              id="parallax-text-overlay"
+              class="absolute inset-0 flex flex-col items-center justify-center text-white p-6"
+            >
+              <p
+                class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium"
+              >
+                Community
+              </p>
+              <h2
+                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+              >
+                Designed for your story.
+              </h2>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Parallax Modern Section -->
-    <section id="modern" class="relative z-[30] -mt-[100vh] px-3">
-      <!-- Sticky Container -->
-      <div class="relative h-[200vh]" id="parallax-trigger-modern">
-        <div
-          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
-          id="parallax-img-wrap-modern">
-          <!-- Background Image -->
-          <div id="parallax-bg-img-modern" loading="lazy"
-            class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
-            style="background-image: url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1600&auto=format&fit=crop');">
-          </div>
-          <!-- Dark Overlay -->
-          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
-            id="parallax-overlay-dark-modern">
-          </div>
+      <!-- Parallax Quality Section -->
+      <section id="quality" class="relative z-[20] -mt-[100vh] px-3">
+        <!-- Sticky Container -->
+        <div class="relative h-[200vh]" id="parallax-trigger-quality">
+          <div
+            class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+            id="parallax-img-wrap-quality"
+          >
+            <!-- Background Image -->
+            <div
+              id="parallax-bg-img-quality"
+              loading="lazy"
+              class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1600&auto=format&fit=crop&quot;);
+              "
+            ></div>
+            <!-- Dark Overlay -->
+            <div
+              class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+              id="parallax-overlay-dark-quality"
+            ></div>
 
-          <!-- Centered Text Overlay -->
-          <div id="parallax-text-overlay-modern"
-            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
-            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Impact</p>
-            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">First
-              impressions that stick.</h2>
+            <!-- Centered Text Overlay -->
+            <div
+              id="parallax-text-overlay-quality"
+              class="absolute inset-0 flex flex-col items-center justify-center text-white p-6"
+            >
+              <p
+                class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium"
+              >
+                Quality
+              </p>
+              <h2
+                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+              >
+                Precision in every pixel.
+              </h2>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Parallax Innovation Section -->
-    <section id="innovation" class="relative z-[40] -mt-[100vh] px-3">
-      <!-- Sticky Container -->
-      <div class="relative h-[200vh]" id="parallax-trigger-innovation">
-        <div
-          class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
-          id="parallax-img-wrap-innovation">
-          <!-- Background Image -->
-          <div id="parallax-bg-img-innovation" loading="lazy"
-            class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
-            style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop');">
-          </div>
-          <!-- Dark Overlay -->
-          <div class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
-            id="parallax-overlay-dark-innovation">
-          </div>
+      <!-- Parallax Modern Section -->
+      <section id="modern" class="relative z-[30] -mt-[100vh] px-3">
+        <!-- Sticky Container -->
+        <div class="relative h-[200vh]" id="parallax-trigger-modern">
+          <div
+            class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+            id="parallax-img-wrap-modern"
+          >
+            <!-- Background Image -->
+            <div
+              id="parallax-bg-img-modern"
+              loading="lazy"
+              class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1600&auto=format&fit=crop&quot;);
+              "
+            ></div>
+            <!-- Dark Overlay -->
+            <div
+              class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+              id="parallax-overlay-dark-modern"
+            ></div>
 
-          <!-- Centered Text Overlay -->
-          <div id="parallax-text-overlay-innovation"
-            class="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
-            <p class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium">Freedom</p>
-            <h2 class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none">Own your
-              digital identity.</h2>
+            <!-- Centered Text Overlay -->
+            <div
+              id="parallax-text-overlay-modern"
+              class="absolute inset-0 flex flex-col items-center justify-center text-white p-6"
+            >
+              <p
+                class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium"
+              >
+                Impact
+              </p>
+              <h2
+                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+              >
+                First impressions that stick.
+              </h2>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Consolidated Final Content Block -->
-      <div id="about" class="relative z-50 parallax-content scroll-mt-20">
-        <div
-          class="container mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 pb-32 pt-16 md:grid-cols-12 border-t border-white/5">
-          <div class="col-span-1 md:col-span-4 space-y-4">
-            <nav aria-label="Breadcrumb"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
-              <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-              Home > About
-            </nav>
-            <h2 class="text-3xl font-bold text-white leading-tight">Empowering creators to <span
-                class="text-blue-500">own their identity</span></h2>
+      <!-- Parallax Innovation Section -->
+      <section id="innovation" class="relative z-[40] -mt-[100vh] px-3">
+        <!-- Sticky Container -->
+        <div class="relative h-[200vh]" id="parallax-trigger-innovation">
+          <div
+            class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
+            id="parallax-img-wrap-innovation"
+          >
+            <!-- Background Image -->
+            <div
+              id="parallax-bg-img-innovation"
+              loading="lazy"
+              class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+              style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop&quot;);
+              "
+            ></div>
+            <!-- Dark Overlay -->
+            <div
+              class="absolute inset-0 bg-slate-950/70 transition-opacity duration-300"
+              id="parallax-overlay-dark-innovation"
+            ></div>
+
+            <!-- Centered Text Overlay -->
+            <div
+              id="parallax-text-overlay-innovation"
+              class="absolute inset-0 flex flex-col items-center justify-center text-white p-6"
+            >
+              <p
+                class="mb-2 text-center text-xl md:mb-4 md:text-3xl text-blue-400 font-medium"
+              >
+                Freedom
+              </p>
+              <h2
+                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+              >
+                Own your digital identity.
+              </h2>
+            </div>
           </div>
+        </div>
 
-          <div class="col-span-1 md:col-span-8 space-y-8">
-            <p class="text-slate-400 text-xl leading-relaxed">
-              We built VOLO because we believe that setting up a professional portfolio shouldn't require you to write
-              code from scratch or struggle with generic design templates.
+        <!-- Consolidated Final Content Block -->
+        <div id="about" class="relative z-50 parallax-content scroll-mt-20">
+          <div
+            class="container mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 pb-32 pt-16 md:grid-cols-12 border-t border-white/5"
+          >
+            <div class="col-span-1 md:col-span-4 space-y-4">
+              <nav
+                aria-label="Breadcrumb"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest"
+              >
+                <span
+                  class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+                ></span>
+                Home > About
+              </nav>
+              <h2 class="text-3xl font-bold text-white leading-tight">
+                Empowering creators to
+                <span class="text-blue-500">own their identity</span>
+              </h2>
+            </div>
+
+            <div class="col-span-1 md:col-span-8 space-y-8">
+              <p class="text-slate-400 text-xl leading-relaxed">
+                We built VOLO because we believe that setting up a professional
+                portfolio shouldn't require you to write code from scratch or
+                struggle with generic design templates.
+              </p>
+              <p class="text-slate-400 text-xl leading-relaxed">
+                Our engine optimizes every asset, ensures blazing-fast load
+                times, and provides seamless transitions that make your
+                portfolio feel more like a premium application.
+              </p>
+
+              <div
+                class="pt-4 flex flex-wrap gap-8 border-t border-white/5 pt-8"
+              >
+                <div class="space-y-1">
+                  <h3 class="text-4xl font-black text-blue-500">15+</h3>
+                  <p
+                    class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+                  >
+                    Premium Templates
+                  </p>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-4xl font-black text-blue-500">100</h3>
+                  <p
+                    class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+                  >
+                    Lighthouse Score
+                  </p>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-4xl font-black text-blue-500">Zero</h3>
+                  <p
+                    class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+                  >
+                    Coding Required
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Creative Playground / Drag Cards Section -->
+      <section
+        id="playground"
+        class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 border-t border-white/5"
+      >
+        <h2
+          class="relative z-0 text-[20vw] font-black text-slate-900 md:text-[250px] pointer-events-none select-none"
+        >
+          VOLO<span class="text-blue-600">.</span>
+        </h2>
+
+        <!-- Draggable Cards Container -->
+        <div
+          id="drag-container"
+          class="absolute inset-0 z-10"
+          aria-label="Interactive visual playground"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1635373670332-43ea883bb081?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            alt="Cinematic Portfolio Example 1"
+            class="drag-element absolute w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 20%; left: 25%; transform: rotate(6deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1576174464184-fb78fe882bfd?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 45%; left: 60%; transform: rotate(12deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1503751071777-d2918b21bbd9?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-52 md:w-80 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 20%; left: 40%; transform: rotate(-6deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-48 md:w-72 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 50%; left: 40%; transform: rotate(8deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-40 md:w-64 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 20%; left: 65%; transform: rotate(18deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1622313762347-3c09fe5f2719?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 35%; left: 55%; transform: rotate(-3deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-32 md:w-52 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 60%; left: 20%; transform: rotate(-8deg)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=800&auto=format&fit=crop"
+            draggable="false"
+            class="drag-element absolute w-28 md:w-44 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 15%; left: 10%; transform: rotate(10deg)"
+          />
+        </div>
+      </section>
+
+      <!-- Key Products/Services Section -->
+      <section
+        id="services"
+        class="py-32 px-6 bg-slate-950 border-t border-white/5 relative z-10"
+      >
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-20 space-y-4">
+            <div
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest"
+            >
+              <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+              What We Offer
+            </div>
+            <h2 class="text-4xl font-bold text-white">
+              Our Core <span class="text-blue-500">Solutions</span>
+            </h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+              Discover our specialized tools designed to help you build exactly
+              what you need.
             </p>
-            <p class="text-slate-400 text-xl leading-relaxed">
-              Our engine optimizes every asset, ensures blazing-fast load times, and provides seamless transitions that
-              make your portfolio feel more like a premium application.
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div
+              class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-blue-500/50 transition-all card-hover shadow-xl"
+            >
+              <div
+                class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">
+                Developer Portfolios
+              </h3>
+              <p class="text-slate-400 mb-6 leading-relaxed">
+                Showcase your GitHub projects, coding skills, and technical
+                experience with tailored templates built specifically for
+                software engineers.
+              </p>
+              <a
+                href="#templates"
+                class="text-blue-400 font-bold hover:text-blue-300 transition-colors flex items-center gap-2 w-max"
+              >
+                Explore Dev Templates
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+            <!-- Service 2 -->
+            <div
+              class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-purple-500/50 transition-all card-hover shadow-xl"
+            >
+              <div
+                class="w-14 h-14 bg-purple-600/20 text-purple-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 19l7-7 3 3-7 7-3-3z" />
+                  <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                  <path d="M2 2l7.586 7.586" />
+                  <circle cx="11" cy="11" r="2" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">
+                Creative Showcases
+              </h3>
+              <p class="text-slate-400 mb-6 leading-relaxed">
+                Stunning, highly visual gallery layouts designed for artists,
+                photographers, and UI/UX designers to make their work pop.
+              </p>
+              <a
+                href="#templates"
+                class="text-purple-400 font-bold hover:text-purple-300 transition-colors flex items-center gap-2 w-max"
+              >
+                View Galleries
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+            <!-- Service 3 -->
+            <div
+              class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-emerald-500/50 transition-all card-hover shadow-xl"
+            >
+              <div
+                class="w-14 h-14 bg-emerald-600/20 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">
+                Startup Landing Pages
+              </h3>
+              <p class="text-slate-400 mb-6 leading-relaxed">
+                High-converting, sleek, and modern landing page solutions
+                perfect for launching your next big SaaS or side hustle.
+              </p>
+              <a
+                href="#templates"
+                class="text-emerald-400 font-bold hover:text-emerald-300 transition-colors flex items-center gap-2 w-max"
+              >
+                Launch Your Site
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="py-32 px-6">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-20 space-y-4">
+            <h2 class="text-4xl font-bold">
+              Engineered for <span class="text-blue-500">Speed</span>
+            </h2>
+            <p class="text-slate-400">
+              Everything you need to showcase your work professionally.
             </p>
-
-            <div class="pt-4 flex flex-wrap gap-8 border-t border-white/5 pt-8">
-              <div class="space-y-1">
-                <h3 class="text-4xl font-black text-blue-500">15+</h3>
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Premium Templates</p>
-              </div>
-              <div class="space-y-1">
-                <h3 class="text-4xl font-black text-blue-500">100</h3>
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Lighthouse Score</p>
-              </div>
-              <div class="space-y-1">
-                <h3 class="text-4xl font-black text-blue-500">Zero</h3>
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Coding Required</p>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Creative Playground / Drag Cards Section -->
-    <section id="playground"
-      class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 border-t border-white/5">
-      <h2 class="relative z-0 text-[20vw] font-black text-slate-900 md:text-[250px] pointer-events-none select-none">
-        VOLO<span class="text-blue-600">.</span>
-      </h2>
-
-      <!-- Draggable Cards Container -->
-      <div id="drag-container" class="absolute inset-0 z-10" aria-label="Interactive visual playground">
-        <img src="https://images.unsplash.com/photo-1635373670332-43ea883bb081?q=80&w=800&auto=format&fit=crop"
-          draggable="false" alt="Cinematic Portfolio Example 1"
-          class="drag-element absolute w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 20%; left: 25%; transform: rotate(6deg);">
-        <img src="https://images.unsplash.com/photo-1576174464184-fb78fe882bfd?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 45%; left: 60%; transform: rotate(12deg);">
-        <img src="https://images.unsplash.com/photo-1503751071777-d2918b21bbd9?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-52 md:w-80 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 20%; left: 40%; transform: rotate(-6deg);">
-        <img src="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-48 md:w-72 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 50%; left: 40%; transform: rotate(8deg);">
-        <img src="https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-40 md:w-64 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 20%; left: 65%; transform: rotate(18deg);">
-        <img src="https://images.unsplash.com/photo-1622313762347-3c09fe5f2719?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 35%; left: 55%; transform: rotate(-3deg);">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-32 md:w-52 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 60%; left: 20%; transform: rotate(-8deg);">
-        <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-28 md:w-44 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-          style="top: 15%; left: 10%; transform: rotate(10deg);">
-      </div>
-    </section>
-
-    <!-- Key Products/Services Section -->
-    <section id="services" class="py-32 px-6 bg-slate-950 border-t border-white/5 relative z-10">
-      <div class="container mx-auto max-w-6xl">
-        <div class="text-center mb-20 space-y-4">
-          <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
-            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-            What We Offer
-          </div>
-          <h2 class="text-4xl font-bold text-white">Our Core <span class="text-blue-500">Solutions</span></h2>
-          <p class="text-slate-400 max-w-2xl mx-auto">Discover our specialized tools designed to help you build exactly
-            what you need.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Service 1 -->
-          <div
-            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-blue-500/50 transition-all card-hover shadow-xl">
+          <div class="grid md:grid-cols-3 gap-8">
             <div
-              class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6" />
-                <polyline points="8 6 2 12 8 18" />
-              </svg>
+              class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6"
+            >
+              <div
+                class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Instant Preview</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                See your changes happen in real-time. No more refreshing or
+                waiting for builds. What you see is what you get.
+              </p>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-3">Developer Portfolios</h3>
-            <p class="text-slate-400 mb-6 leading-relaxed">Showcase your GitHub projects, coding skills, and technical
-              experience with tailored templates built specifically for software engineers.</p>
-            <a href="#templates"
-              class="text-blue-400 font-bold hover:text-blue-300 transition-colors flex items-center gap-2 w-max">
-              Explore Dev Templates
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="group-hover:translate-x-1 transition-transform">
+            <div
+              class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6"
+            >
+              <div
+                class="w-14 h-14 bg-indigo-600/20 text-indigo-500 rounded-2xl flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" x2="12" y1="15" y2="3" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">One-Click Export</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Download a complete, production-ready ZIP package with all your
+                assets and source code ready to host anywhere.
+              </p>
+            </div>
+            <div
+              class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6"
+            >
+              <div
+                class="w-14 h-14 bg-emerald-600/20 text-emerald-500 rounded-2xl flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect width="20" height="14" x="2" y="3" rx="2" />
+                  <line x1="8" x2="16" y1="21" y2="21" />
+                  <line x1="12" x2="12" y1="17" y2="21" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Fully Responsive</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Your portfolio will look stunning on every device. From mobile
+                screens to 4K monitors, we've got you covered.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Templates Section -->
+      <section id="templates" class="py-32 bg-slate-900/30">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <div
+            class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
+          >
+            <div class="space-y-4">
+              <h2 class="text-4xl font-bold">
+                The <span class="gradient-text">Template</span> Library
+              </h2>
+              <p class="text-slate-400">
+                Handcrafted designs for every profession.
+              </p>
+            </div>
+            <a
+              href="builder.html"
+              class="text-blue-400 font-bold hover:text-blue-300 transition-all flex items-center gap-2 group"
+            >
+              View All Templates
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="group-hover:translate-x-1 transition-transform"
+              >
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
             </a>
           </div>
-
-          <!-- Service 2 -->
-          <div
-            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-purple-500/50 transition-all card-hover shadow-xl">
-            <div
-              class="w-14 h-14 bg-purple-600/20 text-purple-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 19l7-7 3 3-7 7-3-3z" />
-                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-                <path d="M2 2l7.586 7.586" />
-                <circle cx="11" cy="11" r="2" />
-              </svg>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Template Card 1 -->
+            <div class="tilt-card-container">
+              <div
+                class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all"
+              >
+                <div
+                  class="aspect-[4/3] bg-slate-900 overflow-hidden"
+                  style="
+                    transform: translateZ(20px);
+                    transform-style: preserve-3d;
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800"
+                    alt="Modern Minimalist Template Preview"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60"
+                  />
+                </div>
+                <div
+                  class="p-6"
+                  style="
+                    transform: translateZ(50px);
+                    transform-style: preserve-3d;
+                  "
+                >
+                  <h4 class="text-xl font-bold mb-2">Modern Minimalist</h4>
+                  <p class="text-slate-500 text-sm mb-4">
+                    Clean, bold, and focused on your work. Perfect for
+                    designers.
+                  </p>
+                  <div class="flex gap-2">
+                    <span
+                      class="px-2 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-bold rounded uppercase"
+                      >Featured</span
+                    >
+                    <span
+                      class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase"
+                      >Dark Mode</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  style="transform: translateZ(80px)"
+                >
+                  <a
+                    href="templates/template1.html"
+                    class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl"
+                    >Use This Template</a
+                  >
+                </div>
+              </div>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-3">Creative Showcases</h3>
-            <p class="text-slate-400 mb-6 leading-relaxed">Stunning, highly visual gallery layouts designed for artists,
-              photographers, and UI/UX designers to make their work pop.</p>
-            <a href="#templates"
-              class="text-purple-400 font-bold hover:text-purple-300 transition-colors flex items-center gap-2 w-max">
-              View Galleries
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="group-hover:translate-x-1 transition-transform">
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </a>
-          </div>
 
-          <!-- Service 3 -->
-          <div
-            class="group relative bg-slate-900 border border-white/10 rounded-[2rem] p-7 hover:border-emerald-500/50 transition-all card-hover shadow-xl">
-            <div
-              class="w-14 h-14 bg-emerald-600/20 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <polyline points="10 9 9 9 8 9" />
-              </svg>
+            <!-- Template Card 2 -->
+            <div class="tilt-card-container">
+              <div
+                class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-indigo-500/50 transition-all"
+              >
+                <div
+                  class="aspect-[4/3] bg-slate-900 overflow-hidden"
+                  style="
+                    transform: translateZ(20px);
+                    transform-style: preserve-3d;
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+                    alt="Creative Pro Template Preview"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60"
+                  />
+                </div>
+                <div
+                  class="p-6"
+                  style="
+                    transform: translateZ(50px);
+                    transform-style: preserve-3d;
+                  "
+                >
+                  <h4 class="text-xl font-bold mb-2">Creative Pro</h4>
+                  <p class="text-slate-500 text-sm mb-4">
+                    Dynamic animations and glassmorphism. For the tech-savvy.
+                  </p>
+                  <div class="flex gap-2">
+                    <span
+                      class="px-2 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded uppercase"
+                      >New</span
+                    >
+                    <span
+                      class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase"
+                      >Responsive</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="absolute inset-0 bg-indigo-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  style="transform: translateZ(80px)"
+                >
+                  <a
+                    href="templates/template1.html"
+                    class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl"
+                    >Use This Template</a
+                  >
+                </div>
+              </div>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-3">Startup Landing Pages</h3>
-            <p class="text-slate-400 mb-6 leading-relaxed">High-converting, sleek, and modern landing page solutions
-              perfect for launching your next big SaaS or side hustle.</p>
-            <a href="#templates"
-              class="text-emerald-400 font-bold hover:text-emerald-300 transition-colors flex items-center gap-2 w-max">
-              Launch Your Site
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="group-hover:translate-x-1 transition-transform">
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </a>
+
+            <!-- Template Card 3 -->
+            <div class="tilt-card-container">
+              <div
+                class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-emerald-500/50 transition-all"
+              >
+                <div
+                  class="aspect-[4/3] bg-slate-900 overflow-hidden"
+                  style="
+                    transform: translateZ(20px);
+                    transform-style: preserve-3d;
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                    alt="Executive Portfolio Template Preview"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60"
+                  />
+                </div>
+                <div
+                  class="p-6"
+                  style="
+                    transform: translateZ(50px);
+                    transform-style: preserve-3d;
+                  "
+                >
+                  <h4 class="text-xl font-bold mb-2">Executive Portfolio</h4>
+                  <p class="text-slate-500 text-sm mb-4">
+                    Sophisticated and elegant. Designed for high-end results.
+                  </p>
+                  <div class="flex gap-2">
+                    <span
+                      class="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded uppercase"
+                      >Premium</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="absolute inset-0 bg-emerald-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  style="transform: translateZ(80px)"
+                >
+                  <a
+                    href="templates/template1.html"
+                    class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl"
+                    >Use This Template</a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-32 px-6">
-      <div class="container mx-auto max-w-6xl">
-        <div class="text-center mb-20 space-y-4">
-          <h2 class="text-4xl font-bold">Engineered for <span class="text-blue-500">Speed</span></h2>
-          <p class="text-slate-400">Everything you need to showcase your work professionally.</p>
+      <!-- Logo Design Section -->
+      <section
+        id="logo-design"
+        class="py-32 px-6 bg-slate-950 border-t border-white/5 relative overflow-hidden"
+      >
+        <div
+          class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"
+        ></div>
+        <div class="container mx-auto max-w-5xl relative z-10">
+          <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative order-2 md:order-1">
+              <div
+                class="absolute -inset-10 bg-blue-600/20 rounded-full blur-3xl opacity-30"
+                aria-hidden="true"
+              ></div>
+              <img
+                src="assets/images/logo.png"
+                alt="VOLO Logo Anatomy"
+                class="relative z-10 w-full max-w-xs mx-auto animate-float object-contain"
+              />
+            </div>
+            <div class="space-y-8 order-1 md:order-2">
+              <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest"
+              >
+                Our Visual Identity
+              </div>
+              <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+                The Soul of <span class="text-blue-500">Velocity</span>
+              </h2>
+              <div class="space-y-6 text-slate-400 text-lg leading-relaxed">
+                <p>
+                  The VOLO logo is a visual manifestation of
+                  <span class="text-white font-semibold">momentum</span>. The
+                  sharp, ascending geometry of the "V" mirrors the trajectory of
+                  a creator’s journey—rising from a single point of inspiration
+                  to a broad horizon of infinite possibility.
+                </p>
+                <p>
+                  Bathed in
+                  <span class="text-blue-500 font-semibold">Electric Blue</span
+                  >, it represents the spark of digital innovation. It is the
+                  intersection of precision and passion, a visual heartbeat for
+                  those who dare to define their own space in the digital ether.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
-            <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center"
-              aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="py-24 px-6 bg-slate-950 border-t border-white/5">
+        <div class="container mx-auto max-w-4xl">
+          <div class="text-center mb-12 space-y-4">
+            <div
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest"
+            >
+              <span
+                class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+              ></span>
+              Frequently Asked Questions
+            </div>
+            <h2 class="text-3xl font-bold text-white">
+              Common <span class="text-blue-500">Questions</span>
+            </h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+              Find answers to common questions about VOLO.
+            </p>
+          </div>
+          <div class="max-w-3xl mx-auto space-y-2">
+            <!-- Question 1 -->
+            <div class="faq-item border-t border-white/5 py-4 first:border-t-0">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  Is VOLO really free to use?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                  >
+                    Yes! VOLO is completely free to use. You can build, preview,
+                    and export your portfolio without any cost. We believe in
+                    empowering creators without financial barriers.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="faq-item border-t border-white/5 py-4">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  Do I need to know how to code?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                  >
+                    No coding knowledge is required! VOLO is designed for
+                    creators of all skill levels. Our intuitive drag-and-drop
+                    interface and pre-built templates let you create stunning
+                    portfolios without writing a single line of code.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="faq-item border-t border-white/5 py-4">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  How do I publish my portfolio?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                  >
+                    Publishing is simple! Once you've built your portfolio, use
+                    our one-click export feature to download a complete ZIP file
+                    with all your assets. Then upload it to any hosting service
+                    (like GitHub Pages, Netlify, or your own server) and your
+                    portfolio will be live instantly.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="faq-item border-t border-white/5 py-4">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  Can I use a custom domain name?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                  >
+                    Absolutely! After exporting your portfolio, you can easily
+                    connect it to a custom domain through your hosting provider.
+                    Most platforms like GitHub Pages, Netlify, and Vercel offer
+                    straightforward domain setup guides.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="faq-item border-t border-white/5 py-4">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  Will my portfolio be mobile-friendly?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                  >
+                    Yes! All VOLO templates are fully responsive and
+                    mobile-optimized. Your portfolio will look stunning on
+                    devices of all sizes, from smartphones to tablets to large
+                    desktop monitors.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="faq-item border-t border-white/5 py-4">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  Can I switch templates after I've built my portfolio?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-lg leading-relaxed max-w-3xl pt-4"
+                  >
+                    While you can't switch templates within a single project,
+                    you can easily copy your content and apply it to a different
+                    template. We recommend exploring our template library before
+                    starting to find the perfect fit for your style and needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="faq-item border-t border-white/5 py-4">
+              <button
+                class="w-full flex items-center justify-between text-left group"
+              >
+                <h3
+                  class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400"
+                >
+                  How is VOLO different from other portfolio builders?
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-blue-500 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div
+                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+              >
+                <div class="overflow-hidden">
+                  <p
+                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                  >
+                    VOLO focuses specifically on developers, designers, and
+                    creators who want professional results without complexity.
+                    Unlike generic website builders, we offer specialized
+                    templates for technical portfolios, real-time preview,
+                    one-click exports, and zero-configuration deployment - all
+                    completely free.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-32 px-6">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Let's build something
+            <span class="text-blue-500">amazing</span> together
+          </h2>
+          <p class="text-slate-400 text-lg mb-12 max-w-2xl mx-auto">
+            Have a question or want to work with me? Reach out via email or
+            connect on LinkedIn. I'm always open to discussing new projects and
+            opportunities.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row items-center justify-center gap-6"
+          >
+            <a
+              href="mailto:iampawansimha.2004@gmail.com"
+              class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] flex items-center justify-center gap-3 w-full sm:w-auto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path
-                  d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
               </svg>
-            </div>
-            <h3 class="text-xl font-bold">Instant Preview</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">See your changes happen in real-time. No more refreshing
-              or waiting for builds. What you see is what you get.</p>
-          </div>
-          <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
-            <div class="w-14 h-14 bg-indigo-600/20 text-indigo-500 rounded-2xl flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
+              Email Me
+            </a>
+            <a
+              href="https://www.linkedin.com/in/pawansimha"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold transition-all border border-white/10 flex items-center justify-center gap-3 w-full sm:w-auto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
               </svg>
-            </div>
-            <h3 class="text-xl font-bold">One-Click Export</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Download a complete, production-ready ZIP package with all
-              your assets and source code ready to host anywhere.</p>
-          </div>
-          <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
-            <div class="w-14 h-14 bg-emerald-600/20 text-emerald-500 rounded-2xl flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="20" height="14" x="2" y="3" rx="2" />
-                <line x1="8" x2="16" y1="21" y2="21" />
-                <line x1="12" x2="12" y1="17" y2="21" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold">Fully Responsive</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Your portfolio will look stunning on every device. From
-              mobile screens to 4K monitors, we've got you covered.</p>
+              Connect on LinkedIn
+            </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Templates Section -->
-    <section id="templates" class="py-32 bg-slate-900/30">
-      <div class="container mx-auto px-6 max-w-6xl">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div class="space-y-4">
-            <h2 class="text-4xl font-bold">The <span class="gradient-text">Template</span> Library</h2>
-            <p class="text-slate-400">Handcrafted designs for every profession.</p>
-          </div>
-          <a href="builder.html"
-            class="text-blue-400 font-bold hover:text-blue-300 transition-all flex items-center gap-2 group">
-            View All Templates
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="group-hover:translate-x-1 transition-transform">
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Template Card 1 -->
-          <div class="tilt-card-container">
-            <div
-              class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
-              <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
-                style="transform: translateZ(20px); transform-style: preserve-3d;">
-                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800"
-                  alt="Modern Minimalist Template Preview"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-              </div>
-              <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
-                <h4 class="text-xl font-bold mb-2">Modern Minimalist</h4>
-                <p class="text-slate-500 text-sm mb-4">Clean, bold, and focused on your work. Perfect for designers.</p>
-                <div class="flex gap-2">
-                  <span
-                    class="px-2 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-bold rounded uppercase">Featured</span>
-                  <span class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase">Dark
-                    Mode</span>
-                </div>
-              </div>
-              <div
-                class="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                style="transform: translateZ(80px);">
-                <a href="templates/template1.html"
-                  class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This Template</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Template Card 2 -->
-          <div class="tilt-card-container">
-            <div
-              class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-indigo-500/50 transition-all">
-              <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
-                style="transform: translateZ(20px); transform-style: preserve-3d;">
-                <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
-                  alt="Creative Pro Template Preview"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-              </div>
-              <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
-                <h4 class="text-xl font-bold mb-2">Creative Pro</h4>
-                <p class="text-slate-500 text-sm mb-4">Dynamic animations and glassmorphism. For the tech-savvy.</p>
-                <div class="flex gap-2">
-                  <span
-                    class="px-2 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded uppercase">New</span>
-                  <span
-                    class="px-2 py-1 bg-white/5 text-slate-500 text-[10px] font-bold rounded uppercase">Responsive</span>
-                </div>
-              </div>
-              <div
-                class="absolute inset-0 bg-indigo-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                style="transform: translateZ(80px);">
-                <a href="templates/template1.html"
-                  class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This
-                  Template</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Template Card 3 -->
-          <div class="tilt-card-container">
-            <div
-              class="tilt-card group relative bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 hover:border-emerald-500/50 transition-all">
-              <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
-                style="transform: translateZ(20px); transform-style: preserve-3d;">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-                  alt="Executive Portfolio Template Preview"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-              </div>
-              <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
-                <h4 class="text-xl font-bold mb-2">Executive Portfolio</h4>
-                <p class="text-slate-500 text-sm mb-4">Sophisticated and elegant. Designed for high-end results.</p>
-                <div class="flex gap-2">
-                  <span
-                    class="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded uppercase">Premium</span>
-                </div>
-              </div>
-              <div
-                class="absolute inset-0 bg-emerald-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                style="transform: translateZ(80px);">
-                <a href="templates/template1.html"
-                  class="px-8 py-3 bg-white text-slate-950 rounded-xl font-bold shadow-xl">Use This
-                  Template</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Logo Design Section -->
-    <section id="logo-design" class="py-32 px-6 bg-slate-950 border-t border-white/5 relative overflow-hidden">
-      <div class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
-      <div class="container mx-auto max-w-5xl relative z-10">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div class="relative order-2 md:order-1">
-            <div class="absolute -inset-10 bg-blue-600/20 rounded-full blur-3xl opacity-30" aria-hidden="true"></div>
-            <img src="assets/images/logo.png" alt="VOLO Logo Anatomy"
-              class="relative z-10 w-full max-w-xs mx-auto animate-float object-contain">
-          </div>
-          <div class="space-y-8 order-1 md:order-2">
-            <div
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
-              Our Visual Identity
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold leading-tight">The Soul of <span
-                class="text-blue-500">Velocity</span></h2>
-            <div class="space-y-6 text-slate-400 text-lg leading-relaxed">
-              <p>
-                The VOLO logo is a visual manifestation of <span class="text-white font-semibold">momentum</span>.
-                The sharp, ascending geometry of the "V" mirrors the trajectory of a creator’s journey—rising from a
-                single point of
-                inspiration to a broad horizon of infinite possibility.
-              </p>
-              <p>
-                Bathed in <span class="text-blue-500 font-semibold">Electric Blue</span>, it represents the spark of
-                digital innovation.
-                It is the intersection of precision and passion, a visual heartbeat for those who dare to define their
-                own space in the digital ether.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-24 px-6 bg-slate-950 border-t border-white/5">
-      <div class="container mx-auto max-w-4xl">
-        <div class="text-center mb-12 space-y-4">
+      <!-- Footer -->
+      <footer class="pt-20 pb-10 px-6 border-t border-white/5 bg-slate-950">
+        <div class="container mx-auto">
           <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
-            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            Frequently Asked Questions
-          </div>
-          <h2 class="text-3xl font-bold text-white">Common <span class="text-blue-500">Questions</span></h2>
-          <p class="text-slate-400 max-w-2xl mx-auto">Find answers to common questions about VOLO.</p>
-        </div>
-        <div class="max-w-3xl mx-auto space-y-2">
-          <!-- Question 1 -->
-          <div class="faq-item border-t border-white/5 py-4 first:border-t-0">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">Is VOLO really
-                free
-                to use?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2">
-                  Yes! VOLO is completely free to use. You can build, preview, and export your portfolio without any
-                  cost. We believe in empowering creators without financial barriers.
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
+          >
+            <!-- Brand & Contact -->
+            <div class="space-y-6">
+              <div class="flex items-center gap-3">
+                <img
+                  src="assets/images/logo.png"
+                  alt="VOLO Logo"
+                  class="w-8 h-8 object-contain"
+                />
+                <span
+                  class="text-xl font-black tracking-tighter uppercase text-white"
+                  >VOLO</span
+                >
+              </div>
+              <div class="space-y-3 text-slate-400 text-sm">
+                <p>
+                  The ultimate portfolio engine for the modern creator. Build
+                  your identity in seconds.
                 </p>
+                <div class="flex items-center gap-2 pt-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-blue-500"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  <a
+                    href="mailto:iampawansimha.2004@gmail.com"
+                    class="hover:text-blue-400 transition-colors"
+                    >iampawansimha.2004@gmail.com</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Sitemap -->
+            <div>
+              <h4 class="text-white font-bold mb-6">Sitemap</h4>
+              <ul class="space-y-3 text-slate-400 text-sm">
+                <li>
+                  <a href="#" class="hover:text-blue-400 transition-colors"
+                    >Home</a
+                  >
+                </li>
+                <li>
+                  <a href="#about" class="hover:text-blue-400 transition-colors"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#services"
+                    class="hover:text-blue-400 transition-colors"
+                    >Products & Services</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#features"
+                    class="hover:text-blue-400 transition-colors"
+                    >Features</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#templates"
+                    class="hover:text-blue-400 transition-colors"
+                    >Template Library</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#logo-design"
+                    class="hover:text-blue-400 transition-colors"
+                    >Design Philosophy</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Legal -->
+            <div>
+              <h4 class="text-white font-bold mb-6">Legal</h4>
+              <ul class="space-y-3 text-slate-400 text-sm">
+                <li>
+                  <a href="#" class="hover:text-white transition-colors"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-white transition-colors"
+                    >Terms of Service</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-white transition-colors"
+                    >Cookie Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-white transition-colors"
+                    >Acceptable Use</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Social Media -->
+            <div>
+              <h4 class="text-white font-bold mb-6">Connect With Us</h4>
+              <div class="flex gap-4">
+                <a
+                  href="https://github.com/PawanSimha"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-white transition-all shadow-lg hover:shadow-slate-800/30"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                    ></path>
+                  </svg>
+                </a>
+                <a
+                  href="https://x.com/iampawansimha"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-white transition-all shadow-lg hover:shadow-slate-800/30"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/pawansimha"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-800 hover:text-white transition-all shadow-lg hover:shadow-blue-800/30"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                    />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
 
-          <!-- Question 2 -->
-          <div class="faq-item border-t border-white/5 py-4">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">Do I need to know
-                how
-                to code?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2">
-                  No coding knowledge is required! VOLO is designed for creators of all skill levels. Our intuitive
-                  drag-and-drop interface and pre-built templates let you create stunning portfolios without writing a
-                  single line of code.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Question 3 -->
-          <div class="faq-item border-t border-white/5 py-4">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">How do I publish
-                my
-                portfolio?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2">
-                  Publishing is simple! Once you've built your portfolio, use our one-click export feature to download a
-                  complete ZIP file with all your assets. Then upload it to any hosting service (like GitHub Pages,
-                  Netlify, or your own server) and your portfolio will be live instantly.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Question 4 -->
-          <div class="faq-item border-t border-white/5 py-4">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">Can I use a
-                custom
-                domain name?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2">
-                  Absolutely! After exporting your portfolio, you can easily connect it to a custom domain through your
-                  hosting provider. Most platforms like GitHub Pages, Netlify, and Vercel offer straightforward domain
-                  setup guides.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Question 5 -->
-          <div class="faq-item border-t border-white/5 py-4">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">Will my portfolio
-                be
-                mobile-friendly?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2">
-                  Yes! All VOLO templates are fully responsive and mobile-optimized. Your portfolio will look stunning
-                  on devices of all sizes, from smartphones to tablets to large desktop monitors.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Question 6 -->
-          <div class="faq-item border-t border-white/5 py-4">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">Can I switch
-                templates after I've built my portfolio?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-lg leading-relaxed max-w-3xl pt-4">
-                  While you can't switch templates within a single project, you can easily copy your content and apply
-                  it to
-                  a different template. We recommend exploring our template library before starting to find the perfect
-                  fit
-                  for your style and needs.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Question 7 -->
-          <div class="faq-item border-t border-white/5 py-4">
-            <button class="w-full flex items-center justify-between text-left group">
-              <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">How is VOLO
-                different
-                from other portfolio builders?</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 transition-transform duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer">
-              <div class="overflow-hidden">
-                <p class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2">
-                  VOLO focuses specifically on developers, designers, and creators who want professional results without
-                  complexity. Unlike generic website builders, we offer specialized templates for technical portfolios,
-                  real-time preview, one-click exports, and zero-configuration deployment - all completely free.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-32 px-6">
-      <div class="container mx-auto max-w-4xl text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's build something <span class="text-blue-500">amazing</span>
-          together</h2>
-        <p class="text-slate-400 text-lg mb-12 max-w-2xl mx-auto">Have a question or want to work with me? Reach out via
-          email or connect on LinkedIn. I'm always open to discussing new projects and opportunities.</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="mailto:iampawansimha.2004@gmail.com"
-            class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] flex items-center justify-center gap-3 w-full sm:w-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
-            Email Me
-          </a>
-          <a href="https://www.linkedin.com/in/pawansimha" target="_blank" rel="noopener noreferrer"
-            class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold transition-all border border-white/10 flex items-center justify-center gap-3 w-full sm:w-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-              <rect x="2" y="9" width="4" height="12" />
-              <circle cx="4" cy="4" r="2" />
-            </svg>
-            Connect on LinkedIn
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="pt-20 pb-10 px-6 border-t border-white/5 bg-slate-950">
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-
-          <!-- Brand & Contact -->
-          <div class="space-y-6">
-            <div class="flex items-center gap-3">
-              <img src="assets/images/logo.png" alt="VOLO Logo" class="w-8 h-8 object-contain">
-              <span class="text-xl font-black tracking-tighter uppercase text-white">VOLO</span>
-            </div>
-            <div class="space-y-3 text-slate-400 text-sm">
-              <p>The ultimate portfolio engine for the modern creator. Build your identity in seconds.</p>
-              <div class="flex items-center gap-2 pt-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="text-blue-500">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-                <a href="mailto:iampawansimha.2004@gmail.com"
-                  class="hover:text-blue-400 transition-colors">iampawansimha.2004@gmail.com</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sitemap -->
-          <div>
-            <h4 class="text-white font-bold mb-6">Sitemap</h4>
-            <ul class="space-y-3 text-slate-400 text-sm">
-              <li><a href="#" class="hover:text-blue-400 transition-colors">Home</a></li>
-              <li><a href="#about" class="hover:text-blue-400 transition-colors">About Us</a></li>
-              <li><a href="#services" class="hover:text-blue-400 transition-colors">Products & Services</a></li>
-              <li><a href="#features" class="hover:text-blue-400 transition-colors">Features</a></li>
-              <li><a href="#templates" class="hover:text-blue-400 transition-colors">Template Library</a></li>
-              <li><a href="#logo-design" class="hover:text-blue-400 transition-colors">Design Philosophy</a></li>
-            </ul>
-          </div>
-
-          <!-- Legal -->
-          <div>
-            <h4 class="text-white font-bold mb-6">Legal</h4>
-            <ul class="space-y-3 text-slate-400 text-sm">
-              <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Acceptable Use</a></li>
-            </ul>
-          </div>
-
-          <!-- Social Media -->
-          <div>
-            <h4 class="text-white font-bold mb-6">Connect With Us</h4>
-            <div class="flex gap-4">
-              <a href="https://github.com/PawanSimha" target="_blank" rel="noopener noreferrer"
-                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-white transition-all shadow-lg hover:shadow-slate-800/30">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                  </path>
-                </svg>
-              </a>
-              <a href="https://x.com/iampawansimha" target="_blank" rel="noopener noreferrer"
-                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-white transition-all shadow-lg hover:shadow-slate-800/30">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                </svg>
-              </a>
-              <a href="https://www.linkedin.com/in/pawansimha" target="_blank" rel="noopener noreferrer"
-                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-800 hover:text-white transition-all shadow-lg hover:shadow-blue-800/30">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
-            </div>
+          <div
+            class="pt-8 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm"
+          >
+            <p>© 2026 VOLO Portfolio Builder. All rights reserved.</p>
+            <p>
+              Designed with <span class="text-red-500">♥</span> by Pawan Simha
+              R.
+            </p>
           </div>
         </div>
+      </footer>
+    </main>
 
-        <div
-          class="pt-8 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
-          <p>© 2026 VOLO Portfolio Builder. All rights reserved.</p>
-          <p>Designed with <span class="text-red-500">♥</span> by Pawan Simha R.</p>
-        </div>
-      </div>
-    </footer>
-  </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("buildNowBtn");
+        const spotlight = document.getElementById("btnSpotlight");
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('buildNowBtn');
-      const spotlight = document.getElementById('btnSpotlight');
+        if (btn && spotlight) {
+          const handleMouseMove = (e) => {
+            const rect = btn.getBoundingClientRect();
+            const offset = e.clientX - rect.left;
+            const width = rect.width;
+            const left = `${(offset / width) * 100}%`;
 
-      if (btn && spotlight) {
-        const handleMouseMove = (e) => {
-          const rect = btn.getBoundingClientRect();
-          const offset = e.clientX - rect.left;
-          const width = rect.width;
-          const left = `${(offset / width) * 100}%`;
+            spotlight.animate(
+              { left: left },
+              { duration: 250, fill: "forwards" },
+            );
+          };
 
-          spotlight.animate({ left: left }, { duration: 250, fill: "forwards" });
+          const handleMouseLeave = () => {
+            spotlight.animate(
+              { left: "50%" },
+              { duration: 100, fill: "forwards" },
+            );
+          };
+
+          btn.addEventListener("mousemove", handleMouseMove);
+          btn.addEventListener("mouseleave", handleMouseLeave);
+        }
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const closeMenuBtn = document.getElementById("closeMenu");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const mobileLinks = document.querySelectorAll(".mobile-link");
+
+        const toggleMenu = () => {
+          mobileMenu.classList.toggle("translate-x-full");
+          document.body.classList.toggle("overflow-hidden");
         };
 
-        const handleMouseLeave = () => {
-          spotlight.animate(
-            { left: "50%" },
-            { duration: 100, fill: "forwards" }
-          );
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleMenu);
+        if (closeMenuBtn) closeMenuBtn.addEventListener("click", toggleMenu);
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", toggleMenu);
+        });
+
+        // FAQ Accordion Functionality
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach((item) => {
+          const button = item.querySelector("button");
+          const answer = item.querySelector(".faq-answer");
+          const icon = item.querySelector("svg");
+
+          button.addEventListener("click", () => {
+            const isOpen = answer.classList.contains("grid-rows-[1fr]");
+
+            // Close all items
+            faqItems.forEach((otherItem) => {
+              otherItem
+                .querySelector(".faq-answer")
+                .classList.remove("grid-rows-[1fr]");
+              otherItem.querySelector("svg").classList.remove("rotate-180");
+            });
+
+            // Toggle current item
+            if (!isOpen) {
+              answer.classList.add("grid-rows-[1fr]");
+              icon.classList.add("rotate-180");
+            }
+          });
+        });
+
+        // Refactored Scroll Parallax Animation Logic for Multiple Sections
+        const parallaxConfigs = [
+          {
+            trigger: "parallax-trigger",
+            wrap: "parallax-img-wrap",
+            bg: "parallax-bg-img",
+            overlay: "parallax-overlay-dark",
+            text: "parallax-text-overlay",
+          },
+          {
+            trigger: "parallax-trigger-quality",
+            wrap: "parallax-img-wrap-quality",
+            bg: "parallax-bg-img-quality",
+            overlay: "parallax-overlay-dark-quality",
+            text: "parallax-text-overlay-quality",
+          },
+          {
+            trigger: "parallax-trigger-modern",
+            wrap: "parallax-img-wrap-modern",
+            bg: "parallax-bg-img-modern",
+            overlay: "parallax-overlay-dark-modern",
+            text: "parallax-text-overlay-modern",
+          },
+          {
+            trigger: "parallax-trigger-innovation",
+            wrap: "parallax-img-wrap-innovation",
+            bg: "parallax-bg-img-innovation",
+            overlay: "parallax-overlay-dark-innovation",
+            text: "parallax-text-overlay-innovation",
+          },
+        ];
+
+        parallaxConfigs.forEach((config) => {
+          const trigger = document.getElementById(config.trigger);
+          const wrap = document.getElementById(config.wrap);
+          const bg = document.getElementById(config.bg);
+          const overlay = document.getElementById(config.overlay);
+          const text = document.getElementById(config.text);
+
+          if (!trigger || !wrap || !bg || !overlay || !text) return;
+
+          window.addEventListener("scroll", () => {
+            const rect = trigger.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            const totalHeight = rect.height;
+
+            // Only calculate if the section is somewhat in view
+            if (rect.top > windowHeight || rect.bottom < 0) return;
+
+            const progress = Math.max(
+              0,
+              Math.min(1, -rect.top / (totalHeight - windowHeight)),
+            );
+
+            // Apply Parallax Effects
+            wrap.style.transform = `scale(${1 - progress * 0.15})`;
+            overlay.style.opacity = 0.7 + progress * 0.2;
+            bg.style.filter = `blur(${progress * 10}px)`; /* Reduced max blur slightly */
+            bg.style.transform = `scale(${1 + progress * 0.1})`;
+
+            // Text movement and opacity for "immediately visible then fades out"
+            const textY = -(progress * 100); // Starts at 0, moves up to -100px
+            text.style.transform = `translateY(${textY}px)`;
+
+            let textOpacity = 1; // Start fully visible
+            if (progress > 0.5)
+              textOpacity = Math.max(0, 1 - (progress - 0.5) * 2); // Fade out after 50% scroll
+            text.style.opacity = textOpacity;
+          });
+        });
+
+        // Drag Cards Functionality
+        const dragElements = document.querySelectorAll(".drag-element");
+        let activeElement = null;
+        let initialX, initialY, currentX, currentY;
+        let xOffset = 0,
+          yOffset = 0;
+        let zIndexCounter = 20;
+
+        const dragStart = (e) => {
+          const target = e.target.closest(".drag-element");
+          if (target) {
+            e.preventDefault();
+            activeElement = target;
+            activeElement.style.cursor = "grabbing";
+            zIndexCounter++;
+            activeElement.style.zIndex = zIndexCounter;
+
+            const rect = activeElement.getBoundingClientRect();
+            initialX =
+              e.type === "touchstart"
+                ? e.touches[0].clientX - rect.left
+                : e.clientX - rect.left;
+            initialY =
+              e.type === "touchstart"
+                ? e.touches[0].clientY - rect.top
+                : e.clientY - rect.top;
+          }
         };
 
-        btn.addEventListener("mousemove", handleMouseMove);
-        btn.addEventListener("mouseleave", handleMouseLeave);
-      }
+        const drag = (e) => {
+          if (activeElement) {
+            e.preventDefault();
+            const containerRect = document
+              .getElementById("drag-container")
+              .getBoundingClientRect();
+            const clientX =
+              e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+            const clientY =
+              e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
 
-      // Mobile Menu Logic
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const closeMenuBtn = document.getElementById('closeMenu');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const mobileLinks = document.querySelectorAll('.mobile-link');
+            activeElement.style.left = `${clientX - containerRect.left - initialX}px`;
+            activeElement.style.top = `${clientY - containerRect.top - initialY}px`;
+          }
+        };
 
-      const toggleMenu = () => {
-        mobileMenu.classList.toggle('translate-x-full');
-        document.body.classList.toggle('overflow-hidden');
-      };
+        const dragEnd = () => {
+          if (activeElement) activeElement.style.cursor = "grab";
+          activeElement = null;
+        };
 
-      if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
-      if (closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', toggleMenu);
-      });
+        document.addEventListener("mousedown", dragStart);
+        document.addEventListener("mousemove", drag);
+        document.addEventListener("mouseup", dragEnd);
 
-      // FAQ Accordion Functionality
-      const faqItems = document.querySelectorAll('.faq-item');
+        document.addEventListener("touchstart", dragStart, { passive: false });
+        document.addEventListener("touchmove", drag, { passive: false });
+        document.addEventListener("touchend", dragEnd);
 
-      faqItems.forEach(item => {
-        const button = item.querySelector('button');
-        const answer = item.querySelector('.faq-answer');
-        const icon = item.querySelector('svg');
+        // Tilt Card Functionality
+        const tiltCards = document.querySelectorAll(".tilt-card");
+        const ROTATION_RANGE = 32.5;
+        const HALF_ROTATION_RANGE = 32.5 / 2;
 
-        button.addEventListener('click', () => {
-          const isOpen = answer.classList.contains('grid-rows-[1fr]');
+        tiltCards.forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
 
-          // Close all items
-          faqItems.forEach(otherItem => {
-            otherItem.querySelector('.faq-answer').classList.remove('grid-rows-[1fr]');
-            otherItem.querySelector('svg').classList.remove('rotate-180');
+            const width = rect.width;
+            const height = rect.height;
+
+            const mouseX = (e.clientX - rect.left) * ROTATION_RANGE;
+            const mouseY = (e.clientY - rect.top) * ROTATION_RANGE;
+
+            const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1;
+            const rY = mouseX / width - HALF_ROTATION_RANGE;
+
+            // Apply rotation
+            card.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg)`;
           });
 
-          // Toggle current item
-          if (!isOpen) {
-            answer.classList.add('grid-rows-[1fr]');
-            icon.classList.add('rotate-180');
-          }
+          card.addEventListener("mouseleave", () => {
+            // Reset rotation smoothly
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            setTimeout(() => {
+              card.style.transition = "transform 0.15s ease-out";
+            }, 150);
+          });
         });
       });
-
-      // Refactored Scroll Parallax Animation Logic for Multiple Sections
-      const parallaxConfigs = [
-        { trigger: 'parallax-trigger', wrap: 'parallax-img-wrap', bg: 'parallax-bg-img', overlay: 'parallax-overlay-dark', text: 'parallax-text-overlay' },
-        { trigger: 'parallax-trigger-quality', wrap: 'parallax-img-wrap-quality', bg: 'parallax-bg-img-quality', overlay: 'parallax-overlay-dark-quality', text: 'parallax-text-overlay-quality' },
-        { trigger: 'parallax-trigger-modern', wrap: 'parallax-img-wrap-modern', bg: 'parallax-bg-img-modern', overlay: 'parallax-overlay-dark-modern', text: 'parallax-text-overlay-modern' },
-        { trigger: 'parallax-trigger-innovation', wrap: 'parallax-img-wrap-innovation', bg: 'parallax-bg-img-innovation', overlay: 'parallax-overlay-dark-innovation', text: 'parallax-text-overlay-innovation' }
-      ];
-
-      parallaxConfigs.forEach(config => {
-        const trigger = document.getElementById(config.trigger);
-        const wrap = document.getElementById(config.wrap);
-        const bg = document.getElementById(config.bg);
-        const overlay = document.getElementById(config.overlay);
-        const text = document.getElementById(config.text);
-
-        if (!trigger || !wrap || !bg || !overlay || !text) return;
-
-        window.addEventListener('scroll', () => {
-          const rect = trigger.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-          const totalHeight = rect.height;
-
-          // Only calculate if the section is somewhat in view
-          if (rect.top > windowHeight || rect.bottom < 0) return;
-
-          const progress = Math.max(0, Math.min(1, (-rect.top) / (totalHeight - windowHeight)));
-
-          // Apply Parallax Effects
-          wrap.style.transform = `scale(${1 - (progress * 0.15)})`;
-          overlay.style.opacity = 0.7 + (progress * 0.2);
-          bg.style.filter = `blur(${progress * 10}px)`; /* Reduced max blur slightly */
-          bg.style.transform = `scale(${1 + (progress * 0.1)})`;
-
-          // Text movement and opacity for "immediately visible then fades out"
-          const textY = -(progress * 100); // Starts at 0, moves up to -100px
-          text.style.transform = `translateY(${textY}px)`;
-
-          let textOpacity = 1; // Start fully visible
-          if (progress > 0.5) textOpacity = Math.max(0, 1 - ((progress - 0.5) * 2)); // Fade out after 50% scroll
-          text.style.opacity = textOpacity;
-        });
-      });
-
-      // Drag Cards Functionality
-      const dragElements = document.querySelectorAll('.drag-element');
-      let activeElement = null;
-      let initialX, initialY, currentX, currentY;
-      let xOffset = 0, yOffset = 0;
-      let zIndexCounter = 20;
-
-      const dragStart = (e) => {
-        const target = e.target.closest('.drag-element');
-        if (target) {
-          e.preventDefault();
-          activeElement = target;
-          activeElement.style.cursor = 'grabbing';
-          zIndexCounter++;
-          activeElement.style.zIndex = zIndexCounter;
-
-          const rect = activeElement.getBoundingClientRect();
-          initialX = (e.type === "touchstart") ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
-          initialY = (e.type === "touchstart") ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
-        }
-      };
-
-      const drag = (e) => {
-        if (activeElement) {
-          e.preventDefault();
-          const containerRect = document.getElementById('drag-container').getBoundingClientRect();
-          const clientX = (e.type === "touchmove") ? e.touches[0].clientX : e.clientX;
-          const clientY = (e.type === "touchmove") ? e.touches[0].clientY : e.clientY;
-
-          activeElement.style.left = `${clientX - containerRect.left - initialX}px`;
-          activeElement.style.top = `${clientY - containerRect.top - initialY}px`;
-        }
-      };
-
-      const dragEnd = () => {
-        if (activeElement) activeElement.style.cursor = 'grab';
-        activeElement = null;
-      };
-
-      document.addEventListener("mousedown", dragStart);
-      document.addEventListener("mousemove", drag);
-      document.addEventListener("mouseup", dragEnd);
-
-      document.addEventListener("touchstart", dragStart, { passive: false });
-      document.addEventListener("touchmove", drag, { passive: false });
-      document.addEventListener("touchend", dragEnd);
-
-      // Tilt Card Functionality
-      const tiltCards = document.querySelectorAll('.tilt-card');
-      const ROTATION_RANGE = 32.5;
-      const HALF_ROTATION_RANGE = 32.5 / 2;
-
-      tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-
-          const width = rect.width;
-          const height = rect.height;
-
-          const mouseX = (e.clientX - rect.left) * ROTATION_RANGE;
-          const mouseY = (e.clientY - rect.top) * ROTATION_RANGE;
-
-          const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1;
-          const rY = mouseX / width - HALF_ROTATION_RANGE;
-
-          // Apply rotation
-          card.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-          // Reset rotation smoothly
-          card.style.transform = `rotateX(0deg) rotateY(0deg)`;
-          setTimeout(() => {
-            card.style.transition = 'transform 0.15s ease-out';
-          }, 150);
-        });
-      });
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

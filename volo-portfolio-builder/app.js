@@ -1,41 +1,41 @@
-Handlebars.registerHelper('eq', function (a, b) {
+Handlebars.registerHelper("eq", function (a, b) {
   return a === b;
 });
 
-Handlebars.registerHelper('gt', function (a, b) {
+Handlebars.registerHelper("gt", function (a, b) {
   return a > b;
 });
 
-Handlebars.registerHelper('substring', function (str, start, end) {
-  return str ? str.substring(start, end) : '';
+Handlebars.registerHelper("substring", function (str, start, end) {
+  return str ? str.substring(start, end) : "";
 });
 
-Handlebars.registerHelper('longDesc', function (str, len) {
+Handlebars.registerHelper("longDesc", function (str, len) {
   return str && str.length > len;
 });
 
-Handlebars.registerHelper('trunc', function (str, len) {
-  if (!str) return '';
-  return str.length > len ? str.substring(0, len) + '...' : str;
+Handlebars.registerHelper("trunc", function (str, len) {
+  if (!str) return "";
+  return str.length > len ? str.substring(0, len) + "..." : str;
 });
 
 function formatDate(dateStr) {
-  if (!dateStr) return '';
+  if (!dateStr) return "";
   const date = new Date(dateStr);
   if (isNaN(date.getTime())) return dateStr; // Return as is if invalid
-  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 
-Handlebars.registerHelper('formatDate', function (dateStr) {
+Handlebars.registerHelper("formatDate", function (dateStr) {
   return formatDate(dateStr);
 });
 
-Handlebars.registerHelper('or', function (a, b) {
+Handlebars.registerHelper("or", function (a, b) {
   return a || b;
 });
 
-Handlebars.registerHelper('initials', function (name) {
-  if (!name) return 'V';
+Handlebars.registerHelper("initials", function (name) {
+  if (!name) return "V";
   const parts = name.trim().split(/\s+/);
   if (parts.length === 1) return parts[0][0].toUpperCase();
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
@@ -64,10 +64,10 @@ let portfolioData = {
   stats: {
     projects: "",
     contributions: "",
-    satisfaction: ""
+    satisfaction: "",
   },
   themeColor: "blue",
-  themeMode: "light"
+  themeMode: "light",
 };
 
 let template = "";
@@ -592,48 +592,48 @@ function loadTemplate() {
 
 function toggleReadMore(btn) {
   const p = btn.previousElementSibling;
-  if (p.classList.contains('line-clamp-3')) {
-    p.classList.remove('line-clamp-3');
-    btn.innerText = 'Show Less';
+  if (p.classList.contains("line-clamp-3")) {
+    p.classList.remove("line-clamp-3");
+    btn.innerText = "Show Less";
   } else {
-    p.classList.add('line-clamp-3');
-    btn.innerText = 'Read More';
+    p.classList.add("line-clamp-3");
+    btn.innerText = "Read More";
   }
 }
 
 function showAllProjects(btn) {
   const grid = btn.previousElementSibling;
-  const items = grid.querySelectorAll('.project-card.hidden');
-  items.forEach(item => item.classList.remove('hidden'));
-  btn.style.display = 'none';
+  const items = grid.querySelectorAll(".project-card.hidden");
+  items.forEach((item) => item.classList.remove("hidden"));
+  btn.style.display = "none";
 }
 
 function showAllAwards(btn) {
   const grid = btn.previousElementSibling;
-  const items = grid.querySelectorAll('.award-item.hidden');
-  items.forEach(item => item.classList.remove('hidden'));
-  btn.style.display = 'none';
+  const items = grid.querySelectorAll(".award-item.hidden");
+  items.forEach((item) => item.classList.remove("hidden"));
+  btn.style.display = "none";
 }
 
 function showAllCerts(btn) {
   const grid = btn.previousElementSibling;
-  const items = grid.querySelectorAll('.cert-item.hidden');
-  items.forEach(item => item.classList.remove('hidden'));
-  btn.style.display = 'none';
+  const items = grid.querySelectorAll(".cert-item.hidden");
+  items.forEach((item) => item.classList.remove("hidden"));
+  btn.style.display = "none";
 }
 
 function showAllExperience(btn) {
   const list = btn.previousElementSibling;
-  const items = list.querySelectorAll('.experience-item.hidden');
-  items.forEach(item => item.classList.remove('hidden'));
-  btn.style.display = 'none';
+  const items = list.querySelectorAll(".experience-item.hidden");
+  items.forEach((item) => item.classList.remove("hidden"));
+  btn.style.display = "none";
 }
 
 function showAllEducation(btn) {
   const grid = btn.previousElementSibling;
-  const items = grid.querySelectorAll('.edu-item.hidden');
-  items.forEach(item => item.classList.remove('hidden'));
-  btn.style.display = 'none';
+  const items = grid.querySelectorAll(".edu-item.hidden");
+  items.forEach((item) => item.classList.remove("hidden"));
+  btn.style.display = "none";
 }
 
 function render() {
@@ -644,39 +644,67 @@ function render() {
   const previewContainer = preview.parentElement;
   preview.innerHTML = html;
 
-  if (portfolioData.themeMode === 'dark') {
-    preview.classList.add('dark');
-    previewContainer.classList.add('dark');
+  if (portfolioData.themeMode === "dark") {
+    preview.classList.add("dark");
+    previewContainer.classList.add("dark");
   } else {
-    preview.classList.remove('dark');
-    previewContainer.classList.remove('dark');
+    preview.classList.remove("dark");
+    previewContainer.classList.remove("dark");
   }
 
   // Highlight selected theme mode
-  const modes = ['light', 'dark'];
-  modes.forEach(m => {
+  const modes = ["light", "dark"];
+  modes.forEach((m) => {
     const btn = document.getElementById(`mode-${m}`);
     if (btn) {
       if (portfolioData.themeMode === m) {
-        btn.classList.add('border-blue-500', 'bg-blue-50/50', 'ring-2', 'ring-blue-500/20');
-        if (document.body.classList.contains('dark')) {
-          btn.classList.add('bg-blue-900/20');
+        btn.classList.add(
+          "border-blue-500",
+          "bg-blue-50/50",
+          "ring-2",
+          "ring-blue-500/20",
+        );
+        if (document.body.classList.contains("dark")) {
+          btn.classList.add("bg-blue-900/20");
         }
       } else {
-        btn.classList.remove('border-blue-500', 'bg-blue-50/50', 'ring-2', 'ring-blue-500/20', 'bg-blue-900/20');
+        btn.classList.remove(
+          "border-blue-500",
+          "bg-blue-50/50",
+          "ring-2",
+          "ring-blue-500/20",
+          "bg-blue-900/20",
+        );
       }
     }
   });
 
   // Highlight selected theme color
-  const colors = ['blue', 'indigo', 'purple', 'rose', 'emerald', 'amber', 'teal', 'slate', 'cyan', 'sky', 'violet', 'fuchsia', 'pink', 'lime', 'orange', 'red'];
-  colors.forEach(c => {
+  const colors = [
+    "blue",
+    "indigo",
+    "purple",
+    "rose",
+    "emerald",
+    "amber",
+    "teal",
+    "slate",
+    "cyan",
+    "sky",
+    "violet",
+    "fuchsia",
+    "pink",
+    "lime",
+    "orange",
+    "red",
+  ];
+  colors.forEach((c) => {
     const btn = document.getElementById(`btn-${c}`);
     if (btn) {
       if (portfolioData.themeColor === c) {
-        btn.classList.add('ring-4', 'ring-blue-500/50', 'scale-110');
+        btn.classList.add("ring-4", "ring-blue-500/50", "scale-110");
       } else {
-        btn.classList.remove('ring-4', 'ring-blue-500/50', 'scale-110');
+        btn.classList.remove("ring-4", "ring-blue-500/50", "scale-110");
       }
     }
   });
@@ -726,8 +754,13 @@ function addCert() {
 
   if (n && file) {
     let reader = new FileReader();
-    reader.onload = ev => {
-      portfolioData.certs.push({ name: n, org: o, date: d, image: ev.target.result });
+    reader.onload = (ev) => {
+      portfolioData.certs.push({
+        name: n,
+        org: o,
+        date: d,
+        image: ev.target.result,
+      });
       portfolioData.certs.sort((a, b) => new Date(b.date) - new Date(a.date));
       finalizeCertAdd();
     };
@@ -800,8 +833,13 @@ function addExperience() {
     if (!Array.isArray(portfolioData.experience)) portfolioData.experience = [];
     if (file) {
       let reader = new FileReader();
-      reader.onload = ev => {
-        portfolioData.experience.push({ event: e, date: d, description: ds, image: ev.target.result });
+      reader.onload = (ev) => {
+        portfolioData.experience.push({
+          event: e,
+          date: d,
+          description: ds,
+          image: ev.target.result,
+        });
         portfolioData.experience.sort((a, b) => {
           if (!a.date) return 1;
           if (!b.date) return -1;
@@ -811,7 +849,12 @@ function addExperience() {
       };
       reader.readAsDataURL(file);
     } else {
-      portfolioData.experience.push({ event: e, date: d, description: ds, image: "" });
+      portfolioData.experience.push({
+        event: e,
+        date: d,
+        description: ds,
+        image: "",
+      });
       portfolioData.experience.sort((a, b) => {
         if (!a.date) return 1;
         if (!b.date) return -1;
@@ -842,14 +885,26 @@ function addAward() {
   if (n) {
     if (file) {
       let reader = new FileReader();
-      reader.onload = ev => {
-        portfolioData.awards.push({ name: n, date: d, description: ds, image: ev.target.result });
-        portfolioData.awards.sort((a, b) => new Date(b.date) - new Date(a.date));
+      reader.onload = (ev) => {
+        portfolioData.awards.push({
+          name: n,
+          date: d,
+          description: ds,
+          image: ev.target.result,
+        });
+        portfolioData.awards.sort(
+          (a, b) => new Date(b.date) - new Date(a.date),
+        );
         finalizeAwardAdd();
       };
       reader.readAsDataURL(file);
     } else {
-      portfolioData.awards.push({ name: n, date: d, description: ds, image: "" });
+      portfolioData.awards.push({
+        name: n,
+        date: d,
+        description: ds,
+        image: "",
+      });
       portfolioData.awards.sort((a, b) => new Date(b.date) - new Date(a.date));
       finalizeAwardAdd();
     }
@@ -865,7 +920,6 @@ function finalizeAwardAdd() {
   save();
   render();
 }
-
 
 function removeSkill(i) {
   portfolioData.skills.splice(i, 1);
@@ -916,132 +970,151 @@ function removeCert(i) {
   render();
 }
 
-
 function renderSkillsList() {
   let el = document.getElementById("skillsList");
   if (!el) return;
-  el.innerHTML = portfolioData.skills.map((s, i) =>
-    `<span class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-blue-100 flex items-center gap-2 max-w-full break-all">
+  el.innerHTML = portfolioData.skills
+    .map(
+      (s, i) =>
+        `<span class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-blue-100 flex items-center gap-2 max-w-full break-all">
       ${s} 
       <button onclick="removeSkill(${i})" class="text-blue-300 hover:text-red-500 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </span>`
-  ).join("");
+    </span>`,
+    )
+    .join("");
 }
 
 function renderSoftSkillsList() {
   let el = document.getElementById("softSkillsList");
   if (!el) return;
-  el.innerHTML = portfolioData.softSkills.map((s, i) =>
-    `<span class="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-indigo-100 flex items-center gap-2 max-w-full break-all">
+  el.innerHTML = portfolioData.softSkills
+    .map(
+      (s, i) =>
+        `<span class="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-indigo-100 flex items-center gap-2 max-w-full break-all">
       ${s} 
       <button onclick="removeSoftSkill(${i})" class="text-indigo-300 hover:text-red-500 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </span>`
-  ).join("");
+    </span>`,
+    )
+    .join("");
 }
 
 function renderProjectsList() {
   let el = document.getElementById("projectsList");
   if (!el) return;
   if (!portfolioData.projects) portfolioData.projects = [];
-  el.innerHTML = portfolioData.projects.map((p, i) =>
-    `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
+  el.innerHTML = portfolioData.projects
+    .map(
+      (p, i) =>
+        `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${p.name}</div>
-        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${p.date ? formatDate(p.date) : ''}</div>
+        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${p.date ? formatDate(p.date) : ""}</div>
       </div>
       <button onclick="removeProject(${i})" class="text-slate-300 hover:text-red-500 transition-colors p-1 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </div>`
-  ).join("");
+    </div>`,
+    )
+    .join("");
 }
 
 function renderEducationList() {
   let el = document.getElementById("educationList");
   if (!el) return;
   if (!portfolioData.education) portfolioData.education = [];
-  el.innerHTML = portfolioData.education.map((e, i) =>
-    `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
+  el.innerHTML = portfolioData.education
+    .map(
+      (e, i) =>
+        `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${e.level}</div>
-        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${e.year ? formatDate(e.year) : ''}</div>
+        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${e.year ? formatDate(e.year) : ""}</div>
       </div>
       <button onclick="removeEducation(${i})" class="text-slate-300 hover:text-red-500 transition-colors p-1 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </div>`
-  ).join("");
+    </div>`,
+    )
+    .join("");
 }
 
 function renderExperienceList() {
   let el = document.getElementById("experienceList");
   if (!el) return;
   if (!portfolioData.experience) portfolioData.experience = [];
-  el.innerHTML = portfolioData.experience.map((e, i) =>
-    `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
+  el.innerHTML = portfolioData.experience
+    .map(
+      (e, i) =>
+        `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${e.event}</div>
-        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${e.date ? formatDate(e.date) : ''}</div>
+        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${e.date ? formatDate(e.date) : ""}</div>
       </div>
       <button onclick="removeExperience(${i})" class="text-slate-300 hover:text-red-500 transition-colors p-1 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </div>`
-  ).join("");
+    </div>`,
+    )
+    .join("");
 }
 
 function renderAwardsList() {
   let el = document.getElementById("awardsList");
   if (!el) return;
   if (!portfolioData.awards) portfolioData.awards = [];
-  el.innerHTML = portfolioData.awards.map((a, i) =>
-    `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
+  el.innerHTML = portfolioData.awards
+    .map(
+      (a, i) =>
+        `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${a.name}</div>
-        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${a.date ? formatDate(a.date) : ''}</div>
+        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${a.date ? formatDate(a.date) : ""}</div>
       </div>
       <button onclick="removeAward(${i})" class="text-slate-300 hover:text-red-500 transition-colors p-1 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </div>`
-  ).join("");
+    </div>`,
+    )
+    .join("");
 }
 
 function renderCertsList() {
   let el = document.getElementById("certsList");
   if (!el) return;
   if (!portfolioData.certs) portfolioData.certs = [];
-  el.innerHTML = portfolioData.certs.map((c, i) =>
-    `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
+  el.innerHTML = portfolioData.certs
+    .map(
+      (c, i) =>
+        `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${c.name}</div>
-        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${c.date ? formatDate(c.date) : ''}</div>
+        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${c.date ? formatDate(c.date) : ""}</div>
       </div>
       <button onclick="removeCert(${i})" class="text-slate-300 hover:text-red-500 transition-colors p-1 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </button>
-    </div>`
-  ).join("");
+    </div>`,
+    )
+    .join("");
 }
-
 
 function save() {
   localStorage.setItem("voloDraft", JSON.stringify(portfolioData));
@@ -1059,7 +1132,8 @@ function load() {
     if (!portfolioData.softSkills) portfolioData.softSkills = [];
     if (!portfolioData.projects) portfolioData.projects = [];
     document.getElementById("name").value = portfolioData.name || "";
-    document.getElementById("headerTitle").value = portfolioData.headerTitle || "";
+    document.getElementById("headerTitle").value =
+      portfolioData.headerTitle || "";
     document.getElementById("bio").value = portfolioData.bio || "";
     document.getElementById("aboutMe").value = portfolioData.aboutMe || "";
     document.getElementById("email").value = portfolioData.email || "";
@@ -1068,19 +1142,26 @@ function load() {
     document.getElementById("instagram").value = portfolioData.instagram || "";
     document.getElementById("twitter").value = portfolioData.twitter || "";
     document.getElementById("whatsapp").value = portfolioData.whatsapp || "";
-    document.getElementById("statProjects").value = portfolioData.stats?.projects || "";
-    document.getElementById("statContribs").value = portfolioData.stats?.contributions || "";
-    document.getElementById("statSatisfaction").value = portfolioData.stats?.satisfaction || "";
+    document.getElementById("statProjects").value =
+      portfolioData.stats?.projects || "";
+    document.getElementById("statContribs").value =
+      portfolioData.stats?.contributions || "";
+    document.getElementById("statSatisfaction").value =
+      portfolioData.stats?.satisfaction || "";
 
-    ["email", "linkedin", "github", "instagram", "twitter", "whatsapp"].forEach(id => {
-      handleSocialInput(id, document.getElementById(id).value);
-    });
+    ["email", "linkedin", "github", "instagram", "twitter", "whatsapp"].forEach(
+      (id) => {
+        handleSocialInput(id, document.getElementById(id).value);
+      },
+    );
 
     if (portfolioData.image) {
-      document.getElementById("imgPreview").innerHTML = `<img src="${portfolioData.image}" class="w-20 h-20 rounded-full">`;
+      document.getElementById("imgPreview").innerHTML =
+        `<img src="${portfolioData.image}" class="w-20 h-20 rounded-full">`;
     }
     if (portfolioData.resume) {
-      document.getElementById("resumePreview").innerHTML = `<span class="text-green-600">✓ Resume uploaded</span>`;
+      document.getElementById("resumePreview").innerHTML =
+        `<span class="text-green-600">✓ Resume uploaded</span>`;
     }
     renderSkillsList();
     renderSoftSkillsList();
@@ -1094,7 +1175,29 @@ function load() {
 }
 
 function clearAll() {
-  portfolioData = { name: "", headerTitle: "", bio: "", aboutMe: "", image: "", resume: "", skills: [], softSkills: [], projects: [], education: [], experience: [], awards: [], certs: [], email: "", linkedin: "", github: "", instagram: "", twitter: "", whatsapp: "", stats: { projects: "", contributions: "", satisfaction: "" }, themeColor: "blue" };
+  portfolioData = {
+    name: "",
+    headerTitle: "",
+    bio: "",
+    aboutMe: "",
+    image: "",
+    resume: "",
+    skills: [],
+    softSkills: [],
+    projects: [],
+    education: [],
+    experience: [],
+    awards: [],
+    certs: [],
+    email: "",
+    linkedin: "",
+    github: "",
+    instagram: "",
+    twitter: "",
+    whatsapp: "",
+    stats: { projects: "", contributions: "", satisfaction: "" },
+    themeColor: "blue",
+  };
   document.getElementById("name").value = "";
   document.getElementById("headerTitle").value = "";
   document.getElementById("bio").value = "";
@@ -1135,7 +1238,7 @@ function validateSocialLink(id, value) {
     github: /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9_-]+\/?$/,
     instagram: /^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9._-]+\/?$/,
     twitter: /^(https?:\/\/)?(www\.)?(twitter\.com|x\.com)\/[a-zA-Z0-9_-]+\/?$/,
-    whatsapp: /^\+?[0-9]{10,15}$/
+    whatsapp: /^\+?[0-9]{10,15}$/,
   };
   return patterns[id] ? patterns[id].test(value) : true;
 }
@@ -1146,16 +1249,16 @@ function handleSocialInput(id, value) {
   const errorEl = document.getElementById(`${id}-error`);
 
   if (value && !isValid) {
-    el.classList.add('input-error');
-    el.classList.remove('input-success');
-    errorEl.classList.remove('hidden');
+    el.classList.add("input-error");
+    el.classList.remove("input-success");
+    errorEl.classList.remove("hidden");
   } else if (value && isValid) {
-    el.classList.remove('input-error');
-    el.classList.add('input-success');
-    errorEl.classList.add('hidden');
+    el.classList.remove("input-error");
+    el.classList.add("input-success");
+    errorEl.classList.add("hidden");
   } else {
-    el.classList.remove('input-error', 'input-success');
-    errorEl.classList.add('hidden');
+    el.classList.remove("input-error", "input-success");
+    errorEl.classList.add("hidden");
   }
 
   portfolioData[id] = value;
@@ -1165,47 +1268,106 @@ function handleSocialInput(id, value) {
 
 function setup() {
   // Prevent future dates
-  const today = new Date().toISOString().split('T')[0];
-  ["eduYear", "expDate", "awardDate", "certDate", "newProjectDate"].forEach(id => {
-    let el = document.getElementById(id);
-    if (el) el.max = today;
+  const today = new Date().toISOString().split("T")[0];
+  ["eduYear", "expDate", "awardDate", "certDate", "newProjectDate"].forEach(
+    (id) => {
+      let el = document.getElementById(id);
+      if (el) el.max = today;
+    },
+  );
+
+  document.getElementById("name").addEventListener("input", (e) => {
+    portfolioData.name = e.target.value;
+    save();
+    render();
+  });
+  document.getElementById("headerTitle").addEventListener("input", (e) => {
+    portfolioData.headerTitle = e.target.value;
+    save();
+    render();
+  });
+  document.getElementById("bio").addEventListener("input", (e) => {
+    portfolioData.bio = e.target.value;
+    save();
+    render();
+  });
+  document.getElementById("aboutMe").addEventListener("input", (e) => {
+    portfolioData.aboutMe = e.target.value;
+    save();
+    render();
+  });
+  document
+    .getElementById("email")
+    .addEventListener("input", (e) =>
+      handleSocialInput("email", e.target.value),
+    );
+  document
+    .getElementById("linkedin")
+    .addEventListener("input", (e) =>
+      handleSocialInput("linkedin", e.target.value),
+    );
+  document
+    .getElementById("github")
+    .addEventListener("input", (e) =>
+      handleSocialInput("github", e.target.value),
+    );
+  document
+    .getElementById("instagram")
+    .addEventListener("input", (e) =>
+      handleSocialInput("instagram", e.target.value),
+    );
+  document
+    .getElementById("twitter")
+    .addEventListener("input", (e) =>
+      handleSocialInput("twitter", e.target.value),
+    );
+  document
+    .getElementById("whatsapp")
+    .addEventListener("input", (e) =>
+      handleSocialInput("whatsapp", e.target.value),
+    );
+
+  document.getElementById("statProjects").addEventListener("input", (e) => {
+    if (!portfolioData.stats) portfolioData.stats = {};
+    portfolioData.stats.projects = e.target.value;
+    save();
+    render();
+  });
+  document.getElementById("statContribs").addEventListener("input", (e) => {
+    if (!portfolioData.stats) portfolioData.stats = {};
+    portfolioData.stats.contributions = e.target.value;
+    save();
+    render();
+  });
+  document.getElementById("statSatisfaction").addEventListener("input", (e) => {
+    if (!portfolioData.stats) portfolioData.stats = {};
+    portfolioData.stats.satisfaction = e.target.value;
+    save();
+    render();
   });
 
-  document.getElementById("name").addEventListener("input", e => { portfolioData.name = e.target.value; save(); render(); });
-  document.getElementById("headerTitle").addEventListener("input", e => { portfolioData.headerTitle = e.target.value; save(); render(); });
-  document.getElementById("bio").addEventListener("input", e => { portfolioData.bio = e.target.value; save(); render(); });
-  document.getElementById("aboutMe").addEventListener("input", e => { portfolioData.aboutMe = e.target.value; save(); render(); });
-  document.getElementById("email").addEventListener("input", e => handleSocialInput("email", e.target.value));
-  document.getElementById("linkedin").addEventListener("input", e => handleSocialInput("linkedin", e.target.value));
-  document.getElementById("github").addEventListener("input", e => handleSocialInput("github", e.target.value));
-  document.getElementById("instagram").addEventListener("input", e => handleSocialInput("instagram", e.target.value));
-  document.getElementById("twitter").addEventListener("input", e => handleSocialInput("twitter", e.target.value));
-  document.getElementById("whatsapp").addEventListener("input", e => handleSocialInput("whatsapp", e.target.value));
-
-  document.getElementById("statProjects").addEventListener("input", e => { if (!portfolioData.stats) portfolioData.stats = {}; portfolioData.stats.projects = e.target.value; save(); render(); });
-  document.getElementById("statContribs").addEventListener("input", e => { if (!portfolioData.stats) portfolioData.stats = {}; portfolioData.stats.contributions = e.target.value; save(); render(); });
-  document.getElementById("statSatisfaction").addEventListener("input", e => { if (!portfolioData.stats) portfolioData.stats = {}; portfolioData.stats.satisfaction = e.target.value; save(); render(); });
-
-  document.getElementById("profileImage").addEventListener("change", e => {
+  document.getElementById("profileImage").addEventListener("change", (e) => {
     let file = e.target.files[0];
     if (file) {
       let reader = new FileReader();
-      reader.onload = ev => {
+      reader.onload = (ev) => {
         portfolioData.image = ev.target.result;
-        document.getElementById("imgPreview").innerHTML = `<img src="${portfolioData.image}" class="w-20 h-20 rounded-full">`;
+        document.getElementById("imgPreview").innerHTML =
+          `<img src="${portfolioData.image}" class="w-20 h-20 rounded-full">`;
         save();
       };
       reader.readAsDataURL(file);
     }
   });
 
-  document.getElementById("resumePdf").addEventListener("change", e => {
+  document.getElementById("resumePdf").addEventListener("change", (e) => {
     let file = e.target.files[0];
     if (file) {
       let reader = new FileReader();
-      reader.onload = ev => {
+      reader.onload = (ev) => {
         portfolioData.resume = ev.target.result;
-        document.getElementById("resumePreview").innerHTML = `<span class="text-green-600">✓ Resume uploaded: ${file.name}</span>`;
+        document.getElementById("resumePreview").innerHTML =
+          `<span class="text-green-600">✓ Resume uploaded: ${file.name}</span>`;
         save();
       };
       reader.readAsDataURL(file);
@@ -1256,7 +1418,7 @@ Built with VOLO Portfolio Builder
   const blob = await zip.generateAsync({ type: "blob" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `${portfolioData.name.replace(/\s+/g, '_')}_Portfolio.zip`;
+  a.download = `${portfolioData.name.replace(/\s+/g, "_")}_Portfolio.zip`;
   a.click();
 }
 
