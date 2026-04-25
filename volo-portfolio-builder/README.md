@@ -26,12 +26,35 @@
 ## 📌 Project Overview
 **VOLO** is a sophisticated portfolio builder designed with a focus on speed, aesthetics, and user autonomy. It allows developers and designers to bypass the complexity of modern build tools, offering a seamless "Launch to Export" workflow. The platform features real-time previewing, dynamic theming, and a high-performance ZIP export system.
 
-## 🛠️ Top 5 Skills Used
-1. **System Architecture**: Building a state-driven real-time preview engine.
-2. **UI/UX Design**: Implementing cinematic glassmorphism and parallax experiences.
-3. **Template Engineering**: Developing reusable Handlebars-based component systems.
-4. **Performance Optimization**: Achieving 100/100 Lighthouse metrics on exported sites.
-5. **Client-Side Logic**: Complex data management and binary file generation (JSZip).
+## 🎯 Engineering Excellence & Metrics
+VOLO is built with a focus on measurable success. Every portfolio generated is validated against the following industry-standard metrics:
+
+### 1. Technical Performance (Verification)
+*   **Core Web Vitals**: Targetting 100/100 Lighthouse scores.
+    *   **LCP (Largest Contentful Paint)**: Optimized asset loading for < 1.2s.
+    *   **INP (Interaction to Next Paint)**: Ensuring high responsiveness.
+    *   **CLS (Cumulative Layout Shift)**: Zero layout jumping via pre-defined aspect ratios.
+*   **Time to Interactive (TTI)**: Minimal JS execution time for instant usability.
+
+### 2. Usability & Accessibility (Validation)
+*   **Task Success Rate (TSR)**: Aiming for 100% success in the "Launch to Export" workflow.
+*   **WCAG Compliance**: Verification against AA/AAA levels for inclusive design.
+*   **System Usability Scale (SUS)**: Benchmarking perceived ease-of-use.
+*   **Learnability**: Designing for zero-curve proficiency.
+
+### 3. Business & Engagement
+*   **Conversion Rate (CR)**: Optimizing generated CTAs to drive visitor action.
+*   **Bounce Rate Reduction**: Using cinematic UI to increase "Dwell Time."
+*   **Retention Rate**: Persistent drafting via LocalStorage to encourage return visits.
+
+---
+
+## 🛠️ Key Competencies
+*   **System Architecture**: State-driven real-time preview engine with local persistence.
+*   **UI/UX Design**: Cinematic glassmorphism, parallax effects, and visual hierarchy.
+*   **Template Engineering**: Reusable Handlebars-based component systems.
+*   **Performance Optimization**: Critical CSS pathing and optimized asset delivery.
+*   **Data Management**: Client-side binary generation and complex state handling.
 
 ---
 
@@ -39,6 +62,7 @@
 - **Cinematic Templates**: Professionally designed, responsive layouts with parallax and glassmorphism.
 - **Real-time Engine**: Instant visual feedback as you modify your professional story.
 - **One-Click Export**: Generates a production-ready, SEO-optimized ZIP package.
+- **Accessibility First**: Automated color contrast checks and screen-reader friendly structures.
 - **Dynamic Theming**: Support for 16+ theme colors and persistent Dark/Light modes.
 
 ---
@@ -73,7 +97,7 @@ volo-portfolio-builder/
 ---
 
 ## 👤 Author & Contact
-**Pawan Simha**
+**Pawan Simha R**
 - **Email**: iampawansimha.2004@gmail.com
 - **GitHub**: @PawanSimha
 

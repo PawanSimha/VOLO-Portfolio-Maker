@@ -4,11 +4,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VOLO | The Future of Portfolio Building</title>
+  <title>VOLO | High-Performance Cinematic Portfolio Builder for Creators</title>
   <meta name="description"
-    content="Build cinematic, high-performance professional portfolios in minutes with VOLO. No-code engine for developers and designers.">
-  <meta name="keywords" content="Portfolio Builder, Developer Portfolio, Designer Showcase, No-code Portfolio, VOLO">
-  <meta name="author" content="Pawan Simha">
+    content="Build cinematic, high-performance professional portfolios in minutes with VOLO. The ultimate no-code engine for developers and designers to export production-ready sites.">
+  <meta name="keywords"
+    content="Portfolio Builder, Developer Portfolio, Designer Showcase, No-code Portfolio, VOLO, Static Site Generator, JSZip Portfolio, Cinematic UI">
+  <meta name="author" content="Pawan Simha R">
+  <link rel="canonical" href="https://volo.example.com/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://volo.example.com/">
+  <meta property="og:title" content="VOLO | Cinematic Portfolio Builder">
+  <meta property="og:description"
+    content="Craft your professional story in minutes with high-performance, cinematic templates.">
+  <meta property="og:image" content="https://volo.example.com/assets/images/og-preview.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://volo.example.com/">
+  <meta property="twitter:title" content="VOLO | Cinematic Portfolio Builder">
+  <meta property="twitter:description"
+    content="Craft your professional story in minutes with high-performance templates.">
+  <meta property="twitter:image" content="https://volo.example.com/assets/images/og-preview.png">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VOLO Portfolio Builder",
+      "operatingSystem": "Web",
+      "applicationCategory": "DesignApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Pawan Simha R"
+      },
+      "description": "A high-performance engine for creating cinematic, production-ready portfolios in minutes."
+    }
+  </script>
+
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico?v=2">
   <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico?v=2">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -171,9 +211,10 @@
   <div class="hero-glow bottom-[-100px] right-[-100px] opacity-50"></div>
 
   <nav class="fixed top-0 left-0 w-full z-[100] glass border-b border-white/5">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center" role="navigation"
+      aria-label="Main Navigation">
       <a href="#home" class="flex items-center gap-3 group">
-        <img src="assets/images/logo.png" alt="VOLO Logo" fetchpriority="high"
+        <img src="assets/images/logo.png" alt="VOLO Home" fetchpriority="high"
           class="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300">
         <span class="text-2xl font-black tracking-tighter uppercase">VOLO</span>
       </a>
@@ -203,7 +244,7 @@
   <!-- Mobile Menu Overlay -->
   <div id="mobileMenu"
     class="fixed inset-0 z-[150] bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 md:hidden">
-    <button id="closeMenu" class="absolute top-6 right-6 text-white p-2">
+    <button id="closeMenu" class="absolute top-6 right-6 text-white p-2" aria-label="Close Menu">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" x2="6" y1="6" y2="18" />
@@ -274,6 +315,7 @@
           id="parallax-img-wrap">
           <!-- Background Image -->
           <div id="parallax-bg-img" class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
+            loading="lazy"
             style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop');">
           </div>
           <!-- Dark Overlay -->
@@ -299,7 +341,7 @@
           class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
           id="parallax-img-wrap-quality">
           <!-- Background Image -->
-          <div id="parallax-bg-img-quality"
+          <div id="parallax-bg-img-quality" loading="lazy"
             class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
             style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1600&auto=format&fit=crop');">
           </div>
@@ -327,7 +369,7 @@
           class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
           id="parallax-img-wrap-modern">
           <!-- Background Image -->
-          <div id="parallax-bg-img-modern"
+          <div id="parallax-bg-img-modern" loading="lazy"
             class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
             style="background-image: url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1600&auto=format&fit=crop');">
           </div>
@@ -355,7 +397,7 @@
           class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
           id="parallax-img-wrap-innovation">
           <!-- Background Image -->
-          <div id="parallax-bg-img-innovation"
+          <div id="parallax-bg-img-innovation" loading="lazy"
             class="absolute inset-0 bg-cover bg-center transition-all duration-300 ease-out"
             style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop');">
           </div>
@@ -379,11 +421,11 @@
         <div
           class="container mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 pb-32 pt-16 md:grid-cols-12 border-t border-white/5">
           <div class="col-span-1 md:col-span-4 space-y-4">
-            <div
+            <nav aria-label="Breadcrumb"
               class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">
               <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-              About Us
-            </div>
+              Home > About
+            </nav>
             <h2 class="text-3xl font-bold text-white leading-tight">Empowering creators to <span
                 class="text-blue-500">own their identity</span></h2>
           </div>
@@ -425,9 +467,10 @@
       </h2>
 
       <!-- Draggable Cards Container -->
-      <div id="drag-container" class="absolute inset-0 z-10">
+      <div id="drag-container" class="absolute inset-0 z-10" aria-label="Interactive visual playground">
         <img src="https://images.unsplash.com/photo-1635373670332-43ea883bb081?q=80&w=800&auto=format&fit=crop"
-          draggable="false" class="drag-element absolute w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+          draggable="false" alt="Cinematic Portfolio Example 1"
+          class="drag-element absolute w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
           style="top: 20%; left: 25%; transform: rotate(6deg);">
         <img src="https://images.unsplash.com/photo-1576174464184-fb78fe882bfd?q=80&w=800&auto=format&fit=crop"
           draggable="false" class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
@@ -563,7 +606,8 @@
         </div>
         <div class="grid md:grid-cols-3 gap-8">
           <div class="p-7 glass rounded-[2.5rem] card-hover transition-all space-y-6">
-            <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center">
+            <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center"
+              aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path
@@ -631,6 +675,7 @@
               <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
                 style="transform: translateZ(20px); transform-style: preserve-3d;">
                 <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800"
+                  alt="Modern Minimalist Template Preview"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
               </div>
               <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
@@ -659,6 +704,7 @@
               <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
                 style="transform: translateZ(20px); transform-style: preserve-3d;">
                 <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+                  alt="Creative Pro Template Preview"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
               </div>
               <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
@@ -688,6 +734,7 @@
               <div class="aspect-[4/3] bg-slate-900 overflow-hidden"
                 style="transform: translateZ(20px); transform-style: preserve-3d;">
                 <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                  alt="Executive Portfolio Template Preview"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
               </div>
               <div class="p-6" style="transform: translateZ(50px); transform-style: preserve-3d;">
@@ -717,7 +764,7 @@
       <div class="container mx-auto max-w-5xl relative z-10">
         <div class="grid md:grid-cols-2 gap-16 items-center">
           <div class="relative order-2 md:order-1">
-            <div class="absolute -inset-10 bg-blue-600/20 rounded-full blur-3xl opacity-30"></div>
+            <div class="absolute -inset-10 bg-blue-600/20 rounded-full blur-3xl opacity-30" aria-hidden="true"></div>
             <img src="assets/images/logo.png" alt="VOLO Logo Anatomy"
               class="relative z-10 w-full max-w-xs mx-auto animate-float object-contain">
           </div>
@@ -1034,7 +1081,7 @@
         <div
           class="pt-8 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
           <p>© 2026 VOLO Portfolio Builder. All rights reserved.</p>
-          <p>Designed with <span class="text-red-500">♥</span> for creators everywhere.</p>
+          <p>Designed with <span class="text-red-500">♥</span> by Pawan Simha R.</p>
         </div>
       </div>
     </footer>

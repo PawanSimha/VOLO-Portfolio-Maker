@@ -1,20 +1,20 @@
-Handlebars.registerHelper('eq', function(a, b) {
+Handlebars.registerHelper('eq', function (a, b) {
   return a === b;
 });
 
-Handlebars.registerHelper('gt', function(a, b) {
+Handlebars.registerHelper('gt', function (a, b) {
   return a > b;
 });
 
-Handlebars.registerHelper('substring', function(str, start, end) {
+Handlebars.registerHelper('substring', function (str, start, end) {
   return str ? str.substring(start, end) : '';
 });
 
-Handlebars.registerHelper('longDesc', function(str, len) {
+Handlebars.registerHelper('longDesc', function (str, len) {
   return str && str.length > len;
 });
 
-Handlebars.registerHelper('trunc', function(str, len) {
+Handlebars.registerHelper('trunc', function (str, len) {
   if (!str) return '';
   return str.length > len ? str.substring(0, len) + '...' : str;
 });
@@ -26,15 +26,15 @@ function formatDate(dateStr) {
   return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 }
 
-Handlebars.registerHelper('formatDate', function(dateStr) {
+Handlebars.registerHelper('formatDate', function (dateStr) {
   return formatDate(dateStr);
 });
 
-Handlebars.registerHelper('or', function(a, b) {
+Handlebars.registerHelper('or', function (a, b) {
   return a || b;
 });
 
-Handlebars.registerHelper('initials', function(name) {
+Handlebars.registerHelper('initials', function (name) {
   if (!name) return 'V';
   const parts = name.trim().split(/\s+/);
   if (parts.length === 1) return parts[0][0].toUpperCase();
@@ -79,6 +79,7 @@ function loadTemplate() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{name}} - Portfolio</title>
+  <meta name="developer" content="Pawan Simha R">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -581,7 +582,7 @@ function loadTemplate() {
 
     <div class="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-medium tracking-wider uppercase text-slate-500">
       <p>© 2026 {{name}}. All rights reserved.</p>
-      <p>Handcrafted with ❤️ using VOLO Builder</p>
+      <p>Handcrafted with ❤️ using VOLO Builder by Pawan Simha R</p>
     </div>
   </footer>
 </body>
@@ -642,7 +643,7 @@ function render() {
   const preview = document.getElementById("preview");
   const previewContainer = preview.parentElement;
   preview.innerHTML = html;
-  
+
   if (portfolioData.themeMode === 'dark') {
     preview.classList.add('dark');
     previewContainer.classList.add('dark');
@@ -650,7 +651,7 @@ function render() {
     preview.classList.remove('dark');
     previewContainer.classList.remove('dark');
   }
-  
+
   // Highlight selected theme mode
   const modes = ['light', 'dark'];
   modes.forEach(m => {
@@ -659,7 +660,7 @@ function render() {
       if (portfolioData.themeMode === m) {
         btn.classList.add('border-blue-500', 'bg-blue-50/50', 'ring-2', 'ring-blue-500/20');
         if (document.body.classList.contains('dark')) {
-            btn.classList.add('bg-blue-900/20');
+          btn.classList.add('bg-blue-900/20');
         }
       } else {
         btn.classList.remove('border-blue-500', 'bg-blue-50/50', 'ring-2', 'ring-blue-500/20', 'bg-blue-900/20');
@@ -726,7 +727,7 @@ function addCert() {
   if (n && file) {
     let reader = new FileReader();
     reader.onload = ev => {
-      portfolioData.certs.push({name: n, org: o, date: d, image: ev.target.result});
+      portfolioData.certs.push({ name: n, org: o, date: d, image: ev.target.result });
       portfolioData.certs.sort((a, b) => new Date(b.date) - new Date(a.date));
       finalizeCertAdd();
     };
@@ -750,7 +751,7 @@ function addProject() {
   let ds = document.getElementById("newProjectDesc").value.trim();
   if (n) {
     if (!Array.isArray(portfolioData.projects)) portfolioData.projects = [];
-    portfolioData.projects.push({name: n, date: d, description: ds});
+    portfolioData.projects.push({ name: n, date: d, description: ds });
     portfolioData.projects.sort((a, b) => {
       if (!a.date) return 1;
       if (!b.date) return -1;
@@ -772,7 +773,7 @@ function addEducation() {
   let g = document.getElementById("eduGrade").value.trim();
   if (l || s) {
     if (!Array.isArray(portfolioData.education)) portfolioData.education = [];
-    portfolioData.education.push({level: l, school: s, year: y, grade: g});
+    portfolioData.education.push({ level: l, school: s, year: y, grade: g });
     portfolioData.education.sort((a, b) => {
       if (!a.year) return 1;
       if (!b.year) return -1;
@@ -800,7 +801,7 @@ function addExperience() {
     if (file) {
       let reader = new FileReader();
       reader.onload = ev => {
-        portfolioData.experience.push({event: e, date: d, description: ds, image: ev.target.result});
+        portfolioData.experience.push({ event: e, date: d, description: ds, image: ev.target.result });
         portfolioData.experience.sort((a, b) => {
           if (!a.date) return 1;
           if (!b.date) return -1;
@@ -810,7 +811,7 @@ function addExperience() {
       };
       reader.readAsDataURL(file);
     } else {
-      portfolioData.experience.push({event: e, date: d, description: ds, image: ""});
+      portfolioData.experience.push({ event: e, date: d, description: ds, image: "" });
       portfolioData.experience.sort((a, b) => {
         if (!a.date) return 1;
         if (!b.date) return -1;
@@ -842,13 +843,13 @@ function addAward() {
     if (file) {
       let reader = new FileReader();
       reader.onload = ev => {
-        portfolioData.awards.push({name: n, date: d, description: ds, image: ev.target.result});
+        portfolioData.awards.push({ name: n, date: d, description: ds, image: ev.target.result });
         portfolioData.awards.sort((a, b) => new Date(b.date) - new Date(a.date));
         finalizeAwardAdd();
       };
       reader.readAsDataURL(file);
     } else {
-      portfolioData.awards.push({name: n, date: d, description: ds, image: ""});
+      portfolioData.awards.push({ name: n, date: d, description: ds, image: "" });
       portfolioData.awards.sort((a, b) => new Date(b.date) - new Date(a.date));
       finalizeAwardAdd();
     }
@@ -919,7 +920,7 @@ function removeCert(i) {
 function renderSkillsList() {
   let el = document.getElementById("skillsList");
   if (!el) return;
-  el.innerHTML = portfolioData.skills.map((s, i) => 
+  el.innerHTML = portfolioData.skills.map((s, i) =>
     `<span class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-blue-100 flex items-center gap-2 max-w-full break-all">
       ${s} 
       <button onclick="removeSkill(${i})" class="text-blue-300 hover:text-red-500 transition-colors">
@@ -934,7 +935,7 @@ function renderSkillsList() {
 function renderSoftSkillsList() {
   let el = document.getElementById("softSkillsList");
   if (!el) return;
-  el.innerHTML = portfolioData.softSkills.map((s, i) => 
+  el.innerHTML = portfolioData.softSkills.map((s, i) =>
     `<span class="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-indigo-100 flex items-center gap-2 max-w-full break-all">
       ${s} 
       <button onclick="removeSoftSkill(${i})" class="text-indigo-300 hover:text-red-500 transition-colors">
@@ -950,7 +951,7 @@ function renderProjectsList() {
   let el = document.getElementById("projectsList");
   if (!el) return;
   if (!portfolioData.projects) portfolioData.projects = [];
-  el.innerHTML = portfolioData.projects.map((p, i) => 
+  el.innerHTML = portfolioData.projects.map((p, i) =>
     `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${p.name}</div>
@@ -969,7 +970,7 @@ function renderEducationList() {
   let el = document.getElementById("educationList");
   if (!el) return;
   if (!portfolioData.education) portfolioData.education = [];
-  el.innerHTML = portfolioData.education.map((e, i) => 
+  el.innerHTML = portfolioData.education.map((e, i) =>
     `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${e.level}</div>
@@ -988,7 +989,7 @@ function renderExperienceList() {
   let el = document.getElementById("experienceList");
   if (!el) return;
   if (!portfolioData.experience) portfolioData.experience = [];
-  el.innerHTML = portfolioData.experience.map((e, i) => 
+  el.innerHTML = portfolioData.experience.map((e, i) =>
     `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${e.event}</div>
@@ -1007,7 +1008,7 @@ function renderAwardsList() {
   let el = document.getElementById("awardsList");
   if (!el) return;
   if (!portfolioData.awards) portfolioData.awards = [];
-  el.innerHTML = portfolioData.awards.map((a, i) => 
+  el.innerHTML = portfolioData.awards.map((a, i) =>
     `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${a.name}</div>
@@ -1026,7 +1027,7 @@ function renderCertsList() {
   let el = document.getElementById("certsList");
   if (!el) return;
   if (!portfolioData.certs) portfolioData.certs = [];
-  el.innerHTML = portfolioData.certs.map((c, i) => 
+  el.innerHTML = portfolioData.certs.map((c, i) =>
     `<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center group">
       <div class="flex-1 min-w-0 pr-2">
         <div class="font-bold text-slate-800 truncate text-xs">${c.name}</div>
@@ -1093,7 +1094,7 @@ function load() {
 }
 
 function clearAll() {
-  portfolioData = {name: "", headerTitle: "", bio: "", aboutMe: "", image: "", resume: "", skills: [], softSkills: [], projects: [], education: [], experience: [], awards: [], certs: [], email: "", linkedin: "", github: "", instagram: "", twitter: "", whatsapp: "", stats: {projects: "", contributions: "", satisfaction: ""}, themeColor: "blue"};
+  portfolioData = { name: "", headerTitle: "", bio: "", aboutMe: "", image: "", resume: "", skills: [], softSkills: [], projects: [], education: [], experience: [], awards: [], certs: [], email: "", linkedin: "", github: "", instagram: "", twitter: "", whatsapp: "", stats: { projects: "", contributions: "", satisfaction: "" }, themeColor: "blue" };
   document.getElementById("name").value = "";
   document.getElementById("headerTitle").value = "";
   document.getElementById("bio").value = "";
@@ -1143,7 +1144,7 @@ function handleSocialInput(id, value) {
   const isValid = validateSocialLink(id, value);
   const el = document.getElementById(id);
   const errorEl = document.getElementById(`${id}-error`);
-  
+
   if (value && !isValid) {
     el.classList.add('input-error');
     el.classList.remove('input-success');
@@ -1156,7 +1157,7 @@ function handleSocialInput(id, value) {
     el.classList.remove('input-error', 'input-success');
     errorEl.classList.add('hidden');
   }
-  
+
   portfolioData[id] = value;
   save();
   render();
@@ -1180,11 +1181,11 @@ function setup() {
   document.getElementById("instagram").addEventListener("input", e => handleSocialInput("instagram", e.target.value));
   document.getElementById("twitter").addEventListener("input", e => handleSocialInput("twitter", e.target.value));
   document.getElementById("whatsapp").addEventListener("input", e => handleSocialInput("whatsapp", e.target.value));
-  
+
   document.getElementById("statProjects").addEventListener("input", e => { if (!portfolioData.stats) portfolioData.stats = {}; portfolioData.stats.projects = e.target.value; save(); render(); });
   document.getElementById("statContribs").addEventListener("input", e => { if (!portfolioData.stats) portfolioData.stats = {}; portfolioData.stats.contributions = e.target.value; save(); render(); });
   document.getElementById("statSatisfaction").addEventListener("input", e => { if (!portfolioData.stats) portfolioData.stats = {}; portfolioData.stats.satisfaction = e.target.value; save(); render(); });
-  
+
   document.getElementById("profileImage").addEventListener("change", e => {
     let file = e.target.files[0];
     if (file) {
@@ -1197,7 +1198,7 @@ function setup() {
       reader.readAsDataURL(file);
     }
   });
-  
+
   document.getElementById("resumePdf").addEventListener("change", e => {
     let file = e.target.files[0];
     if (file) {
@@ -1210,7 +1211,7 @@ function setup() {
       reader.readAsDataURL(file);
     }
   });
-  
+
   document.getElementById("addEducationBtn").onclick = addEducation;
   document.getElementById("addExperienceBtn").onclick = addExperience;
 
@@ -1231,10 +1232,10 @@ async function downloadZip() {
   loadTemplate();
   const compiled = Handlebars.compile(template);
   const html = compiled(portfolioData);
-  
+
   // Add the main HTML file
   zip.file("index.html", html);
-  
+
   // Add a README to make it feel like a "Proper" package
   const readme = `
 # Your VOLO Portfolio
@@ -1252,7 +1253,7 @@ Built with VOLO Portfolio Builder
   `.trim();
   zip.file("README.txt", readme);
 
-  const blob = await zip.generateAsync({type: "blob"});
+  const blob = await zip.generateAsync({ type: "blob" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = `${portfolioData.name.replace(/\s+/g, '_')}_Portfolio.zip`;
