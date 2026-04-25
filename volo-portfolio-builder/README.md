@@ -11,10 +11,11 @@ VOLO is a powerful, modern, and easy-to-use portfolio builder designed for devel
 
 ## How to Use
 
-1. Open `index.html` in your browser.
-2. Fill in your professional details in the sidebar.
-3. Select a template and preview your site.
-4. Click **Export Portfolio** to download your custom website.
+1. Open `index.html` in your browser to view the VOLO Home Page.
+2. Click **Launch Builder** to open the `template1.html` tool.
+3. Fill in your professional details in the sidebar.
+4. Select a template and preview your site.
+5. Click **Download** to export your custom website as a ZIP package.
 
 ## Technologies Used
 

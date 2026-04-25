@@ -1,3 +1,7 @@
+Handlebars.registerHelper('eq', function(a, b) {
+  return a === b;
+});
+
 Handlebars.registerHelper('gt', function(a, b) {
   return a > b;
 });
@@ -61,7 +65,9 @@ let portfolioData = {
     projects: "",
     contributions: "",
     satisfaction: ""
-  }
+  },
+  themeColor: "blue",
+  themeMode: "light"
 };
 
 let template = "";
@@ -84,6 +90,10 @@ function loadTemplate() {
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
+    .dark .glass {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
     .skill-tag {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -105,6 +115,29 @@ function loadTemplate() {
       overflow: hidden;
     }
   </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
   <script>
     function toggleReadMore(btn) {
       const p = btn.previousElementSibling;
@@ -164,34 +197,43 @@ function loadTemplate() {
         document.body.style.overflow = 'auto';
       }
     }
+
+    // Initialize theme
+    window.addEventListener('DOMContentLoaded', () => {
+      // No toggle, just apply the creator's chosen theme
+      if ('{{themeMode}}' === 'dark') {
+        document.body.classList.add('dark');
+      }
+    });
   </script>
 </head>
-<body class="bg-slate-50 text-slate-900">
-  <nav class="glass sticky top-0 z-50">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 {{#if (eq themeMode 'dark')}}dark{{/if}}">
+  <nav class="glass sticky top-0 z-50 dark:bg-slate-900/80 dark:border-slate-800">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/25 group-hover:rotate-12 transition-all duration-300">
+        <div class="w-10 h-10 bg-gradient-to-br from-{{themeColor}}-600 to-{{themeColor}}-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-{{themeColor}}-500/25 group-hover:rotate-12 transition-all duration-300">
           {{initials name}}
         </div>
-        <span class="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent group-hover:text-blue-600 transition-colors">{{name}}</span>
+        <span class="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent group-hover:text-{{themeColor}}-600 transition-colors">{{name}}</span>
       </a>
       
       <!-- Desktop Menu -->
       <div class="hidden md:flex gap-8 items-center">
-        {{#if aboutMe}}<a href="#about" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">About</a>{{/if}}
-        {{#if (or skills.length softSkills.length)}}<a href="#skills" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Skills</a>{{/if}}
-        {{#if projects.length}}<a href="#projects" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Projects</a>{{/if}}
-        {{#if education.length}}<a href="#education" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Education</a>{{/if}}
-        {{#if experience.length}}<a href="#experience" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Experience</a>{{/if}}
-        {{#if awards.length}}<a href="#awards" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Awards</a>{{/if}}
-        <a href="#contact" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Contact</a>
+        {{#if aboutMe}}<a href="#about" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">About</a>{{/if}}
+        {{#if (or skills.length softSkills.length)}}<a href="#skills" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">Skills</a>{{/if}}
+        {{#if projects.length}}<a href="#projects" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">Projects</a>{{/if}}
+        {{#if education.length}}<a href="#education" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">Education</a>{{/if}}
+        {{#if experience.length}}<a href="#experience" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">Experience</a>{{/if}}
+        {{#if awards.length}}<a href="#awards" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">Awards</a>{{/if}}
+        <a href="#contact" class="text-slate-600 dark:text-slate-400 hover:text-{{themeColor}}-600 dark:hover:text-{{themeColor}}-400 font-medium transition-colors">Contact</a>
+        
         {{#if resume}}
-        <a href="{{resume}}" download="{{name}}-Resume.pdf" class="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all shadow-md">Resume</a>
+        <a href="{{resume}}" download="{{name}}-Resume.pdf" class="px-5 py-2 bg-{{themeColor}}-600 text-white rounded-full font-semibold hover:bg-{{themeColor}}-700 transition-all shadow-md">Resume</a>
         {{/if}}
       </div>
 
       <!-- Mobile Menu Button -->
-      <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-600 hover:text-blue-600 transition-colors">
+      <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-600 hover:text-{{themeColor}}-600 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
       </button>
     </div>
@@ -204,16 +246,16 @@ function loadTemplate() {
     </button>
     
     <div class="flex flex-col space-y-10">
-      {{#if aboutMe}}<a href="#about" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">About</a>{{/if}}
-      {{#if (or skills.length softSkills.length)}}<a href="#skills" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">Skills</a>{{/if}}
-      {{#if projects.length}}<a href="#projects" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">Projects</a>{{/if}}
-      {{#if education.length}}<a href="#education" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">Education</a>{{/if}}
-      {{#if experience.length}}<a href="#experience" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">Experience</a>{{/if}}
-      {{#if awards.length}}<a href="#awards" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">Awards</a>{{/if}}
-      <a href="#contact" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-blue-400 transition-colors">Contact</a>
+      {{#if aboutMe}}<a href="#about" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">About</a>{{/if}}
+      {{#if (or skills.length softSkills.length)}}<a href="#skills" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">Skills</a>{{/if}}
+      {{#if projects.length}}<a href="#projects" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">Projects</a>{{/if}}
+      {{#if education.length}}<a href="#education" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">Education</a>{{/if}}
+      {{#if experience.length}}<a href="#experience" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">Experience</a>{{/if}}
+      {{#if awards.length}}<a href="#awards" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">Awards</a>{{/if}}
+      <a href="#contact" onclick="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-{{themeColor}}-400 transition-colors">Contact</a>
       {{#if resume}}
       <div class="pt-10">
-        <a href="{{resume}}" download="{{name}}-Resume.pdf" class="px-12 py-5 bg-blue-600 text-white rounded-3xl font-extrabold text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-500/40">Resume</a>
+        <a href="{{resume}}" download="{{name}}-Resume.pdf" class="px-12 py-5 bg-{{themeColor}}-600 text-white rounded-3xl font-extrabold text-xl hover:bg-{{themeColor}}-700 transition-all shadow-2xl shadow-{{themeColor}}-500/40">Resume</a>
       </div>
       {{/if}}
     </div>
@@ -225,19 +267,19 @@ function loadTemplate() {
       <div class="text-center md:text-left space-y-8 order-2 md:order-1">
         <div class="space-y-4">
           {{#if headerTitle}}
-          <div class="inline-block px-4 py-1.5 bg-blue-500/10 text-blue-400 text-sm font-bold rounded-lg uppercase tracking-widest border border-blue-500/20">{{headerTitle}}</div>
+          <div class="inline-block px-4 py-1.5 bg-{{themeColor}}-500/10 text-{{themeColor}}-400 text-sm font-bold rounded-lg uppercase tracking-widest border border-{{themeColor}}-500/20">{{headerTitle}}</div>
           {{/if}}
           <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight leading-tight">{{name}}</h1>
-          <p class="text-slate-400 text-base md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0 break-words">{{bio}}</p>
+          <p class="text-slate-400 dark:text-slate-300 text-base md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0 break-words">{{bio}}</p>
         </div>
         
         <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-          <a href="#contact" class="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2">
+          <a href="#contact" class="px-8 py-4 bg-{{themeColor}}-600 text-white rounded-2xl font-bold hover:bg-{{themeColor}}-700 transition-all shadow-lg shadow-{{themeColor}}-600/20 flex items-center gap-2">
             Let's Talk
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
           {{#if linkedin}}
-          <a href="{{linkedin}}" target="_blank" class="px-8 py-4 bg-slate-800 text-white rounded-2xl font-bold hover:bg-slate-700 transition-all border border-slate-700 flex items-center gap-2">
+          <a href="{{linkedin}}" target="_blank" class="px-8 py-4 bg-slate-800 dark:bg-slate-700 text-white rounded-2xl font-bold hover:bg-slate-700 dark:hover:bg-slate-600 transition-all border border-slate-700 flex items-center gap-2">
             LinkedIn
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
@@ -271,36 +313,36 @@ function loadTemplate() {
       <div class="order-1 md:order-2 flex justify-center md:justify-end">
         {{#if image}}
         <div class="relative">
-          <div class="absolute -inset-4 bg-blue-600/20 rounded-[4rem] blur-3xl animate-pulse"></div>
+          <div class="absolute -inset-4 bg-{{themeColor}}-600/20 rounded-[4rem] blur-3xl animate-pulse"></div>
           <img src="{{image}}" class="w-64 h-64 md:w-96 md:h-96 rounded-[3rem] object-cover border-8 border-slate-800 shadow-2xl relative z-10">
-          <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-indigo-600/10 rounded-full blur-2xl"></div>
+          <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-{{themeColor}}-600/10 rounded-full blur-2xl"></div>
         </div>
         {{/if}}
       </div>
     </div>
   </header>
   
-  <main class="max-w-5xl mx-auto px-6 py-20 space-y-24">
+  <main class="max-w-5xl mx-auto px-6 py-20 space-y-24 dark:bg-slate-950">
     {{#if aboutMe}}
     <section id="about" class="max-w-3xl mx-auto text-center">
-      <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-bold rounded-full mb-6 uppercase tracking-widest">About Me</div>
-      <p class="text-xl md:text-2xl text-slate-700 leading-relaxed font-medium italic break-words">"{{aboutMe}}"</p>
+      <div class="inline-block px-4 py-1.5 bg-{{themeColor}}-50 dark:bg-{{themeColor}}-950/30 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 text-sm font-bold rounded-full mb-6 uppercase tracking-widest">About Me</div>
+      <p class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic break-words">"{{aboutMe}}"</p>
     </section>
     {{/if}}
 
     {{#if (or skills.length softSkills.length)}}
     <section id="skills" class="text-center">
       <div class="flex items-center gap-4 mb-8">
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 shrink-0">Skills & Expertise</h2>
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Skills & Expertise</h2>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
       <div class="flex flex-wrap justify-center gap-3">
         {{#each skills}}
-        <span class="skill-tag px-6 py-3 bg-white border border-slate-200 text-blue-600 rounded-2xl font-bold shadow-sm break-words max-w-full hover:border-blue-400 hover:bg-blue-50 transition-all">{{this}}</span>
+        <span class="skill-tag px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 rounded-2xl font-bold shadow-sm break-words max-w-full hover:border-{{themeColor}}-400 hover:bg-{{themeColor}}-50 dark:hover:bg-{{themeColor}}-950/20 transition-all">{{this}}</span>
         {{/each}}
         {{#each softSkills}}
-        <span class="skill-tag px-6 py-3 bg-white border border-slate-200 text-indigo-600 rounded-2xl font-bold shadow-sm break-words max-w-full hover:border-indigo-400 hover:bg-indigo-50 transition-all">{{this}}</span>
+        <span class="skill-tag px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 rounded-2xl font-bold shadow-sm break-words max-w-full hover:border-{{themeColor}}-400 hover:bg-{{themeColor}}-50 dark:hover:bg-{{themeColor}}-950/20 transition-all">{{this}}</span>
         {{/each}}
       </div>
     </section>
@@ -309,53 +351,53 @@ function loadTemplate() {
     {{#if projects.length}}
     <section id="projects" class="text-center">
       <div class="flex items-center gap-4 mb-8">
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 shrink-0">Featured Projects</h2>
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Featured Projects</h2>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
       <div id="projectsGrid" class="grid md:grid-cols-2 gap-8">
         {{#each projects}}
-        <div class="project-card group p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl flex flex-col h-full overflow-hidden text-left {{#if (gt @index 1)}}hidden{{/if}}">
+        <div class="project-card group p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm hover:shadow-xl dark:hover:shadow-{{themeColor}}-500/10 flex flex-col h-full overflow-hidden text-left {{#if (gt @index 1)}}hidden{{/if}}">
           <div class="mb-4">
              <div class="flex justify-between items-start mb-1">
-               <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full uppercase tracking-wider">Project</span>
-               <span class="text-xs font-bold text-slate-400">{{formatDate date}}</span>
+               <span class="inline-block px-3 py-1 bg-{{themeColor}}-50 dark:bg-{{themeColor}}-950/30 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 text-xs font-bold rounded-full uppercase tracking-wider">Project</span>
+               <span class="text-xs font-bold text-slate-400 dark:text-slate-500">{{formatDate date}}</span>
              </div>
-             <h3 class="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors break-words">{{name}}</h3>
+             <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-{{themeColor}}-600 dark:group-hover:text-{{themeColor}}-400 transition-colors break-words">{{name}}</h3>
           </div>
-          <p class="text-slate-600 leading-relaxed mb-4 break-words line-clamp-3">{{description}}</p>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 break-words line-clamp-3">{{description}}</p>
           {{#if (longDesc description 150)}}
-          <button onclick="toggleReadMore(this)" class="text-blue-600 font-semibold text-sm hover:underline text-left">Read More</button>
+          <button onclick="toggleReadMore(this)" class="text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-semibold text-sm hover:underline text-left">Read More</button>
           {{/if}}
         </div>
         {{/each}}
       </div>
       {{#if (gt projects.length 2)}}
-      <button onclick="showAllProjects(this)" class="mt-10 px-8 py-3 bg-white border border-slate-200 text-blue-600 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-sm active:scale-95">Show All Projects</button>
+      <button onclick="showAllProjects(this)" class="mt-10 px-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-95">Show All Projects</button>
       {{/if}}
     </section>
     {{/if}}
     {{#if education.length}}
     <section id="education" class="text-center">
       <div class="flex items-center gap-4 mb-8">
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 shrink-0">Education</h2>
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Education</h2>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
         {{#each education}}
-        <div class="edu-item p-8 bg-white border border-slate-100 rounded-3xl shadow-sm text-left {{#if (gt @index 3)}}hidden{{/if}}">
+        <div class="edu-item p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm text-left {{#if (gt @index 3)}}hidden{{/if}}">
           <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-slate-900">{{level}}</h3>
-            <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{{formatDate year}}</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{level}}</h3>
+            <span class="text-sm font-bold text-{{themeColor}}-600 bg-{{themeColor}}-50 dark:bg-{{themeColor}}-950/30 px-3 py-1 rounded-full">{{formatDate year}}</span>
           </div>
-          <p class="text-slate-700 font-semibold break-words">{{school}}</p>
-          <p class="text-slate-500 text-sm mt-2">Grade: {{grade}}</p>
+          <p class="text-slate-700 dark:text-slate-300 font-semibold break-words">{{school}}</p>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Grade: {{grade}}</p>
         </div>
         {{/each}}
       </div>
       {{#if (gt education.length 4)}}
-      <button onclick="showAllEducation(this)" class="mt-10 px-8 py-3 bg-white border border-slate-200 text-blue-600 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-sm active:scale-95">Show More Education</button>
+      <button onclick="showAllEducation(this)" class="mt-10 px-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-95">Show More Education</button>
       {{/if}}
     </section>
     {{/if}}
@@ -363,31 +405,31 @@ function loadTemplate() {
     {{#if experience.length}}
     <section id="experience" class="text-center">
       <div class="flex items-center gap-4 mb-8">
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 shrink-0">Experience & Events</h2>
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Experience & Events</h2>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
       <div class="space-y-8">
         {{#each experience}}
-        <div class="experience-item p-8 bg-white border border-slate-100 rounded-3xl shadow-sm text-left flex flex-col md:flex-row gap-6 {{#if (gt @index 2)}}hidden{{/if}}">
+        <div class="experience-item p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm text-left flex flex-col md:flex-row gap-6 {{#if (gt @index 2)}}hidden{{/if}}">
           <div class="md:w-1/4 flex flex-col gap-4">
-            <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-4 py-2 rounded-xl inline-block w-fit">{{formatDate date}}</span>
+            <span class="text-sm font-bold text-{{themeColor}}-600 bg-{{themeColor}}-50 dark:bg-{{themeColor}}-950/30 px-4 py-2 rounded-xl inline-block w-fit text-center">{{formatDate date}}</span>
             {{#if image}}
-            <img src="{{image}}" class="w-full h-32 object-cover rounded-2xl shadow-sm">
+            <img src="{{image}}" class="w-full h-32 object-cover rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
             {{/if}}
           </div>
           <div class="md:w-3/4">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">{{event}}</h3>
-            <p class="text-slate-600 leading-relaxed line-clamp-3">{{description}}</p>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">{{event}}</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{{description}}</p>
             {{#if (longDesc description 150)}}
-            <button onclick="toggleReadMore(this)" class="text-blue-600 font-semibold text-sm hover:underline mt-2">Read More</button>
+            <button onclick="toggleReadMore(this)" class="text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-semibold text-sm hover:underline mt-2">Read More</button>
             {{/if}}
           </div>
         </div>
         {{/each}}
       </div>
       {{#if (gt experience.length 3)}}
-      <button onclick="showAllExperience(this)" class="mt-10 px-8 py-3 bg-white border border-slate-200 text-indigo-600 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-sm active:scale-95">Show More Experience</button>
+      <button onclick="showAllExperience(this)" class="mt-10 px-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-95">Show More Experience</button>
       {{/if}}
     </section>
     {{/if}}
@@ -395,29 +437,29 @@ function loadTemplate() {
     {{#if awards.length}}
     <section id="awards" class="text-center">
       <div class="flex items-center gap-4 mb-8">
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 shrink-0">Honors & Awards</h2>
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Honors & Awards</h2>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
       <div id="awardsGrid" class="grid md:grid-cols-2 gap-8">
         {{#each awards}}
-        <div class="award-item p-8 bg-white border border-slate-100 rounded-3xl shadow-sm text-left flex flex-col h-full {{#if (gt @index 1)}}hidden{{/if}}">
+        <div class="award-item p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm text-left flex flex-col h-full {{#if (gt @index 1)}}hidden{{/if}}">
           {{#if image}}
-          <img src="{{image}}" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm">
+          <img src="{{image}}" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm border border-slate-100 dark:border-slate-800">
           {{/if}}
           <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-slate-900">{{name}}</h3>
-            <span class="text-sm font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full shrink-0">{{formatDate date}}</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{name}}</h3>
+            <span class="text-sm font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1 rounded-full shrink-0">{{formatDate date}}</span>
           </div>
-          <p class="text-slate-600 leading-relaxed line-clamp-3">{{description}}</p>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{{description}}</p>
           {{#if (longDesc description 150)}}
-          <button onclick="toggleReadMore(this)" class="text-blue-600 font-semibold text-sm hover:underline mt-2">Read More</button>
+          <button onclick="toggleReadMore(this)" class="text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-semibold text-sm hover:underline mt-2">Read More</button>
           {{/if}}
         </div>
         {{/each}}
       </div>
       {{#if (gt awards.length 2)}}
-      <button onclick="showAllAwards(this)" class="mt-10 px-8 py-3 bg-white border border-slate-200 text-amber-600 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-sm active:scale-95">Show All Awards</button>
+      <button onclick="showAllAwards(this)" class="mt-10 px-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-amber-600 dark:text-amber-400 font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-95">Show All Awards</button>
       {{/if}}
     </section>
     {{/if}}
@@ -425,58 +467,58 @@ function loadTemplate() {
     {{#if certs.length}}
     <section id="certs" class="text-center">
       <div class="flex items-center gap-4 mb-8">
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 shrink-0">Certifications</h2>
-        <div class="h-1 flex-1 bg-slate-100 rounded-full"></div>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Certifications</h2>
+        <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
       <div id="certsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {{#each certs}}
-        <div class="cert-item group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all {{#if (gt @index 3)}}hidden{{/if}}">
-          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+        <div class="cert-item group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all {{#if (gt @index 3)}}hidden{{/if}}">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800">
             <img src="{{image}}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/400x300?text=Certificate'">
           </div>
-          <div class="p-4 text-left border-t border-slate-50">
+          <div class="p-4 text-left border-t border-slate-50 dark:border-slate-800">
             <div class="flex justify-between items-start mb-1">
-              <h3 class="font-bold text-slate-900 truncate text-sm flex-1" title="{{name}}">{{name}}</h3>
-              <span class="text-[9px] font-bold text-blue-500 ml-2 shrink-0">{{formatDate date}}</span>
+              <h3 class="font-bold text-slate-900 dark:text-white truncate text-sm flex-1" title="{{name}}">{{name}}</h3>
+              <span class="text-[9px] font-bold text-{{themeColor}}-500 ml-2 shrink-0">{{formatDate date}}</span>
             </div>
-            <p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold truncate">{{org}}</p>
+            <p class="text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-bold truncate">{{org}}</p>
           </div>
         </div>
         {{/each}}
       </div>
       {{#if (gt certs.length 4)}}
-      <button onclick="showAllCerts(this)" class="mt-10 px-8 py-3 bg-white border border-slate-200 text-blue-600 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-sm active:scale-95">Show All Certificates</button>
+      <button onclick="showAllCerts(this)" class="mt-10 px-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-95">Show All Certificates</button>
       {{/if}}
     </section>
     {{/if}}
 
-    <section id="contact" class="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100">
-      <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-bold rounded-full mb-6 uppercase tracking-widest">Get In Touch</div>
-      <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Let's Work Together</h2>
-      <p class="text-slate-500 max-w-xl mx-auto mb-12">I'm currently open to new opportunities and collaborations. Feel free to reach out through any of the channels below!</p>
+    <section id="contact" class="text-center py-20 bg-white dark:bg-slate-900 rounded-[3rem] shadow-sm border border-slate-100 dark:border-slate-800">
+      <div class="inline-block px-4 py-1.5 bg-{{themeColor}}-50 dark:bg-{{themeColor}}-950/30 text-{{themeColor}}-600 dark:text-{{themeColor}}-400 text-sm font-bold rounded-full mb-6 uppercase tracking-widest">Get In Touch</div>
+      <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-4">Let's Work Together</h2>
+      <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto mb-12">I'm currently open to new opportunities and collaborations. Feel free to reach out through any of the channels below!</p>
       
       <div class="flex flex-col md:flex-row justify-center gap-6 max-w-2xl mx-auto px-6">
         {{#if email}}
-        <a href="mailto:{{email}}" class="flex-1 flex items-center gap-4 p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all group shadow-sm">
-          <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-blue-200">
+        <a href="mailto:{{email}}" class="flex-1 flex items-center gap-4 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-700 hover:border-{{themeColor}}-500 transition-all group shadow-sm">
+          <div class="w-14 h-14 bg-{{themeColor}}-600 text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-{{themeColor}}-200 dark:shadow-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </div>
           <div class="text-left">
             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Email Me</p>
-            <p class="text-lg font-bold text-slate-900 truncate max-w-[180px]">{{email}}</p>
+            <p class="text-lg font-bold text-slate-900 dark:text-white truncate max-w-[180px]">{{email}}</p>
           </div>
         </a>
         {{/if}}
         
         {{#if whatsapp}}
-        <a href="https://wa.me/{{whatsapp}}" target="_blank" class="flex-1 flex items-center gap-4 p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:border-green-500 hover:bg-green-50 transition-all group shadow-sm">
-          <div class="w-14 h-14 bg-green-500 text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-green-200 p-3">
+        <a href="https://wa.me/{{whatsapp}}" target="_blank" class="flex-1 flex items-center gap-4 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-700 hover:border-green-500 transition-all group shadow-sm">
+          <div class="w-14 h-14 bg-green-500 text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-green-200 dark:shadow-none p-3">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.03c0 2.123.554 4.197 1.607 6.031L0 24l6.105-1.602a11.832 11.832 0 005.937 1.57h.005c6.635 0 12.031-5.391 12.036-12.028a11.813 11.813 0 00-3.535-8.423"/></svg>
           </div>
           <div class="text-left">
             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">WhatsApp Me</p>
-            <p class="text-lg font-bold text-slate-900">Direct Chat</p>
+            <p class="text-lg font-bold text-slate-900 dark:text-white">Direct Chat</p>
           </div>
         </a>
         {{/if}}
@@ -484,11 +526,11 @@ function loadTemplate() {
     </section>
   </main>
   
-  <footer class="bg-slate-900 text-slate-400 py-20 px-6 border-t border-slate-800">
+  <footer class="bg-slate-900 text-slate-400 py-20 px-6 border-t border-slate-800 transition-colors">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
       <div class="md:col-span-1 space-y-6">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+          <div class="w-10 h-10 bg-gradient-to-br from-{{themeColor}}-600 to-{{themeColor}}-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
             {{initials name}}
           </div>
           <span class="text-xl font-bold text-white">{{name}}</span>
@@ -503,20 +545,20 @@ function loadTemplate() {
       <div>
         <h3 class="text-white font-bold mb-6 uppercase tracking-widest text-[10px]">Quick Navigation</h3>
         <ul class="space-y-4 text-sm">
-          {{#if aboutMe}}<li><a href="#about" class="hover:text-blue-400 transition-colors">About Me</a></li>{{/if}}
-          {{#if projects.length}}<li><a href="#projects" class="hover:text-blue-400 transition-colors">Featured Projects</a></li>{{/if}}
-          {{#if (or skills.length softSkills.length)}}<li><a href="#skills" class="hover:text-blue-400 transition-colors">Skills & Expertise</a></li>{{/if}}
-          <li><a href="#contact" class="hover:text-blue-400 transition-colors">Contact Me</a></li>
+          {{#if aboutMe}}<li><a href="#about" class="hover:text-{{themeColor}}-400 transition-colors">About Me</a></li>{{/if}}
+          {{#if projects.length}}<li><a href="#projects" class="hover:text-{{themeColor}}-400 transition-colors">Featured Projects</a></li>{{/if}}
+          {{#if (or skills.length softSkills.length)}}<li><a href="#skills" class="hover:text-{{themeColor}}-400 transition-colors">Skills & Expertise</a></li>{{/if}}
+          <li><a href="#contact" class="hover:text-{{themeColor}}-400 transition-colors">Contact Me</a></li>
         </ul>
       </div>
 
       <div>
         <h3 class="text-white font-bold mb-6 uppercase tracking-widest text-[10px]">Follow Me</h3>
         <ul class="space-y-4 text-sm">
-          {{#if linkedin}}<li><a href="{{linkedin}}" target="_blank" class="hover:text-blue-400 transition-colors">LinkedIn</a></li>{{/if}}
-          {{#if github}}<li><a href="{{github}}" target="_blank" class="hover:text-blue-400 transition-colors">GitHub</a></li>{{/if}}
-          {{#if instagram}}<li><a href="{{instagram}}" target="_blank" class="hover:text-blue-400 transition-colors">Instagram</a></li>{{/if}}
-          {{#if twitter}}<li><a href="{{twitter}}" target="_blank" class="hover:text-blue-400 transition-colors">X (Twitter)</a></li>{{/if}}
+          {{#if linkedin}}<li><a href="{{linkedin}}" target="_blank" class="hover:text-{{themeColor}}-400 transition-colors">LinkedIn</a></li>{{/if}}
+          {{#if github}}<li><a href="{{github}}" target="_blank" class="hover:text-{{themeColor}}-400 transition-colors">GitHub</a></li>{{/if}}
+          {{#if instagram}}<li><a href="{{instagram}}" target="_blank" class="hover:text-{{themeColor}}-400 transition-colors">Instagram</a></li>{{/if}}
+          {{#if twitter}}<li><a href="{{twitter}}" target="_blank" class="hover:text-{{themeColor}}-400 transition-colors">X (Twitter)</a></li>{{/if}}
         </ul>
       </div>
 
@@ -524,7 +566,7 @@ function loadTemplate() {
         <h3 class="text-white font-bold mb-6 uppercase tracking-widest text-[10px]">Let's Connect</h3>
         {{#if email}}
         <p class="text-sm">Have a question or proposal? Drop me a line anytime.</p>
-        <a href="mailto:{{email}}" class="text-white font-bold hover:text-blue-400 transition-colors flex items-center gap-2 group">
+        <a href="mailto:{{email}}" class="text-white font-bold hover:text-{{themeColor}}-400 transition-colors flex items-center gap-2 group">
           {{email}}
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
@@ -543,7 +585,8 @@ function loadTemplate() {
     </div>
   </footer>
 </body>
-</html>`;
+</html>\`;
+}>`;
 }
 
 function toggleReadMore(btn) {
@@ -596,7 +639,58 @@ function render() {
   loadTemplate();
   let compiled = Handlebars.compile(template);
   let html = compiled(portfolioData);
-  document.getElementById("preview").innerHTML = html;
+  const preview = document.getElementById("preview");
+  const previewContainer = preview.parentElement;
+  preview.innerHTML = html;
+  
+  if (portfolioData.themeMode === 'dark') {
+    preview.classList.add('dark');
+    previewContainer.classList.add('dark');
+  } else {
+    preview.classList.remove('dark');
+    previewContainer.classList.remove('dark');
+  }
+  
+  // Highlight selected theme mode
+  const modes = ['light', 'dark'];
+  modes.forEach(m => {
+    const btn = document.getElementById(`mode-${m}`);
+    if (btn) {
+      if (portfolioData.themeMode === m) {
+        btn.classList.add('border-blue-500', 'bg-blue-50/50', 'ring-2', 'ring-blue-500/20');
+        if (document.body.classList.contains('dark')) {
+            btn.classList.add('bg-blue-900/20');
+        }
+      } else {
+        btn.classList.remove('border-blue-500', 'bg-blue-50/50', 'ring-2', 'ring-blue-500/20', 'bg-blue-900/20');
+      }
+    }
+  });
+
+  // Highlight selected theme color
+  const colors = ['blue', 'indigo', 'purple', 'rose', 'emerald', 'amber', 'teal', 'slate', 'cyan', 'sky', 'violet', 'fuchsia', 'pink', 'lime', 'orange', 'red'];
+  colors.forEach(c => {
+    const btn = document.getElementById(`btn-${c}`);
+    if (btn) {
+      if (portfolioData.themeColor === c) {
+        btn.classList.add('ring-4', 'ring-blue-500/50', 'scale-110');
+      } else {
+        btn.classList.remove('ring-4', 'ring-blue-500/50', 'scale-110');
+      }
+    }
+  });
+}
+
+function setThemeColor(color) {
+  portfolioData.themeColor = color;
+  save();
+  render();
+}
+
+function setThemeMode(mode) {
+  portfolioData.themeMode = mode;
+  save();
+  render();
 }
 
 function addSkill() {
@@ -994,11 +1088,12 @@ function load() {
     renderExperienceList();
     renderAwardsList();
     renderCertsList();
+    portfolioData.themeColor = portfolioData.themeColor || "blue";
   }
 }
 
 function clearAll() {
-  portfolioData = {name: "", headerTitle: "", bio: "", aboutMe: "", image: "", resume: "", skills: [], softSkills: [], projects: [], education: [], experience: [], awards: [], certs: [], email: "", linkedin: "", github: "", instagram: "", twitter: "", whatsapp: "", stats: {projects: "", contributions: "", satisfaction: ""}};
+  portfolioData = {name: "", headerTitle: "", bio: "", aboutMe: "", image: "", resume: "", skills: [], softSkills: [], projects: [], education: [], experience: [], awards: [], certs: [], email: "", linkedin: "", github: "", instagram: "", twitter: "", whatsapp: "", stats: {projects: "", contributions: "", satisfaction: ""}, themeColor: "blue"};
   document.getElementById("name").value = "";
   document.getElementById("headerTitle").value = "";
   document.getElementById("bio").value = "";
