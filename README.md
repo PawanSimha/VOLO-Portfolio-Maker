@@ -5,7 +5,7 @@
 <h1 align="center">VOLO · Portfolio Builder</h1>
 
 <p align="center">
-  <em>The Future of Portfolio Building — A high-performance engine for creating cinematic, production-ready portfolios in minutes.</em>
+  <em>The Future of Portfolio Building. A high-performance engine for creating cinematic, production-ready portfolios in minutes.</em>
 </p>
 
 <p align="center">
