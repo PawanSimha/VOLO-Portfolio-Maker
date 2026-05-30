@@ -1,8 +1,0 @@
-.vscode/
-.DS_Store
-node_modules/
-.env
-.gemini/
-*.log
-# If exports are generated, we might want to ignore them
-# exports/
