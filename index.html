@@ -91,7 +91,8 @@
         cursor: url("assets/icons/Arrow.ico"), auto;
       }
 
-      img, svg { max-width: 100%; height: auto; }
+      img, svg, video, canvas { max-width: 100%; height: auto; }
+      .container.mx-auto { padding-inline: clamp(1rem, 4vw, 1.5rem); }
 
       a,
       button,
@@ -120,16 +121,19 @@
 
       .hero-glow {
         position: absolute;
-        width: 600px;
-        height: 600px;
+        width: min(600px, 150vw);
+        height: min(600px, 150vw);
+        max-width: 90vw;
+        max-height: 90vw;
         background: radial-gradient(
           circle,
           rgba(59, 130, 246, 0.15) 0%,
           rgba(59, 130, 246, 0) 70%
         );
         border-radius: 50%;
-        filter: blur(60px);
+        filter: blur(clamp(20px, 6vw, 60px));
         z-index: -1;
+        pointer-events: none;
       }
 
       .animate-float {
@@ -192,6 +196,32 @@
       .parallax-img-container {
         height: calc(100vh - 24px);
         top: 12px;
+      }
+
+      @media (max-width: 639px) {
+        .parallax-trigger { height: 100vh !important; }
+        .parallax-section { margin-top: 0 !important; }
+        .parallax-img-container {
+          height: calc(100dvh - 16px);
+          top: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body { overflow-x: hidden; width: 100%; }
+        h2, .text-4xl, .text-5xl { overflow-wrap: break-word; word-break: break-word; }
+        .hero-glow { display: none; }
+        .parallax-text-overlay h2 { font-size: clamp(1.25rem, 8vw, 1.75rem) !important; }
+        section[id] { scroll-margin-top: 3.5rem; }
+        .drag-element { display: none; }
+      }
+
+      @media (max-width: 380px) {
+        .nav-links { gap: 0.5rem; }
+        .nav-links a { font-size: 0.7rem; }
+        .hero-content h1 { font-size: 1.75rem; }
+        .hero-stats { padding: 0.75rem; gap: 0.5rem; }
+        .hero-stat-number { font-size: 1.25rem; }
       }
 
       .parallax-overlay {
@@ -465,9 +495,9 @@
       </section>
 
       <!-- Parallax Stacking Sections -->
-      <section class="relative z-[10] px-2 sm:px-3">
+      <section class="parallax-section relative z-[10] px-2 sm:px-3">
         <!-- Sticky Container -->
-        <div class="relative h-[200vh]" id="parallax-trigger">
+        <div class="parallax-trigger relative h-[200vh]" id="parallax-trigger">
           <div
             class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
             id="parallax-img-wrap"
@@ -508,9 +538,9 @@
       </section>
 
       <!-- Parallax Quality Section -->
-      <section id="quality" class="relative z-[20] -mt-[100vh] px-2 sm:px-3">
+      <section id="quality" class="parallax-section relative z-[20] -mt-[100vh] px-2 sm:px-3">
         <!-- Sticky Container -->
-        <div class="relative h-[200vh]" id="parallax-trigger-quality">
+        <div class="parallax-trigger relative h-[200vh]" id="parallax-trigger-quality">
           <div
             class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
             id="parallax-img-wrap-quality"
@@ -551,9 +581,9 @@
       </section>
 
       <!-- Parallax Modern Section -->
-      <section id="modern" class="relative z-[30] -mt-[100vh] px-2 sm:px-3">
+      <section id="modern" class="parallax-section relative z-[30] -mt-[100vh] px-2 sm:px-3">
         <!-- Sticky Container -->
-        <div class="relative h-[200vh]" id="parallax-trigger-modern">
+        <div class="parallax-trigger relative h-[200vh]" id="parallax-trigger-modern">
           <div
             class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
             id="parallax-img-wrap-modern"
@@ -594,9 +624,9 @@
       </section>
 
       <!-- Parallax Innovation Section -->
-      <section id="innovation" class="relative z-[40] -mt-[100vh] px-2 sm:px-3">
+      <section id="innovation" class="parallax-section relative z-[40] -mt-[100vh] px-2 sm:px-3">
         <!-- Sticky Container -->
-        <div class="relative h-[200vh]" id="parallax-trigger-innovation">
+        <div class="parallax-trigger relative h-[200vh]" id="parallax-trigger-innovation">
           <div
             class="sticky z-0 overflow-hidden rounded-3xl parallax-img-container shadow-2xl transition-transform duration-300 ease-out"
             id="parallax-img-wrap-innovation"
@@ -704,10 +734,10 @@
       <!-- Creative Playground / Drag Cards Section -->
       <section
         id="playground"
-        class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 border-t border-white/5"
+        class="relative h-[50vh] sm:h-screen w-full max-w-[100vw] flex items-center justify-center overflow-hidden bg-slate-950 border-t border-white/5"
       >
         <h2
-          class="relative z-0 text-[20vw] font-black text-slate-900 md:text-[250px] pointer-events-none select-none"
+          class="relative z-0 text-[25vw] sm:text-[20vw] font-black text-slate-900 md:text-[250px] pointer-events-none select-none leading-none"
         >
           VOLO<span class="text-blue-600">.</span>
         </h2>
@@ -715,7 +745,7 @@
         <!-- Draggable Cards Container -->
         <div
           id="drag-container"
-          class="absolute inset-0 z-10"
+          class="absolute inset-0 z-10 overflow-hidden"
           aria-label="Interactive visual playground"
         >
           <img
