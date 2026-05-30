@@ -1,0 +1,37 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies (if any future package manager is added)
+node_modules/
+package-lock.json
+yarn.lock
+.pnp
+.pnp.js
+
+# Build / generated output
+volo-portfolio-builder/
+out/
+dist/
+build/
+
+# Local development servers
+.serve/

@@ -41,6 +41,15 @@ Handlebars.registerHelper("initials", function (name) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 });
 
+Handlebars.registerHelper("slug", function (name) {
+  if (!name) return "portfolio";
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "portfolio";
+});
+
+Handlebars.registerHelper("add", function (a, b) {
+  return Number(a) + Number(b);
+});
+
 let portfolioData = {
   name: "",
   headerTitle: "",
@@ -74,37 +83,82 @@ let template = "";
 
 function loadTemplate() {
   template = `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{name}} - Portfolio</title>
-  <meta name="developer" content="Pawan Simha R">
+  <title>{{name}} — {{headerTitle}}</title>
+  <meta name="title" content="{{name}} — {{headerTitle}}" />
+  <meta name="description" content="{{bio}}" />
+  <meta name="author" content="{{name}}" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://{{name}}.dev" />
+
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="{{name}} — {{headerTitle}}" />
+  <meta property="og:description" content="{{bio}}" />
+  <meta property="og:image" content="{{image}}" />
+  <meta property="profile:first_name" content="{{name}}" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{name}} — {{headerTitle}}" />
+  <meta name="twitter:description" content="{{bio}}" />
+  <meta name="twitter:image" content="{{image}}" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": "https://{{slug name}}.dev/#profilepage",
+        "url": "https://{{slug name}}.dev",
+        "name": "{{name}}",
+        "about": { "@id": "https://{{slug name}}.dev/#person" },
+        "mainEntity": { "@id": "https://{{slug name}}.dev/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://{{slug name}}.dev/#person",
+        "name": "{{name}}",
+        "jobTitle": "{{headerTitle}}",
+        "description": "{{bio}}",
+        "url": "https://{{slug name}}.dev",
+        "knowsAbout": [{{#each skills}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}],
+        "knowsLanguage": [{"@type": "Language", "name": "English"}]
+      },
+      {
+        "@type": "ItemList",
+        "name": "Projects by {{name}}",
+        "itemListElement": [
+          {{#each projects}}
+          {
+            "@type": "ListItem",
+            "position": {{add @index 1}},
+            "item": {
+              "@type": "CreativeWork",
+              "name": "{{name}}",
+              "description": "{{description}}",
+              "dateCreated": "{{date}}"
+            }
+          }{{#unless @last}}, {{/unless}}
+          {{/each}}
+        ]
+      }
+    ]
+  }
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 100px; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; width: 100%; }
-    .skill-tag {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .skill-tag:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-    .project-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    .line-clamp-3 {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+    .skill-tag { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+    .project-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   </style>
   <script>
     tailwind.config = {
@@ -113,16 +167,8 @@ function loadTemplate() {
         extend: {
           colors: {
             brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+              400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
             }
           }
         }
@@ -316,18 +362,20 @@ function loadTemplate() {
   <main class="w-full px-8 md:px-16 lg:px-24 py-16 md:py-24 space-y-24 bg-slate-50 dark:bg-slate-950">
     {{#if aboutMe}}
     <section id="about" class="max-w-4xl mx-auto text-center overflow-hidden">
-      <div class="inline-block px-4 py-1.5 bg-{{themeColor}}-50 dark:bg-{{themeColor}}-950/30 text-{{themeColor}}-600 dark:text-white text-sm font-bold rounded-full mb-6 uppercase tracking-widest">About Me</div>
+      <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">About {{name}}</h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">{{name}} is a {{headerTitle}} with expertise in {{#each skills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}. {{bio}}</p>
       <p class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic break-words">"{{aboutMe}}"</p>
     </section>
     {{/if}}
 
     {{#if (or skills.length softSkills.length)}}
     <section id="skills" class="text-center">
-      <div class="flex items-center gap-4 mb-8">
+      <div class="flex items-center gap-4 mb-4">
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
         <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Skills & Expertise</h2>
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">{{name}} specializes in {{#each skills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{#if softSkills}} with soft skills including {{#each softSkills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{/if}}.</p>
       <div class="flex flex-wrap justify-center gap-3">
         {{#each skills}}
         <span class="skill-tag px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-{{themeColor}}-600 dark:text-white rounded-2xl font-bold shadow-sm break-words max-w-full hover:border-{{themeColor}}-400 hover:bg-{{themeColor}}-50 dark:hover:bg-{{themeColor}}-950/20 transition-all">{{this}}</span>
@@ -341,11 +389,12 @@ function loadTemplate() {
     
     {{#if projects.length}}
     <section id="projects" class="text-center">
-      <div class="flex items-center gap-4 mb-8">
+      <div class="flex items-center gap-4 mb-4">
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
         <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Featured Projects</h2>
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">Here are key projects built by {{name}}, showcasing skills in {{#each skills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.</p>
       <div id="projectsGrid" class="grid md:grid-cols-2 gap-8">
         {{#each projects}}
         <div class="project-card group p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm hover:shadow-xl dark:hover:shadow-{{themeColor}}-500/10 flex flex-col h-full overflow-hidden text-left {{#if (gt @index 1)}}hidden{{/if}}">
@@ -370,11 +419,12 @@ function loadTemplate() {
     {{/if}}
     {{#if education.length}}
     <section id="education" class="text-center">
-      <div class="flex items-center gap-4 mb-8">
+      <div class="flex items-center gap-4 mb-4">
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
         <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Education</h2>
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">Educational background of {{name}}, highlighting academic qualifications and achievements.</p>
       <div class="grid md:grid-cols-2 gap-8">
         {{#each education}}
         <div class="edu-item p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm text-left {{#if (gt @index 3)}}hidden{{/if}}">
@@ -395,11 +445,12 @@ function loadTemplate() {
 
     {{#if experience.length}}
     <section id="experience" class="text-center">
-      <div class="flex items-center gap-4 mb-8">
+      <div class="flex items-center gap-4 mb-4">
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
         <h2 class="text-3xl font-bold text-slate-900 dark:text-white shrink-0">Experience & Events</h2>
         <div class="h-1 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
       </div>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">{{name}} has professional experience as {{headerTitle}} with a track record of delivering results.</p>
       <div class="space-y-8">
         {{#each experience}}
         <div class="experience-item p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm text-left flex flex-col md:flex-row gap-6 {{#if (gt @index 2)}}hidden{{/if}}">
