@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8fafc" />
 
     <title>VOLO Builder | Build Your Professional Portfolio in Minutes</title>
     <meta name="title" content="VOLO Builder | Build Your Professional Portfolio in Minutes" />
@@ -10,25 +11,25 @@
     <meta name="keywords" content="Portfolio Builder, No-Code, VOLO, Real-Time Preview, Cinematic Portfolio, Static Site Export, Pawan Simha" />
     <meta name="author" content="Pawan Simha R" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-    <link rel="canonical" href="https://volo.pawansimha.dev/templates/template1.html" />
+    <link rel="canonical" href="https://volo-portfolio-maker.vercel.app/templates/template1.html" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://volo.pawansimha.dev/templates/template1.html" />
+    <meta property="og:url" content="https://volo-portfolio-maker.vercel.app/templates/template1.html" />
     <meta property="og:title" content="VOLO Builder — Create Your Portfolio" />
     <meta property="og:description" content="Real-time portfolio builder with 16 theme colors, dark/light mode, and one-click ZIP export." />
-    <meta property="og:image" content="https://volo.pawansimha.dev/assets/images/og-preview.png" />
+    <meta property="og:image" content="https://volo-portfolio-maker.vercel.app/assets/images/og-preview.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="VOLO Builder — Create Your Portfolio" />
     <meta name="twitter:description" content="Build a cinematic portfolio in real-time. No code needed." />
-    <meta name="twitter:image" content="https://volo.pawansimha.dev/assets/images/og-preview.png" />
+    <meta name="twitter:image" content="https://volo-portfolio-maker.vercel.app/assets/images/og-preview.png" />
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "VOLO Portfolio Builder",
-      "url": "https://volo.pawansimha.dev/templates/template1.html",
+      "url": "https://volo-portfolio-maker.vercel.app/templates/template1.html",
       "applicationCategory": "DesignApplication",
       "operatingSystem": "Web",
       "browserRequirements": "Requires JavaScript",
@@ -53,8 +54,12 @@
     }
     </script>
 
-    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico?v=2" />
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon.ico?v=2" />
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico?v=3" />
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon.ico?v=3" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/favicon.ico?v=3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -68,8 +73,8 @@
       }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jszip/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4/dist/handlebars.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -111,35 +116,19 @@
         border-color: #22c55e !important;
         background-color: #f0fdf4 !important;
       }
+
+      :focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
     </style>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                50: "#eff6ff",
-                100: "#dbeafe",
-                200: "#bfdbfe",
-                300: "#93c5fd",
-                400: "#60a5fa",
-                500: "#3b82f6",
-                600: "#2563eb",
-                700: "#1d4ed8",
-                800: "#1e40af",
-                900: "#1e3a8a",
-              },
-            },
-          },
-        },
-      };
-    </script>
   </head>
 
   <body class="bg-slate-50 text-slate-900 min-h-screen">
     <nav
       class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50"
+      aria-label="Builder Navigation"
     >
       <div
         class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center"
@@ -185,6 +174,7 @@
       </div>
     </nav>
 
+    <main>
     <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Editor Sidebar -->
@@ -954,6 +944,7 @@
         </div>
       </div>
     </div>
+    </main>
     <script src="../app.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
