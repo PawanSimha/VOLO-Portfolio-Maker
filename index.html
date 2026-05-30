@@ -81,13 +81,17 @@
     <style>
       html {
         scroll-behavior: smooth;
+        overflow-x: hidden;
       }
 
       body {
         font-family: "Plus Jakarta Sans", sans-serif;
         overflow-x: hidden;
+        width: 100%;
         cursor: url("assets/icons/Arrow.ico"), auto;
       }
+
+      img, svg { max-width: 100%; height: auto; }
 
       a,
       button,
@@ -180,6 +184,9 @@
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background: #94a3b8;
       }
+
+      .faq-answer { grid-template-rows: 0fr; }
+      .faq-answer.open { grid-template-rows: 1fr; }
 
       /* Parallax Specific Styles */
       .parallax-img-container {
@@ -284,7 +291,7 @@
           <a href="#features" class="hover:text-white transition-colors"
             >Features</a
           >
-          <a href="builder.html" class="hover:text-white transition-colors"
+          <a href="templates/template1.html" class="hover:text-white transition-colors"
             >Templates</a
           >
           <a href="#logo-design" class="hover:text-white transition-colors"
@@ -361,7 +368,7 @@
         >Features</a
       >
       <a
-        href="builder.html"
+        href="templates/template1.html"
         class="mobile-link text-2xl font-bold hover:text-blue-500 transition-colors"
         >Templates</a
       >
@@ -391,7 +398,7 @@
       <!-- Hero Section -->
       <section
         id="home"
-        class="relative pt-28 pb-48 px-6 overflow-hidden bg-grid-pattern min-h-[70vh] flex flex-col justify-start"
+        class="relative pt-24 pb-32 md:pt-28 md:pb-48 px-4 sm:px-6 overflow-hidden bg-grid-pattern min-h-[70vh] flex flex-col justify-start"
       >
         <div
           class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950 pointer-events-none"
@@ -407,7 +414,7 @@
           </div>
 
           <h1
-            class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.05] max-w-4xl mx-auto"
+            class="text-[2.25rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.1] max-w-4xl mx-auto break-words"
           >
             Craft your<br />professional
             <span class="text-blue-500">story</span> in minutes.
@@ -424,7 +431,7 @@
             class="flex flex-col sm:flex-row justify-center items-center gap-8 pt-8"
           >
             <a
-              href="builder.html"
+              href="templates/template1.html"
               id="buildNowBtn"
               class="relative overflow-hidden w-full max-w-xs sm:max-w-sm h-16 bg-slate-950 rounded-xl font-medium border border-white/10 flex items-center justify-center group transform active:scale-[0.985] transition-transform shadow-xl"
             >
@@ -458,7 +465,7 @@
       </section>
 
       <!-- Parallax Stacking Sections -->
-      <section class="relative z-[10] px-3">
+      <section class="relative z-[10] px-2 sm:px-3">
         <!-- Sticky Container -->
         <div class="relative h-[200vh]" id="parallax-trigger">
           <div
@@ -491,7 +498,7 @@
                 Community
               </p>
               <h2
-                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+                class="text-center text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none px-2"
               >
                 Designed for your story.
               </h2>
@@ -501,7 +508,7 @@
       </section>
 
       <!-- Parallax Quality Section -->
-      <section id="quality" class="relative z-[20] -mt-[100vh] px-3">
+      <section id="quality" class="relative z-[20] -mt-[100vh] px-2 sm:px-3">
         <!-- Sticky Container -->
         <div class="relative h-[200vh]" id="parallax-trigger-quality">
           <div
@@ -534,7 +541,7 @@
                 Quality
               </p>
               <h2
-                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+                class="text-center text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none px-2"
               >
                 Precision in every pixel.
               </h2>
@@ -544,7 +551,7 @@
       </section>
 
       <!-- Parallax Modern Section -->
-      <section id="modern" class="relative z-[30] -mt-[100vh] px-3">
+      <section id="modern" class="relative z-[30] -mt-[100vh] px-2 sm:px-3">
         <!-- Sticky Container -->
         <div class="relative h-[200vh]" id="parallax-trigger-modern">
           <div
@@ -577,7 +584,7 @@
                 Impact
               </p>
               <h2
-                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+                class="text-center text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none px-2"
               >
                 First impressions that stick.
               </h2>
@@ -587,7 +594,7 @@
       </section>
 
       <!-- Parallax Innovation Section -->
-      <section id="innovation" class="relative z-[40] -mt-[100vh] px-3">
+      <section id="innovation" class="relative z-[40] -mt-[100vh] px-2 sm:px-3">
         <!-- Sticky Container -->
         <div class="relative h-[200vh]" id="parallax-trigger-innovation">
           <div
@@ -620,7 +627,7 @@
                 Freedom
               </p>
               <h2
-                class="text-center text-4xl font-black md:text-7xl tracking-tighter uppercase leading-none"
+                class="text-center text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none px-2"
               >
                 Own your digital identity.
               </h2>
@@ -715,49 +722,49 @@
             src="https://images.unsplash.com/photo-1635373670332-43ea883bb081?q=80&w=800&auto=format&fit=crop"
             draggable="false"
             alt="Cinematic Portfolio Example 1"
-            class="drag-element absolute w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            class="drag-element absolute w-24 sm:w-36 md:w-56 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
             style="top: 20%; left: 25%; transform: rotate(6deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1576174464184-fb78fe882bfd?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            class="drag-element absolute w-16 sm:w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
             style="top: 45%; left: 60%; transform: rotate(12deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1503751071777-d2918b21bbd9?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-52 md:w-80 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-            style="top: 20%; left: 40%; transform: rotate(-6deg)"
+            class="drag-element absolute w-28 sm:w-52 md:w-80 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 15%; left: 40%; transform: rotate(-6deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-48 md:w-72 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            class="drag-element absolute w-28 sm:w-48 md:w-72 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
             style="top: 50%; left: 40%; transform: rotate(8deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1602212096437-d0af1ce0553e?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-40 md:w-64 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
-            style="top: 20%; left: 65%; transform: rotate(18deg)"
+            class="drag-element absolute w-24 sm:w-40 md:w-64 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            style="top: 20%; left: 60%; transform: rotate(18deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1622313762347-3c09fe5f2719?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            class="drag-element absolute w-16 sm:w-24 md:w-48 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
             style="top: 35%; left: 55%; transform: rotate(-3deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-32 md:w-52 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            class="drag-element absolute w-20 sm:w-32 md:w-52 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
             style="top: 60%; left: 20%; transform: rotate(-8deg)"
           />
           <img
             src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=800&auto=format&fit=crop"
             draggable="false"
-            class="drag-element absolute w-28 md:w-44 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
+            class="drag-element absolute w-16 sm:w-28 md:w-44 bg-slate-800 p-1 pb-4 shadow-2xl rounded-sm"
             style="top: 15%; left: 10%; transform: rotate(10deg)"
           />
         </div>
@@ -819,7 +826,7 @@
                   software engineers.
                 </p>
                 <a
-                  href="builder.html"
+                  href="templates/template1.html"
                   class="text-blue-400 font-bold hover:text-blue-300 transition-colors flex items-center gap-2 w-max"
                 >
                   Explore Dev Templates
@@ -876,7 +883,7 @@
                   photographers, and UI/UX designers to make their work pop.
                 </p>
                 <a
-                  href="builder.html"
+                  href="templates/template1.html"
                   class="text-purple-400 font-bold hover:text-purple-300 transition-colors flex items-center gap-2 w-max"
                 >
                   View Galleries
@@ -936,7 +943,7 @@
                   perfect for launching your next big SaaS or side hustle.
                 </p>
                 <a
-                  href="builder.html"
+                  href="templates/template1.html"
                   class="text-emerald-400 font-bold hover:text-emerald-300 transition-colors flex items-center gap-2 w-max"
                 >
                   Launch Your Site
@@ -1162,11 +1169,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     Yes! VOLO is completely free to use. You can build, preview,
                     and export your portfolio without any cost. We believe in
@@ -1202,11 +1209,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     No coding knowledge is required! VOLO is designed for
                     creators of all skill levels. Our intuitive drag-and-drop
@@ -1243,11 +1250,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     Publishing is simple! Once you've built your portfolio, use
                     our one-click export feature to download a complete ZIP file
@@ -1285,11 +1292,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     Absolutely! After exporting your portfolio, you can easily
                     connect it to a custom domain through your hosting provider.
@@ -1326,11 +1333,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     Yes! All VOLO templates are fully responsive and
                     mobile-optimized. Your portfolio will look stunning on
@@ -1367,11 +1374,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-lg leading-relaxed max-w-3xl pt-4"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     While you can't switch templates within a single project,
                     you can easily copy your content and apply it to a different
@@ -1408,11 +1415,11 @@
                 </svg>
               </button>
               <div
-                class="grid grid-rows-[0fr] transition-all duration-300 ease-in-out faq-answer"
+                class="grid transition-all duration-300 ease-in-out faq-answer"
               >
                 <div class="overflow-hidden">
                   <p
-                    class="text-slate-400 text-base leading-relaxed max-w-3xl pt-3 pb-2"
+                    class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl pt-3 pb-2"
                   >
                     VOLO focuses specifically on developers, designers, and
                     creators who want professional results without complexity.
@@ -1575,7 +1582,7 @@
                 </li>
                 <li>
                   <a
-                    href="builder.html"
+                    href="templates/template1.html"
                     class="hover:text-blue-400 transition-colors"
                     >Templates</a
                   >
@@ -1761,19 +1768,17 @@
           const icon = item.querySelector("svg");
 
           button.addEventListener("click", () => {
-            const isOpen = answer.classList.contains("grid-rows-[1fr]");
+            const isOpen = answer.classList.contains("open");
 
             // Close all items
             faqItems.forEach((otherItem) => {
-              otherItem
-                .querySelector(".faq-answer")
-                .classList.remove("grid-rows-[1fr]");
+              otherItem.querySelector(".faq-answer").classList.remove("open");
               otherItem.querySelector("svg").classList.remove("rotate-180");
             });
 
             // Toggle current item
             if (!isOpen) {
-              answer.classList.add("grid-rows-[1fr]");
+              answer.classList.add("open");
               icon.classList.add("rotate-180");
             }
           });
