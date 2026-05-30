@@ -13,8 +13,12 @@
   <img src="https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript ES6+" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-JIT-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS JIT" />
   <img src="https://img.shields.io/badge/Handlebars.js-templating-000000?style=flat-square&logo=handlebars.js&logoColor=white" alt="Handlebars.js" />
-  <img src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square" alt="GNU GPLv3" />
+  <img src="https://img.shields.io/badge/License-GPLv3-blue?style=flat-square" alt="GNU GPLv3" />
   <img src="https://img.shields.io/badge/status-production-00c853?style=flat-square" alt="Production Ready" />
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Languages-6%20Supported-orange" alt="Languages Supported" />
+  <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License" />
 </p>
 
 <p align="center">
