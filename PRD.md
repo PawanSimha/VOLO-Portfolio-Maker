@@ -4,7 +4,7 @@
 |---|---|
 | **Project Name** | VOLO Portfolio Builder |
 | **Target Release** | Q2 2026 |
-| **Status** | Draft |
+| **Status** | Active Development |
 | **Author** | Pawan Simha R |
 
 ---

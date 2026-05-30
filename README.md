@@ -99,7 +99,8 @@ All processing is client-side. Templates render via Handlebars, styling via Tail
 +--------------------------------------------------------------------+
 |                        Landing Page (index.html)                    |
 |  (Navbar · Hero · 4x Parallax Stack · About Stats · Services ·    |
-|   Drag Playground · Features · Logo Design · FAQ · Contact · Footer) |
+|   Drag Playground · Features · Logo Design · FAQ · Contact ·       |
+|   Developer · Footer)                                              |
 +--------------------------------------------------------------------+
 |                                                                      |
 |   +------------------------------------------------------------+   |
@@ -116,7 +117,6 @@ All processing is client-side. Templates render via Handlebars, styling via Tail
 |   |  +-------------------+                                      |   |
 |   +------------------------------------------------------------+   |
 +--------------------------------------------------------------------+
-|  builder.html  →  Template selection gallery (template1.html)       |
 +--------------------------------------------------------------------+
 ```
 
@@ -146,11 +146,12 @@ VOLO-New/
 ├── templates/
 │   └── template1.html            # Main builder — sidebar + live preview + export
 ├── app.js                        # Handlebars helpers, state, render, CRUD, ZIP export
-├── builder.html                  # Template selection / launch gallery
 ├── index.html                    # Marketing landing page (parallax, drag, services, FAQ)
 ├── LICENSE                       # GNU GPL v3.0
+├── PRD.md                        # Product Requirements Document
 ├── README.md                     # Documentation
-└── volo.webp                     # README hero image
+├── volo.webp                     # README hero image
+└── .gitignore                    # Git ignore rules
 ```
 
 ---
@@ -231,7 +232,7 @@ This is a personal project, but contributions, forks, and adaptations are welcom
 
 ## License
 
-Distributed under the **GNU GPLv3 License**. See `LICENSE.md` for more information.
+Distributed under the **GNU GPLv3 License**. See `LICENSE` for more information.
 
 ---
 
@@ -243,6 +244,8 @@ Distributed under the **GNU GPLv3 License**. See `LICENSE.md` for more informati
 | **LinkedIn** | [linkedin.com/in/pawansimha](https://www.linkedin.com/in/pawansimha) |
 | **X / Twitter** | [x.com/pawansimha](https://x.com/pawansimha) |
 | **Google Developer** | [g.dev/pawansimha](https://g.dev/pawansimha) |
+| **Google Skills Profile** | [skills.google.com/public_profiles/pawansimha](https://skills.google.com/public_profiles/pawansimha) |
+| **Credly Badges** | [credly.com/users/pawansimha/badges](https://credly.com/users/pawansimha/badges) |
 
 ---
 
