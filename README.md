@@ -16,10 +16,6 @@
   <img src="https://img.shields.io/badge/License-GPLv3-blue?style=flat-square" alt="GNU GPLv3" />
   <img src="https://img.shields.io/badge/status-production-00c853?style=flat-square" alt="Production Ready" />
 </p>
-<p align="center">
-  <img src="https://img.shields.io/badge/Languages-6%20Supported-orange" alt="Languages Supported" />
-  <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License" />
-</p>
 
 <p align="center">
   <img src="volo.webp" alt="VOLO - Portfolio Builder Hero" width="800" style="border-radius: 12px;" />
