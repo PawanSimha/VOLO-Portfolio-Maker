@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://volo.example.com/sitemap.xml
